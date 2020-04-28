@@ -14,6 +14,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.systemPink
+        
+        
+        let button = GFButton(
     }
 }
 
