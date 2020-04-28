@@ -20,9 +20,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = ViewController()
+        window?.rootViewController = createTabBarController()
         window?.makeKeyAndVisible()
     }
+    
+    
+    func createTabBarController() -> UITabBarController {
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.tintColor = UIColor.systemGreen
+        tabBarController.viewControllers = [createSearchNavigationController(), createFavoritesNavigationController()]
+        return tabBarController
+    }
+    
+    
+    func createSearchNavigationController() -> UINavigationController {
+        let searchViewController = SearchViewController()
+        searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        searchViewController.title = "Search"
+        searchViewController.view.backgroundColor = UIColor.systemPink
+        return UINavigationController(rootViewController: searchViewController)
+        
+    }
+    
+    
+    func createFavoritesNavigationController() -> UINavigationController {
+        let favoritesViewController = FavoritesViewController()
+        favoritesViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        favoritesViewController.title = "Favorites"
+        favoritesViewController.view.backgroundColor = UIColor.systemBlue
+        return UINavigationController(rootViewController: favoritesViewController)
+    }
+    
+    
+    
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

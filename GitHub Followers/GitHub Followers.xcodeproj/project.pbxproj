@@ -12,6 +12,8 @@
 		E1AFC2A4244F565A007D333C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AFC2A3244F565A007D333C /* ViewController.swift */; };
 		E1AFC2A9244F565D007D333C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1AFC2A8244F565D007D333C /* Assets.xcassets */; };
 		E1AFC2AC244F565D007D333C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AFC2AA244F565D007D333C /* LaunchScreen.storyboard */; };
+		E1AFC3642457E1EE007D333C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AFC3632457E1EE007D333C /* SearchViewController.swift */; };
+		E1AFC3662457E1FA007D333C /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AFC3652457E1FA007D333C /* FavoritesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		E1AFC2A8244F565D007D333C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1AFC2AB244F565D007D333C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1AFC2AD244F565D007D333C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1AFC3632457E1EE007D333C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E1AFC3652457E1FA007D333C /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				E1AFC29F244F565A007D333C /* AppDelegate.swift */,
 				E1AFC2A1244F565A007D333C /* SceneDelegate.swift */,
+				E1AFC3632457E1EE007D333C /* SearchViewController.swift */,
+				E1AFC3652457E1FA007D333C /* FavoritesViewController.swift */,
 				E1AFC2A3244F565A007D333C /* ViewController.swift */,
 				E1AFC2A8244F565D007D333C /* Assets.xcassets */,
 				E1AFC2AA244F565D007D333C /* LaunchScreen.storyboard */,
@@ -136,6 +142,8 @@
 			files = (
 				E1AFC2A4244F565A007D333C /* ViewController.swift in Sources */,
 				E1AFC2A0244F565A007D333C /* AppDelegate.swift in Sources */,
+				E1AFC3642457E1EE007D333C /* SearchViewController.swift in Sources */,
+				E1AFC3662457E1FA007D333C /* FavoritesViewController.swift in Sources */,
 				E1AFC2A2244F565A007D333C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
