@@ -22,6 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = createTabBarController()
         window?.makeKeyAndVisible()
+        
+        // global all navigation bars will have this tint
+        UINavigationBar.appearance().tintColor = UIColor.systemGreen
     }
     
     
@@ -37,7 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let searchViewController = SearchViewController()
         searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         searchViewController.title = "Search"
-        searchViewController.view.backgroundColor = UIColor.systemPink
+        searchViewController.view.backgroundColor = UIColor.systemBackground
         return UINavigationController(rootViewController: searchViewController)
         
     }

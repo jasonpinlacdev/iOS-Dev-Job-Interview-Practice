@@ -16,24 +16,26 @@ class GFButton: UIButton {
         configure()
     }
     
-  
+    
     init(backgroundColor: UIColor, title: String) {
         super.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
+        configure()
     }
     
-//    convenience init(backgroundColor: UIColor, title: String) {
-//        self.init(frame: .zero)
-//        self.backgroundColor = backgroundColor
-//        self.setTitle(title, for: .normal)
-//    }
+    //    convenience init(backgroundColor: UIColor, title: String) {
+    //        self.init(frame: .zero)
+    //        self.backgroundColor = backgroundColor
+    //        self.setTitle(title, for: .normal)
+    //    }
     
-
+    
     // when you initialize the GF button via storyboard
-      required init?(coder: NSCoder) {
-          fatalError("init(coder:) has not been implemented")
-      }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     private func configure() {
         layer.cornerRadius      = 10
