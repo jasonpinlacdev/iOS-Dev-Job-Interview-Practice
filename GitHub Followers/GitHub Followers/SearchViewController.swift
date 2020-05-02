@@ -20,6 +20,7 @@ class SearchViewController: UIViewController {
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +40,10 @@ class SearchViewController: UIViewController {
     
     
     @objc func pushFollowersViewController() {
-        guard isUserNameEntered else { return }
+        guard isUserNameEntered else {
+            presentGFAlertOnMainThread(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😅.", buttonTitle: "Ok")
+            return
+        }
         let followersViewController = FollowersViewController()
         followersViewController.userName = userNameTextField.text
         followersViewController.title = followersViewController.userName
@@ -91,7 +95,6 @@ class SearchViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }
-    
     
 }
 
