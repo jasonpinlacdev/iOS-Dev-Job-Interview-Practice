@@ -22,7 +22,6 @@ class GFContainerView: UIView {
     
     
     private func configure() {
-        print(Self.self, #function)
         backgroundColor = UIColor.systemBackground
         layer.cornerRadius = 16
         layer.borderWidth = 2

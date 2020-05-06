@@ -29,13 +29,14 @@ class SearchViewController: UIViewController {
         configureCallToActionButton()
         
         createDismissKeyboardTapGesture()
+        
     }
     
     
     // viewWillAppear is where you want to show/hide elements
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     

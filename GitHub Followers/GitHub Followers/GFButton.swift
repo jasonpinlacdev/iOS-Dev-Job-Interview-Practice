@@ -23,17 +23,17 @@ class GFButton: UIButton {
     
     init(backgroundColor: UIColor, title: String) {
         super.init(frame: .zero)
+        configure()
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
-        configure()
+       
     }
     
     
     private func configure() {
-        layer.cornerRadius      = 10
-        titleLabel?.textColor   = .white
-        titleLabel?.font        = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
-        
+        layer.cornerRadius = 10
+        setTitleColor(.white, for: .normal)
+        titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

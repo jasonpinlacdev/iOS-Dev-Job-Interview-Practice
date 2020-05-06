@@ -23,8 +23,8 @@ class GFBodyLabel: UILabel {
     
     init(textAlignment: NSTextAlignment) {
         super.init(frame: CGRect.zero)
-        self.textAlignment = textAlignment
         configure()
+        self.textAlignment = textAlignment
     }
 
     
