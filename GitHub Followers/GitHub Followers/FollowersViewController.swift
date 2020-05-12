@@ -10,7 +10,7 @@ import UIKit
 
 class FollowersViewController: UIViewController {
     
-    var userName: String!
+    var username: String!
 
     
     override func viewDidLoad() {
@@ -24,22 +24,31 @@ class FollowersViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        NetworkManager.shared.getFollowers(for: userName, page: 1) { result in
-                   switch result {
-                   case .failure(let error):
-                       self.presentGFAlertOnMainThread(title: "Something Went Wrong", message: error.rawValue, buttonTitle: "Ok")
-                   case .success(let followers):
-                       print(followers)
-                   }
-               }
+        NetworkManager.shared.getFollowers(username: username, page: 1) { result in
+            switch result {
+            case .failure(let error):
+                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss")
+            case .success(let followers):
+                print(followers)
+            }
+        }
         
-//        NetworkManager.shared.getFollowers(for: userName, page: 1) { followers, error in
-//            guard let followers = followers else {
-//                self.presentGFAlertOnMainThread(title: "Something Went Wrong", message: error!.rawValue, buttonTitle: "Ok")
-//                return
-//            }
-//            print(followers)
-//        }
+        
     }
 
+    
 }
+
+
+/*
+ // before the Result type refactor
+ NetworkManager.shared.getFollowers(username: username, page: 1) { followers, error in
+     if let error = error {
+         self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss")
+         return
+     }
+     
+     print(followers)
+ }
+ 
+ */

@@ -1,8 +1,8 @@
 //
-//  ErrorMessage.swift
+//  GFError.swift
 //  GitHub Followers
 //
-//  Created by Jason Pinlac on 5/5/20.
+//  Created by Jason Pinlac on 5/12/20.
 //  Copyright © 2020 Jason Pinlac. All rights reserved.
 //
 
@@ -10,12 +10,10 @@ import Foundation
 
 
 enum GFError: String, Error {
-    
-    case invalidUsername = "This username created an invalid request. Please try again."
-    case unableToComplete = "Unable to complete your request. Please check your internet connection."
-    case invalidResponse = "Invalid HTTP response from the server. Please try again."
-    case invalidData = "The data received from the server was invalid. Please try again."
-    case invalidDecode = "Failed decode the data. Please try again."
-    
+    case usernameError = "This username created an invalid request. Please try again."
+    case clientError = "Unable to handle your request. Check your internet connection."
+    case serverError = "Invalid response from the server. Please try again."
+    case dataError = "The data received from the server is invalid. Please try again."
+    case decodeError = "The data failed to decode correctly. Please try again."
 }
 

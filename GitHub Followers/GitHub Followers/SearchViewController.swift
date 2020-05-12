@@ -20,7 +20,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-    
+    // viewDidLoad is called when the view is loaded. This only happens once not matter how many times the view appears or dissapears
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,8 +46,8 @@ class SearchViewController: UIViewController {
             return
         }
         let followersViewController = FollowersViewController()
-        followersViewController.userName = userNameTextField.text
-        followersViewController.title = followersViewController.userName
+        followersViewController.username = userNameTextField.text
+        followersViewController.title = userNameTextField.text
         navigationController?.pushViewController(followersViewController, animated: true)
     }
     

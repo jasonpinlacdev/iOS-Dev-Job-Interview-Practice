@@ -2,7 +2,7 @@
 //  NetworkManager.swift
 //  GitHub Followers
 //
-//  Created by Jason Pinlac on 5/4/20.
+//  Created by Jason Pinlac on 5/11/20.
 //  Copyright © 2020 Jason Pinlac. All rights reserved.
 //
 
@@ -15,95 +15,126 @@ class NetworkManager {
     private let baseURL = "https://api.github.com"
     private let perPage = 100
     
-    private init() {}
-    
-    func getFollowers(for username: String, page: Int, completionHandler: @escaping (Result<[Follower], GFError>) -> Void) {
-        let urlString = baseURL + "/users/\(username)/followers?per_page=\(perPage)&page=\(page)"
+    func getFollowers(username: String, page: Int, completionHandler: @escaping (Result<[Follower], GFError>) -> Void) {
+        let endpoint = baseURL + "/users/\(username)/followers?page=\(page)&per_page=\(perPage)"
         
-        guard let url = URL(string: urlString) else {
-            completionHandler(.failure(.invalidUsername))
+        guard let url = URL(string: endpoint) else {
+            completionHandler(.failure(.usernameError))
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            // check for client error
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
-                completionHandler(.failure(.unableToComplete))
+                completionHandler(.failure(.clientError))
                 return
             }
             
-            // check server response
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                completionHandler(.failure(.invalidUsername))
+            // check reponse
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completionHandler(.failure(.serverError))
                 return
             }
             
-            // check data exists
+            // check data
             guard let data = data else {
-                completionHandler(.failure(.invalidData))
+                completionHandler(.failure(.dataError))
                 return
             }
             
             // handle data
             do {
-                let decoder = JSONDecoder()
-//                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let followers = try decoder.decode([Follower].self, from: data)
+                let followers = try JSONDecoder().decode([Follower].self, from: data)
                 completionHandler(.success(followers))
             } catch {
-                completionHandler(.failure(.invalidDecode))
-                return
+                completionHandler(.failure(.decodeError))
             }
         }
+        
         task.resume()
     }
-    
-    
+
 }
 
 
 
 
-// MARK: - The original get followers method that does not use the Result type
+
 /*
- func getFollowers(for username: String, page: Int, completionHandler: @escaping ([Follower]?, GFError?) -> Void) {
-         let urlString = baseURL + "/users/\(username)/followers?per_page=\(perPage)&page=\(page)"
-         
-         guard let url = URL(string: urlString) else {
-             completionHandler(nil, .invalidUsername)
-             return
-         }
-         
-         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-             // check error
-             if let _ = error {
-                 completionHandler(nil, .unableToComplete)
-                 return
-             }
-             
-             // check response
-             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                 completionHandler(nil, .invalidResponse)
-                 return
-             }
-             
-             // check data exists
-             guard let data = data else {
-                 completionHandler(nil, .invalidData)
-                 return
-             }
-             
-             // handle data
-             do {
-                 let decoder = JSONDecoder()
- //                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                 let followers = try decoder.decode([Follower].self, from: data)
-                 completionHandler(followers, nil)
-             } catch {
-                 completionHandler(nil, .invalidDecode)
-                 return
-             }
-         }
-         task.resume()
-     }
+// 1st iteration of getFollowers before the error refactor
+func getFollowers(username: String, page: Int, completionHandler: @escaping ([Follower]?, String?) -> Void) {
+       let endpoint = baseURL + "/users/\(username)/followers?page=\(page)&per_page=\(perPage)"
+       
+       guard let url = URL(string: endpoint) else {
+           completionHandler(nil, "This username created an invalid request. Please try again.")
+           return
+       }
+       
+       let task = URLSession.shared.dataTask(with: url) { data, response, error in
+           if let _ = error {
+               completionHandler(nil, "Unable to handle your request. Check your internet connection.")
+               return
+           }
+           
+           // check reponse
+           guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+               completionHandler(nil, "Invalid response from the server. Please try again.")
+               return
+           }
+           
+           // check data
+           guard let data = data else {
+               completionHandler(nil, "The data received from the server is invalid. Please try again.")
+               return
+           }
+           
+           // handle data
+           do {
+               let followers = try JSONDecoder().decode([Follower].self, from: data)
+               completionHandler(followers, nil)
+           } catch {
+               completionHandler(nil, "The data failed to decode correctly. Please try again.")
+           }
+       }
+       
+       task.resume()
+   }
+ 
+ // get followers 2nd iteration after the error refactor
+ func getFollowers(username: String, page: Int, completionHandler: @escaping ([Follower]?, GFError?) -> Void) {
+        let endpoint = baseURL + "/users/\(username)/followers?page=\(page)&per_page=\(perPage)"
+        
+        guard let url = URL(string: endpoint) else {
+            completionHandler(nil, .usernameError)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completionHandler(nil, .clientError)
+                return
+            }
+            
+            // check reponse
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completionHandler(nil, .serverError)
+                return
+            }
+            
+            // check data
+            guard let data = data else {
+                completionHandler(nil, .dataError)
+                return
+            }
+            
+            // handle data
+            do {
+                let followers = try JSONDecoder().decode([Follower].self, from: data)
+                completionHandler(followers, nil)
+            } catch {
+                completionHandler(nil, .decodeError)
+            }
+        }
+        
+        task.resume()
+    }
  */
