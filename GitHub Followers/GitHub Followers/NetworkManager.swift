@@ -138,3 +138,29 @@ func getFollowers(username: String, page: Int, completionHandler: @escaping ([Fo
         task.resume()
     }
  */
+
+
+
+// How to call the network manager
+/*
+// before the Result type refactor
+NetworkManager.shared.getFollowers(username: username, page: 1) { followers, error in
+    if let error = error {
+        self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss")
+        return
+    }
+    
+    print(followers)
+}
+
+// after the Result type
+NetworkManager.shared.getFollowers(username: username, page: 1) { result in
+    switch result {
+    case .failure(let error):
+        self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss")
+    case .success(let followers):
+        print(followers)
+    }
+}
+
+*/

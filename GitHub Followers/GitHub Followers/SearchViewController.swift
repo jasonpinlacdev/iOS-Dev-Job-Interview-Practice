@@ -11,8 +11,8 @@ import UIKit
 class SearchViewController: UIViewController {
     
     var logoImageView = UIImageView()
-    var userNameTextField = GFTextField()
-    var callToActionButton = GFButton(backgroundColor: UIColor.systemGreen, title: "Get Followers")
+    let userNameTextField = GFTextField()
+    let callToActionButton = GFButton(backgroundColor: UIColor.systemGreen, title: "Get Followers")
     
     var isUserNameEntered: Bool {
         get {
@@ -20,16 +20,14 @@ class SearchViewController: UIViewController {
         }
     }
     
+    
     // viewDidLoad is called when the view is loaded. This only happens once not matter how many times the view appears or dissapears
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureLogoImageView()
         configureUserNameTextField()
         configureCallToActionButton()
-        
         createDismissKeyboardTapGesture()
-        
     }
     
     

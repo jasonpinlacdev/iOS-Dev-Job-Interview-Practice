@@ -10,17 +10,15 @@ import UIKit
 
 class GFAlertViewController: UIViewController {
     
-    var alertTitle: String?
-    var alertMessage: String?
-    var buttonTitle: String?
+    let containerView = GFContainerView()
+    let titleLabel = GFTitleLabel(textAlignment: NSTextAlignment.center, size: 20)
+    let messageLabel = GFBodyLabel(textAlignment: NSTextAlignment.center)
+    let actionButton = GFButton(backgroundColor: UIColor.systemPink, title: "Ok")
     
-    var containerView = GFContainerView()
-    var titleLabel = GFTitleLabel(textAlignment: NSTextAlignment.center, size: 20)
-    var messageLabel = GFBodyLabel(textAlignment: NSTextAlignment.center)
-    var actionButton = GFButton(backgroundColor: UIColor.systemPink, title: "Ok")
-
-    let padding: CGFloat = 20.0
-    
+    private let alertTitle: String?
+    private let alertMessage: String?
+    private let buttonTitle: String?
+    private let padding: CGFloat = 20.0
     
     init(alertTitle: String, alertMessage: String, buttonTitle: String) {
         self.alertTitle = alertTitle
@@ -45,7 +43,7 @@ class GFAlertViewController: UIViewController {
     }
     
     
-    func configureContainerView() {
+    private func configureContainerView() {
         view.addSubview(containerView)
         
         NSLayoutConstraint.activate([
@@ -57,7 +55,7 @@ class GFAlertViewController: UIViewController {
     }
     
     
-    func configureTitleLabel() {
+    private func configureTitleLabel() {
         containerView.addSubview(titleLabel)
         
         titleLabel.text = alertTitle ?? "Something went wrong"
@@ -71,7 +69,7 @@ class GFAlertViewController: UIViewController {
     }
     
     
-    func configureMessageLabel() {
+    private func configureMessageLabel() {
         containerView.addSubview(messageLabel)
         
         messageLabel.text = alertMessage ?? "Something went wrong."
@@ -86,7 +84,7 @@ class GFAlertViewController: UIViewController {
     }
     
     
-    func configureActionButton() {
+    private func configureActionButton() {
         containerView.addSubview(actionButton)
         
         actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)

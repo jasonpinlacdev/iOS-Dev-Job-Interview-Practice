@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Follower: Codable {
+struct Follower: Codable, Hashable {
     let login: String
     let avatarURL: String
     
@@ -17,4 +17,9 @@ struct Follower: Codable {
         case login
         case avatarURL = "avatar_url"
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(login)
+    }
+
 }
