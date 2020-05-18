@@ -13,11 +13,7 @@ class GFFollowerCell: UICollectionViewCell {
     let avatarImageView = GFAvatarImageView(frame: .zero)
     let usernameLabel = GFTitleLabel(textAlignment: .center, size: 16.0)
    
-    static var reuseID: String {
-        get {
-            return String(describing: self)
-        }
-    }
+    static var reuseID = "GFFollowerCell"
     private let padding: CGFloat = 8.0
     
     
@@ -27,16 +23,8 @@ class GFFollowerCell: UICollectionViewCell {
         configureUsernameLabel()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    func set(follower: Follower) {
-        usernameLabel.text = follower.login
-        
-        // add code to set avatarImageView.image
     }
     
     

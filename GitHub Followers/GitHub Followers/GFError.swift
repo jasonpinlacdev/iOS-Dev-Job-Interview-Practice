@@ -15,5 +15,6 @@ enum GFError: String, Error {
     case serverError = "Invalid response from the server. Please try again."
     case dataError = "The data received from the server is invalid. Please try again."
     case decodeError = "The data failed to decode correctly. Please try again."
+    case urlError = "The url created an invalid request. Please try again."
 }
 
