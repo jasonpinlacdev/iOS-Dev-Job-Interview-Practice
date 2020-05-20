@@ -21,32 +21,50 @@ class FollowersViewController: UIViewController {
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureCollectionView()
         configureDataSource()
-        getFollowers(username: username, page: page)
+        getFollowers()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
     
-    func getFollowers(username: String, page: Int) {
+    
+    func getFollowers() {
+        showLoadingView()
         NetworkManager.shared.getFollowers(username: username, page: page) { result in
+            self.dismissLoadingView()
+            
             switch result {
             case let .success(followers):
                 if followers.count < 100 { self.hasMoreFollowers = false }
                 self.followers.append(contentsOf: followers)
+                
+                if self.followers.count == 0 {
+                    self.hasMoreFollowers = false
+                    DispatchQueue.main.async {
+                        self.showEmptyStateView(with: "This user doesn't have any followers. Go follow them!😅", in: self.view)
+                    }
+                    return
+                }
+                
                 self.updateData()
+                
             case let .failure(error):
-                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss")
+                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss") {
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
             }
         }
     }
@@ -54,7 +72,6 @@ class FollowersViewController: UIViewController {
     
     func configureViewController() {
         view.backgroundColor = UIColor.systemBackground
-        navigationItem.largeTitleDisplayMode = .always
     }
     
     
@@ -109,16 +126,16 @@ class FollowersViewController: UIViewController {
 
 extension FollowersViewController: UICollectionViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard hasMoreFollowers else { return }
+        
         let currentOffsetY = scrollView.contentOffset.y
         let totalContentHeight = scrollView.contentSize.height
         let screenHeight = scrollView.frame.size.height
         
-        if currentOffsetY + screenHeight > totalContentHeight {
+        if currentOffsetY > totalContentHeight - screenHeight {
             // This means we scrolled to the bottom of the screen
-            guard hasMoreFollowers else { return }
             page += 1
-            print("getting page\(page) of followers")
-            getFollowers(username: username, page: page)
+            getFollowers()
         }
     }
 }

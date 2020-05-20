@@ -9,9 +9,10 @@
 import UIKit
 
 class NetworkManager {
-    
+
     static let shared = NetworkManager()
     
+    private let apiToken = "4d89021f6761a3d8d262b9480ee3d1f5e7ee7af6"
     private let baseURL = "https://api.github.com"
     private let perPage = 100
     
@@ -24,8 +25,10 @@ class NetworkManager {
             completionHandler(.failure(.usernameError))
             return
         }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        var urlRequest = URLRequest(url: url)
+        urlRequest.addValue("token \(apiToken)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             // check error
             if let _ = error {
                 completionHandler(.failure(.clientError))
@@ -33,7 +36,11 @@ class NetworkManager {
             }
             
             // check reponse
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            if let r = response as? HTTPURLResponse {
+                print(r)
+                
+            }
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)  else {
                 completionHandler(.failure(.serverError))
                 return
             }
@@ -70,7 +77,11 @@ class NetworkManager {
             completionHandler(nil)
             return
         }
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.addValue("token \(apiToken)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let _ = error {
                 completionHandler(nil)
                 return
