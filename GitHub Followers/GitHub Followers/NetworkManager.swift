@@ -12,7 +12,7 @@ class NetworkManager {
 
     static let shared = NetworkManager()
     
-    private let apiToken = "4d89021f6761a3d8d262b9480ee3d1f5e7ee7af6"
+    private let apiToken = "656badfe5bd279b3947e11f502d350ca6d01a7ef"
     private let baseURL = "https://api.github.com"
     private let perPage = 100
     
@@ -35,11 +35,12 @@ class NetworkManager {
                 return
             }
             
+            
+//            if let r = response as? HTTPURLResponse {
+//                print(r)
+//
+//            }
             // check reponse
-            if let r = response as? HTTPURLResponse {
-                print(r)
-                
-            }
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)  else {
                 completionHandler(.failure(.serverError))
                 return
