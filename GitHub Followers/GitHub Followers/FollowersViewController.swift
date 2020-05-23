@@ -16,13 +16,13 @@ class FollowersViewController: UIViewController {
     
     var username: String!
     var page = 1
-    var hasMoreFollowers = true
     var followers = [Follower]()
     var filteredFollowers = [Follower]()
+    var hasMoreFollowers = true
+    var isSearching = false
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
-    
     var searchController: UISearchController!
     
     
@@ -61,10 +61,14 @@ class FollowersViewController: UIViewController {
                     return
                 }
                 
-                self.updateData(on: self.followers)
-//                DispatchQueue.main.async {
-//                    self.updateSearchResults(for: self.searchController)
-//                }
+
+//                self.updateData(on: self.followers)
+
+                
+                DispatchQueue.main.async {
+                    self.updateSearchResults(for: self.searchController)
+                }
+                
             case let .failure(error):
                 self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss") {
                     DispatchQueue.main.async {
@@ -124,8 +128,8 @@ class FollowersViewController: UIViewController {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapShot.appendSections([.main])
         snapShot.appendItems(followers, toSection: .main)
-        DispatchQueue.main.async { [weak self] in
-            self?.dataSource.apply(snapShot, animatingDifferences: true)
+        DispatchQueue.main.async {
+            self.dataSource.apply(snapShot, animatingDifferences: true)
         }
     }
     
@@ -158,23 +162,35 @@ extension FollowersViewController: UICollectionViewDelegate {
             getFollowers()
         }
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let followerTapped = isSearching ? filteredFollowers[indexPath.item] : followers[indexPath.item]
+        let userInfoViewController = UserInfoViewController()
+        userInfoViewController.username = followerTapped.login
+        let userInfoNavigationController = UINavigationController(rootViewController: userInfoViewController)
+        present(userInfoNavigationController, animated: true)
+    }
 }
 
 
 extension FollowersViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         guard let filterText = searchController.searchBar.text, !filterText.isEmpty else {
-//            filteredFollowers.removeAll()
-//            updateData(on: self.followers)
+            isSearching = false
+            filteredFollowers.removeAll()
+            updateData(on: self.followers)
             return
         }
-        filteredFollowers = self.followers.filter { return $0.login.lowercased().contains(filterText.lowercased()) }
+        isSearching = true
+        filteredFollowers = followers.filter { return $0.login.lowercased().contains(filterText.lowercased()) }
         updateData(on: filteredFollowers)
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        updateData(on: self.followers)
+        isSearching = false
         filteredFollowers.removeAll()
+        updateData(on: followers)
     }
 }

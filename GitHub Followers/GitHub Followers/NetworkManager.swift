@@ -16,7 +16,7 @@ class NetworkManager {
     private let baseURL = "https://api.github.com"
     private let perPage = 100
     
-    let cache = NSCache<NSString, UIImage>()
+    private let avatarImageCache = NSCache<NSString, UIImage>()
     
     func getFollowers(username: String, page: Int, completionHandler: @escaping (Result<[Follower], GFError>) -> Void) {
         let endpoint = baseURL + "/users/\(username)/followers?page=\(page)&per_page=\(perPage)"
@@ -68,7 +68,7 @@ class NetworkManager {
     func getAvatarImage(from urlString: String, completionHandler: @escaping (UIImage?) -> Void){
         // check cache
         let cacheKey = NSString(string: urlString)
-        if let image = cache.object(forKey: cacheKey) {
+        if let image = avatarImageCache.object(forKey: cacheKey) {
             completionHandler(image)
             return
         }
@@ -100,8 +100,46 @@ class NetworkManager {
                 return
             }
             // store in cache
-            self.cache.setObject(image, forKey: cacheKey)
+            self.avatarImageCache.setObject(image, forKey: cacheKey)
             completionHandler(image)
+        }
+        task.resume()
+    }
+    
+    
+    func getUser(username: String, completionHandler: @escaping (Result<User, GFError>) -> Void) {
+        let endpoint = baseURL + "/users/\(username)"
+        
+        guard let url = URL(string: endpoint) else {
+            completionHandler(.failure(.usernameError))
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.addValue("token \(apiToken)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let _ = error {
+                completionHandler(.failure(.clientError))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                completionHandler(.failure(.serverError))
+                return
+            }
+            
+            guard let data = data else {
+                completionHandler(.failure(.dataError))
+                return
+            }
+            
+            do {
+                let user = try JSONDecoder().decode(User.self, from: data)
+                completionHandler(.success(user))
+            } catch {
+                completionHandler(.failure(.decodeError))
+            }
         }
         task.resume()
     }
