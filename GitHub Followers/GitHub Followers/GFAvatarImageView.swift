@@ -21,6 +21,8 @@ class GFAvatarImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Section -
+
     private func configure() {
         layer.cornerRadius = 10
         clipsToBounds = true

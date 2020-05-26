@@ -26,7 +26,8 @@ class GFBodyLabel: UILabel {
         configure()
         self.textAlignment = textAlignment
     }
-
+    
+    // MARK: - Private Section -
     
     private func configure() {
         font = UIFont.preferredFont(forTextStyle: .body)

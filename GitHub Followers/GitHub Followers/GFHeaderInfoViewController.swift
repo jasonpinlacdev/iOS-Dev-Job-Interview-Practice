@@ -12,9 +12,9 @@ class GFHeaderInfoViewController: UIViewController {
     
     var avatarImageView = GFAvatarImageView(frame: .zero)
     var usernameLabel = GFTitleLabel(textAlignment: .left, size: 34)
-    var realNameLabel = GFSecondaryTitleLabel(textAlignment: .left, size: 18)
+    var realNameLabel = GFSecondaryTitleLabel(fontSize: 18)
     var locationImageView = UIImageView()
-    var locationLabel = GFSecondaryTitleLabel(textAlignment: .left, size: 18)
+    var locationLabel = GFSecondaryTitleLabel(fontSize: 18)
     var bioLabel = GFBodyLabel(textAlignment: .left)
     
     var user: User!
@@ -39,7 +39,6 @@ class GFHeaderInfoViewController: UIViewController {
         layoutUI()
         configureUIElements()
     }
-    
     
     // MARK: - Private Section -
     

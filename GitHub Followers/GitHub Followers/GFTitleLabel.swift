@@ -29,7 +29,8 @@ class GFTitleLabel: UILabel {
         
     }
     
-    
+    // MARK: - Private Section -
+
     private func configure() {
         textColor = UIColor.label
         adjustsFontSizeToFitWidth = true

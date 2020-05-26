@@ -70,22 +70,20 @@ class FollowersViewController: UIViewController {
                 }
                 
             case let .failure(error):
-                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss") {
-                    DispatchQueue.main.async {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                }
+                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Dismiss")
             }
         }
     }
     
     
-    func configureViewController() {
+    // MARK: - Private Section -
+
+    private func configureViewController() {
         view.backgroundColor = UIColor.systemBackground
     }
     
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         
         let threeColumnflowLayout: UICollectionViewFlowLayout = {
             let totalWidth = view.bounds.width
@@ -110,7 +108,7 @@ class FollowersViewController: UIViewController {
     }
     
     
-    func configureDataSource() {
+    private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCell.reuseID, for: indexPath) as! GFFollowerCell
             cell.usernameLabel.text = follower.login
@@ -124,7 +122,7 @@ class FollowersViewController: UIViewController {
     }
     
     
-    func updateData(on followers: [Follower]) {
+    private func updateData(on followers: [Follower]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapShot.appendSections([.main])
         snapShot.appendItems(followers, toSection: .main)
@@ -134,7 +132,7 @@ class FollowersViewController: UIViewController {
     }
     
     
-    func configureSearchController() {
+    private func configureSearchController() {
         searchController = UISearchController()
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self

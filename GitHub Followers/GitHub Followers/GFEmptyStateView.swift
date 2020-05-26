@@ -28,7 +28,9 @@ class GFEmptyStateView: UIView {
         configure()
     }
     
-    func configure() {
+    // MARK: - Private Section -
+    
+    private func configure() {
         messageLabel.font = UIFont.systemFont(ofSize: 24, weight: .regular)
         messageLabel.numberOfLines = 0
         addSubview(messageLabel)

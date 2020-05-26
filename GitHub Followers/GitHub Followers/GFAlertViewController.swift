@@ -43,6 +43,12 @@ class GFAlertViewController: UIViewController {
     }
     
     
+    @objc func actionButtonTapped(_ sender: GFButton) {
+        dismiss(animated: true)
+    }
+    
+    // MARK: - Private Section -
+
     private func configureContainerView() {
         view.addSubview(containerView)
         
@@ -99,8 +105,6 @@ class GFAlertViewController: UIViewController {
     }
     
     
-    @objc func actionButtonTapped(_ sender: GFButton) {
-        dismiss(animated: true)
-    }
+
     
 }

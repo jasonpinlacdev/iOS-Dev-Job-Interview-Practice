@@ -24,10 +24,6 @@ class UserInfoViewController: UIViewController {
         getUser()
     }
     
-    func configure() {
-        view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
-    }
     
     func getUser() {
         NetworkManager.shared.getUser(username: username) { result in
@@ -41,14 +37,21 @@ class UserInfoViewController: UIViewController {
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Something bad happened", message: error.rawValue, buttonTitle: "Dismiss")
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true)
+                    self.doneButtonTapped()
                 }
             }
         }
     }
     
+    // MARK: - Private Section -
+
+    private func configure() {
+        view.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+    }
     
-    func layoutUI() {
+    
+    private func layoutUI() {
         let padding: CGFloat = 20
         let itemHeight: CGFloat = 140
         
@@ -74,7 +77,7 @@ class UserInfoViewController: UIViewController {
     }
     
     
-    func add(childViewController: UIViewController, to containerView: UIView) {
+    private func add(childViewController: UIViewController, to containerView: UIView) {
         self.addChild(childViewController)
         containerView.addSubview(childViewController.view)
         childViewController.view.frame = containerView.bounds
@@ -85,5 +88,7 @@ class UserInfoViewController: UIViewController {
     @objc func doneButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
+    
+    
     
 }

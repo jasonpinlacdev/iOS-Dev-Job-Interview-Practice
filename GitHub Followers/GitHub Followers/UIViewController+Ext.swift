@@ -14,14 +14,13 @@ fileprivate var loadingView: UIView!
 
 extension UIViewController {
     
-    func presentGFAlertOnMainThread(title: String, message: String, buttonTitle: String, completionHandler: (() -> Void)? = nil) {
+    func presentGFAlertOnMainThread(title: String, message: String, buttonTitle: String) {
         DispatchQueue.main.async {
             let gfAlertController = GFAlertViewController(alertTitle: title, alertMessage: message, buttonTitle: buttonTitle)
             gfAlertController.modalPresentationStyle = .overFullScreen
             gfAlertController.modalTransitionStyle = .crossDissolve
             self.present(gfAlertController, animated: true)
         }
-        completionHandler?()
     }
     
     

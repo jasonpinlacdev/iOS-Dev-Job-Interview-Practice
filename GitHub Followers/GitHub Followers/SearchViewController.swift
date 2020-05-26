@@ -49,8 +49,9 @@ class SearchViewController: UIViewController {
         navigationController?.pushViewController(followersViewController, animated: true)
     }
     
+    // MARK: - Private Section -
     
-    func configureLogoImageView() {
+    private func configureLogoImageView() {
         logoImageView = UIImageView(image: UIImage(named: "gh-logo")!)
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoImageView)
@@ -64,7 +65,7 @@ class SearchViewController: UIViewController {
     }
     
     
-    func configureUserNameTextField() {
+    private func configureUserNameTextField() {
         view.addSubview(userNameTextField)
         userNameTextField.delegate = self
         
@@ -77,7 +78,7 @@ class SearchViewController: UIViewController {
     }
     
     
-    func configureCallToActionButton() {
+    private func configureCallToActionButton() {
         view.addSubview(callToActionButton)
         callToActionButton.addTarget(self, action: #selector(pushFollowersViewController), for: .touchUpInside)
         
@@ -90,7 +91,7 @@ class SearchViewController: UIViewController {
     }
     
     
-    func createDismissKeyboardTapGesture() {
+    private func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }

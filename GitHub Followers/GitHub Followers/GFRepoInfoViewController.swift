@@ -19,10 +19,9 @@ class GFRepoInfoItemViewController: GFItemInfoViewController {
     // MARK: - Private Section -
     
     private func configureItems() {
-        itemInfoViewOne.set(itemInfoType: .repos, for: user)
-        itemInfoViewTwo.set(itemInfoType: .gists, for: user)
-        actionButton.setTitle("GitHub Profile", for: .normal)
-        actionButton.backgroundColor = .systemPurple
+        itemInfoViewOne.set(itemInfoType: .repos, withCount: user.publicRepos)
+        itemInfoViewTwo.set(itemInfoType: .gists, withCount: user.publicGists)
+        actionButton.set(title: "GitHub Profile" , color:.systemPurple)
     }
 }
 

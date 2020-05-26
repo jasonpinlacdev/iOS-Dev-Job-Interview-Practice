@@ -20,7 +20,8 @@ class GFContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    // MARK: - Private Section -
+
     private func configure() {
         backgroundColor = UIColor.systemBackground
         layer.cornerRadius = 16

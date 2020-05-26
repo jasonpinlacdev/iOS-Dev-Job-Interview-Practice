@@ -15,18 +15,23 @@ class GFSecondaryTitleLabel: UILabel {
         configure()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(textAlignment: NSTextAlignment, size: CGFloat) {
+    
+    init(fontSize: CGFloat) {
         super.init(frame: .zero)
         configure()
-        self.textAlignment = textAlignment
-        font = UIFont.systemFont(ofSize: size, weight: .medium)
+        font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
     }
     
-    func configure() {
+    
+    // MARK: - Private Section -
+    
+    private func configure() {
+        textAlignment = .left
         textColor = .secondaryLabel
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.90
