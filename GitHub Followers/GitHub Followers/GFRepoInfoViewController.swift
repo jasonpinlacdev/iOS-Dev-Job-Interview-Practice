@@ -8,20 +8,35 @@
 
 import UIKit
 
+protocol GFRepoInfoItemViewControllerDelegate: class {
+    func didTapGitHubProfiles(for user: User)
+}
+
 
 class GFRepoInfoItemViewController: GFItemInfoViewController {
+    
+    weak var delegate: GFRepoInfoItemViewControllerDelegate?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureItems()
     }
     
+    
     // MARK: - Private Section -
+    
     
     private func configureItems() {
         itemInfoViewOne.set(itemInfoType: .repos, withCount: user.publicRepos)
         itemInfoViewTwo.set(itemInfoType: .gists, withCount: user.publicGists)
         actionButton.set(title: "GitHub Profile" , color:.systemPurple)
+        actionButton.addTarget(self, action: #selector(actionButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    
+    @objc func actionButtonTapped(_ sender: GFButton) {
+        delegate?.didTapGitHubProfiles(for: user)
     }
 }
 

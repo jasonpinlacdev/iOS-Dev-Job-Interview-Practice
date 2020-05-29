@@ -38,7 +38,6 @@ class FollowersViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -61,10 +60,7 @@ class FollowersViewController: UIViewController {
                     return
                 }
                 
-
 //                self.updateData(on: self.followers)
-
-                
                 DispatchQueue.main.async {
                     self.updateSearchResults(for: self.searchController)
                 }
@@ -80,8 +76,14 @@ class FollowersViewController: UIViewController {
 
     private func configureViewController() {
         view.backgroundColor = UIColor.systemBackground
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add
+            , target: self, action: #selector(addButtonTapped(_:)))
     }
     
+    
+    @objc func addButtonTapped(_ sender: UIBarButtonItem) {
+        
+    }
     
     private func configureCollectionView() {
         
@@ -147,6 +149,7 @@ class FollowersViewController: UIViewController {
 
 
 extension FollowersViewController: UICollectionViewDelegate {
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard hasMoreFollowers else { return }
         
@@ -166,6 +169,7 @@ extension FollowersViewController: UICollectionViewDelegate {
         let followerTapped = isSearching ? filteredFollowers[indexPath.item] : followers[indexPath.item]
         let userInfoViewController = UserInfoViewController()
         userInfoViewController.username = followerTapped.login
+        userInfoViewController.delegate = self
         let userInfoNavigationController = UINavigationController(rootViewController: userInfoViewController)
         present(userInfoNavigationController, animated: true)
     }
@@ -173,6 +177,7 @@ extension FollowersViewController: UICollectionViewDelegate {
 
 
 extension FollowersViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let filterText = searchController.searchBar.text, !filterText.isEmpty else {
             isSearching = false
@@ -190,5 +195,25 @@ extension FollowersViewController: UISearchResultsUpdating, UISearchBarDelegate 
         isSearching = false
         filteredFollowers.removeAll()
         updateData(on: followers)
+    }
+}
+
+
+extension FollowersViewController: UserInfoViewControllerDelegate {
+    
+    func didRequestFollowers(for username: String) {
+        // get followers for that user
+        title = username
+        self.username = username
+        page = 1
+        followers.removeAll()
+        filteredFollowers.removeAll()
+        hasMoreFollowers = true
+        isSearching = false
+        
+        searchController.searchBar.text = ""
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        
+        getFollowers()
     }
 }

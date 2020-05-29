@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class GFItemInfoViewController: UIViewController {
     
     var stackView = UIStackView()
@@ -16,7 +17,6 @@ class GFItemInfoViewController: UIViewController {
     var actionButton = GFButton()
     
     var user: User!
-    
     
     init(user: User) {
         self.user = user
@@ -38,6 +38,7 @@ class GFItemInfoViewController: UIViewController {
     
     
     // MARK: - Private Section -
+    
     
     private func configure() {
         view.layer.cornerRadius = 18
@@ -71,5 +72,5 @@ class GFItemInfoViewController: UIViewController {
             actionButton.heightAnchor.constraint(equalToConstant: 44.0),
         ])
     }
-
+    
 }

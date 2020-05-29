@@ -42,7 +42,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         searchViewController.title = "Search"
         searchViewController.view.backgroundColor = UIColor.systemBackground
-        return UINavigationController(rootViewController: searchViewController)
+        let searchNavController = UINavigationController(rootViewController: searchViewController)
+        searchNavController.navigationBar.prefersLargeTitles = true
+        return searchNavController
         
     }
     
@@ -51,8 +53,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let favoritesViewController = FavoritesViewController()
         favoritesViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         favoritesViewController.title = "Favorites"
-        favoritesViewController.view.backgroundColor = UIColor.systemBlue
-        return UINavigationController(rootViewController: favoritesViewController)
+        favoritesViewController.view.backgroundColor = UIColor.systemBackground
+        let favoritesNavController = UINavigationController(rootViewController: favoritesViewController)
+        favoritesNavController.navigationBar.prefersLargeTitles = true
+        return favoritesNavController
     }
     
     

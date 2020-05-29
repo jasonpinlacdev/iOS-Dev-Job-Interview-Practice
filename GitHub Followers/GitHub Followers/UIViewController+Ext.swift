@@ -8,6 +8,7 @@
 
 
 import UIKit
+import SafariServices
 
 
 fileprivate var loadingView: UIView!
@@ -21,6 +22,13 @@ extension UIViewController {
             gfAlertController.modalTransitionStyle = .crossDissolve
             self.present(gfAlertController, animated: true)
         }
+    }
+    
+    
+    func presentSafariViewController(with url: URL) {
+        let safariViewController = SFSafariViewController(url: url)
+        safariViewController.preferredControlTintColor = .systemGreen
+        present(safariViewController, animated: true)
     }
     
     
