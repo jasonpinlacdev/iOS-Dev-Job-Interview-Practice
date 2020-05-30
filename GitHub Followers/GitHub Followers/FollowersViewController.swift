@@ -60,7 +60,7 @@ class FollowersViewController: UIViewController {
                     return
                 }
                 
-//                self.updateData(on: self.followers)
+                //                self.updateData(on: self.followers)
                 DispatchQueue.main.async {
                     self.updateSearchResults(for: self.searchController)
                 }
@@ -72,21 +72,40 @@ class FollowersViewController: UIViewController {
     }
     
     
+    @objc func addButtonTapped(_ sender: UIBarButtonItem) {
+        showLoadingView()
+        NetworkManager.shared.getUser(username: username) { result in
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let user):
+                
+                let follower = Follower(login: user.login, avatarURL: user.avatarURL)
+                
+                PersistenceManager.updateWith(favorite: follower, actionType: .add) { error in
+                    guard let error = error else {
+                        self.presentGFAlertOnMainThread(title: "Success!", message: "You've successfully favorited this user!", buttonTitle: "Dismiss")
+                        return
+                    }
+                    self.presentGFAlertOnMainThread(title: "Something Went Wrong", message: error.rawValue, buttonTitle: "Dismiss")
+                }
+                
+            case .failure(let error):
+                self.presentGFAlertOnMainThread(title: "Something Went Wrong", message: error.rawValue, buttonTitle: "Dismiss")
+            }
+        }
+    }
+    
+    
     // MARK: - Private Section -
-
+    
     private func configureViewController() {
         view.backgroundColor = UIColor.systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add
-            , target: self, action: #selector(addButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped(_:)))
     }
     
-    
-    @objc func addButtonTapped(_ sender: UIBarButtonItem) {
-        
-    }
     
     private func configureCollectionView() {
-        
         let threeColumnflowLayout: UICollectionViewFlowLayout = {
             let totalWidth = view.bounds.width
             let padding: CGFloat = 12.0

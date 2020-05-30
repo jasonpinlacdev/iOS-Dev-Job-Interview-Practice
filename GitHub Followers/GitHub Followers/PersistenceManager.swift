@@ -42,8 +42,7 @@ enum PersistenceManager {
     }
     
     
-    
-    private static func retrieveFavorites(completionHandler: @escaping (Result<[Follower], GFError>) -> Void) {
+    static func retrieveFavorites(completionHandler: @escaping (Result<[Follower], GFError>) -> Void) {
         // get favorites data
         guard let favoritesData = defaults.object(forKey: "Favorites") as? Data else {
             // if data doesnt exist return an empty array of type follower

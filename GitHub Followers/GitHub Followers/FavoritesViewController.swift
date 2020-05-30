@@ -22,6 +22,19 @@ class FavoritesViewController: UIViewController {
         
         favorites.append(Follower(login: "jasontest", avatarURL: "jasontesturl"))
         
+       
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+         PersistenceManager.retrieveFavorites { result in
+                   switch result {
+                   case .success(let favorites):
+                       print(favorites)
+                   case .failure(let error):
+                       print(error)
+                   }
+               }
     }
     
     
