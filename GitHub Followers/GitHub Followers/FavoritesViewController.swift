@@ -24,12 +24,6 @@ class FavoritesViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-//         navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    
-    
     
     // MARK: - Private Section -
     
