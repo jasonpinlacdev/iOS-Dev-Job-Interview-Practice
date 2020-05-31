@@ -19,7 +19,7 @@ enum PersistenceManager {
     static private let defaults = UserDefaults.standard
     
     
-    static func updateWith(favorite: Follower, actionType: PersistenceActionType, completionHandler: @escaping (GFError?) -> Void) {
+    static func updateWith(favorite: Follower, actionType: PersistenceActionType, completionHandler: (GFError?) -> Void) {
         retrieveFavorites { result in
             
             switch result {
@@ -42,7 +42,7 @@ enum PersistenceManager {
     }
     
     
-    static func retrieveFavorites(completionHandler: @escaping (Result<[Follower], GFError>) -> Void) {
+    static func retrieveFavorites(completionHandler: (Result<[Follower], GFError>) -> Void) {
         // get favorites data
         guard let favoritesData = defaults.object(forKey: "Favorites") as? Data else {
             // if data doesnt exist return an empty array of type follower

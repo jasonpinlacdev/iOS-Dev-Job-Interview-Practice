@@ -8,12 +8,12 @@
 
 import UIKit
 
-class GFFollowerCell: UICollectionViewCell {
+class GFFollowerCollectionViewCell: UICollectionViewCell {
     
     let avatarImageView = GFAvatarImageView(frame: .zero)
     let usernameLabel = GFTitleLabel(textAlignment: .center, size: 16.0)
    
-    static var reuseID = "GFFollowerCell"
+    static var reuseID = "GFFollowerCollectionViewCell"
     private let padding: CGFloat = 8.0
     
     

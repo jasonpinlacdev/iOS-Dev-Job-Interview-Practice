@@ -28,7 +28,7 @@ class FollowersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
+        configure()
         configureSearchController()
         configureCollectionView()
         configureDataSource()
@@ -99,7 +99,8 @@ class FollowersViewController: UIViewController {
     
     // MARK: - Private Section -
     
-    private func configureViewController() {
+    private func configure() {
+        title = username
         view.backgroundColor = UIColor.systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped(_:)))
     }
@@ -124,14 +125,14 @@ class FollowersViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
         collectionView.setContentOffset(CGPoint(x:0,y:0), animated: true)
-        collectionView.register(GFFollowerCell.self, forCellWithReuseIdentifier: GFFollowerCell.reuseID)
+        collectionView.register(GFFollowerCollectionViewCell.self, forCellWithReuseIdentifier: GFFollowerCollectionViewCell.reuseID)
         collectionView.delegate = self
     }
     
     
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCell.reuseID, for: indexPath) as! GFFollowerCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCollectionViewCell.reuseID, for: indexPath) as! GFFollowerCollectionViewCell
             cell.usernameLabel.text = follower.login
             NetworkManager.shared.getAvatarImage(from: follower.avatarURL) { image in
                 DispatchQueue.main.async {

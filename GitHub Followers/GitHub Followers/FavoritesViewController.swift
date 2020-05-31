@@ -10,62 +10,59 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     
-    var favorites = [Follower]()
-
     let tableView = UITableView()
-    let cellReuseID = "cell"
+    var favorites = [Follower]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureTableViewController()
-        
-        favorites.append(Follower(login: "jasontest", avatarURL: "jasontesturl"))
-        
-       
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-         PersistenceManager.retrieveFavorites { result in
-                   switch result {
-                   case .success(let favorites):
-                       print(favorites)
-                   case .failure(let error):
-                       print(error)
-                   }
-               }
+        super.viewWillAppear(animated)
+        getFavorites()
     }
     
     
     // MARK: - Private Section -
     
-  
-    private func configureTableViewController() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseID)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.frame = view.bounds
-        view.addSubview(tableView)
+    private func getFavorites() {
+        PersistenceManager.retrieveFavorites { result in
+            switch result {
+            case .success(let favorites):
+                guard !favorites.isEmpty else { self.showEmptyStateView(with: "There are no users favorited.", in: self.view); return}
+                self.favorites = favorites
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     
-    private func add(childViewController: UIViewController, to containerView: UIView) {
-        containerView.addSubview(childViewController.view)
-        self.addChild(childViewController)
-        childViewController.didMove(toParent: self)
-        childViewController.view.frame = containerView.bounds
+    private func configureTableViewController() {
+        view.addSubview(tableView)
+        tableView.frame = view.bounds
+        tableView.rowHeight = 80
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(GFFavoriteTableViewCell.self, forCellReuseIdentifier: GFFavoriteTableViewCell.reuseID)
+        
     }
     
 }
 
+
 extension FavoritesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let followersViewController = FollowersViewController()
+        followersViewController.username = favorites[indexPath.row].login
+        navigationController?.pushViewController(followersViewController, animated: true)
     }
 }
+
 
 extension FavoritesViewController: UITableViewDataSource {
     
@@ -75,8 +72,26 @@ extension FavoritesViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath)
-        cell.textLabel?.text = favorites[indexPath.row].login
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: GFFavoriteTableViewCell.reuseID, for: indexPath) as? GFFavoriteTableViewCell else {
+            fatalError("Favorite Cell failed to dequeue for reuse.")
+        }
+        let favorite = favorites[indexPath.row]
+        cell.set(favorite: favorite)
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let favoriteToRemove = favorites[indexPath.row]
+            favorites.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            PersistenceManager.updateWith(favorite: favoriteToRemove, actionType: .remove) { error in
+                if let error = error {
+                    self.presentGFAlertOnMainThread(title: "Failed to Remove", message: error.rawValue, buttonTitle: "Dismiss")
+                }
+            }
+        }
+    }
+    
 }
