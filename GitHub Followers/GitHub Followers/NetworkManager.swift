@@ -145,10 +145,6 @@ class NetworkManager {
     }
 }
 
-
-
-
-
 /*
  // 1st iteration of getFollowers before the error refactor
  func getFollowers(username: String, page: Int, completionHandler: @escaping ([Follower]?, String?) -> Void) {

@@ -41,6 +41,8 @@ class GFTextField: UITextField {
         placeholder = "Enter a username"
         returnKeyType = UIReturnKeyType.go
         
+        clearButtonMode = .whileEditing
+        
         translatesAutoresizingMaskIntoConstraints = false
     }
     

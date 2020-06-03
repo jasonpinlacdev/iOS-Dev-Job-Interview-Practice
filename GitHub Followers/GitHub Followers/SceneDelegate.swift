@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = createTabBarController()
+        window?.rootViewController = GFTabBarController()
         window?.makeKeyAndVisible()
         
         // global all navigation bars will have this tint
@@ -29,35 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     
-    func createTabBarController() -> UITabBarController {
-        let tabBarController = UITabBarController()
-        tabBarController.tabBar.tintColor = UIColor.systemGreen
-        tabBarController.viewControllers = [createSearchNavigationController(), createFavoritesNavigationController()]
-        return tabBarController
-    }
-    
-    
-    func createSearchNavigationController() -> UINavigationController {
-        let searchViewController = SearchViewController()
-        searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        searchViewController.title = "Search"
-        searchViewController.view.backgroundColor = UIColor.systemBackground
-        let searchNavController = UINavigationController(rootViewController: searchViewController)
-        searchNavController.navigationBar.prefersLargeTitles = true
-        return searchNavController
-        
-    }
-    
-    
-    func createFavoritesNavigationController() -> UINavigationController {
-        let favoritesViewController = FavoritesViewController()
-        favoritesViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-        favoritesViewController.title = "Favorites"
-        favoritesViewController.view.backgroundColor = UIColor.systemBackground
-        let favoritesNavController = UINavigationController(rootViewController: favoritesViewController)
-        favoritesNavController.navigationBar.prefersLargeTitles = true
-        return favoritesNavController
-    }
+   
     
     
     func sceneDidDisconnect(_ scene: UIScene) {

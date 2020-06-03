@@ -10,6 +10,7 @@ import UIKit
 
 class GFSecondaryTitleLabel: UILabel {
 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -30,6 +31,7 @@ class GFSecondaryTitleLabel: UILabel {
     
     // MARK: - Private Section -
     
+    
     private func configure() {
         textAlignment = .left
         textColor = .secondaryLabel
@@ -38,6 +40,5 @@ class GFSecondaryTitleLabel: UILabel {
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
     
 }

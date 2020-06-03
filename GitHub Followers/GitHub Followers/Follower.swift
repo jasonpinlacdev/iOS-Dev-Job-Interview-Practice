@@ -23,5 +23,4 @@ struct Follower: Codable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(login)
     }
-
 }

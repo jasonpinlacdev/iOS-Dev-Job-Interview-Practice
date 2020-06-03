@@ -69,5 +69,4 @@ enum PersistenceManager {
             return .unableToFavoriteError
         }
     }
-    
 }

@@ -47,8 +47,10 @@ class GFAlertViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    
     // MARK: - Private Section -
 
+    
     private func configureContainerView() {
         view.addSubview(containerView)
         
@@ -103,8 +105,5 @@ class GFAlertViewController: UIViewController {
             actionButton.heightAnchor.constraint(equalToConstant: 44.0)
         ])
     }
-    
-    
-
     
 }

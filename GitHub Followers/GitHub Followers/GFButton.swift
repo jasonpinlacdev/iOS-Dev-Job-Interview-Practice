@@ -34,7 +34,9 @@ class GFButton: UIButton {
         backgroundColor = color
     }
 
+    
     // MARK: - Private Section -
+    
     
     private func configure() {
         layer.cornerRadius = 10
@@ -42,4 +44,5 @@ class GFButton: UIButton {
         titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         translatesAutoresizingMaskIntoConstraints = false
     }
+    
 }

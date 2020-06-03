@@ -36,6 +36,7 @@ struct User: Codable {
         case followers
         case createdAt = "created_at"
     }
+    
 }
 
 

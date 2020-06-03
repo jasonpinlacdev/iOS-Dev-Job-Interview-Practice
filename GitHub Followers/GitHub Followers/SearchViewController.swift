@@ -14,6 +14,8 @@ class SearchViewController: UIViewController {
     let userNameTextField = GFTextField()
     let callToActionButton = GFButton(backgroundColor: UIColor.systemGreen, title: "Get Followers")
     
+    var logoImageViewTopConstraint: NSLayoutConstraint!
+    
     var isUserNameEntered: Bool {
         get {
             return !(userNameTextField.text!.isEmpty)
@@ -28,6 +30,7 @@ class SearchViewController: UIViewController {
         configureUserNameTextField()
         configureCallToActionButton()
         createDismissKeyboardTapGesture()
+//        configureObserverForKeyboardNotifications()
     }
     
     
@@ -35,6 +38,7 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        userNameTextField.text = ""
     }
     
     
@@ -43,20 +47,30 @@ class SearchViewController: UIViewController {
             presentGFAlertOnMainThread(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😅.", buttonTitle: "Ok")
             return
         }
-        let followersViewController = FollowersViewController()
-        followersViewController.username = userNameTextField.text
+        
+        userNameTextField.resignFirstResponder()
+        
+        let followersViewController = FollowersViewController(username: userNameTextField.text!)
         navigationController?.pushViewController(followersViewController, animated: true)
+
     }
+    
     
     // MARK: - Private Section -
     
+    
     private func configureLogoImageView() {
-        logoImageView = UIImageView(image: UIImage(named: "gh-logo")!)
+        logoImageView.image = Images.ghLogo
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoImageView)
         
+        let topConstraintConstant: CGFloat = DeviceType.isiPhoneSE || DeviceType.isiPhone8Zoomed ? 20 : 80
+        logoImageViewTopConstraint = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant)
+//        logoImageViewTopConstraint.isActive = true
+        
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            logoImageViewTopConstraint,
+//            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
             logoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 200),
             logoImageView.heightAnchor.constraint(equalToConstant: 200)
@@ -91,12 +105,43 @@ class SearchViewController: UIViewController {
     
     
     private func createDismissKeyboardTapGesture() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
+    
+//    private func configureObserverForKeyboardNotifications() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//
+//
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+//        let keyboardFrame = keyboardValue.cgRectValue
+//
+//        let keybordHeight = keyboardFrame.size.height
+//        let viewHeight = UIScreen.main.bounds.size.height
+//
+//        let topOfKeyboardHeight = viewHeight - keybordHeight
+//        let bottomOfUsernameTextField = userNameTextField.convert(userNameTextField.bounds, to: view).maxY
+//
+//        if bottomOfUsernameTextField > topOfKeyboardHeight {
+//            view.frame.origin.y = 0 - userNameTextField.frame.size.height
+//        }
+//    }
+//
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        view.frame.origin.y = 0
+//    }
+//
+//
+
 }
 
+// MARK: - Extensions -
 
 extension SearchViewController: UITextFieldDelegate {
     

@@ -39,6 +39,7 @@ class GFFollowerItemInfoViewController: GFItemInfoViewController {
         delegate?.didTapGetFollowers(for: user)
     }
     
+    
 }
 
 

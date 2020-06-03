@@ -36,7 +36,7 @@ class GFEmptyStateView: UIView {
         addSubview(messageLabel)
         
         let logoImageView = UIImageView()
-        logoImageView.image = UIImage(named: "empty-state-logo")
+        logoImageView.image = Images.emptyStateLogo
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(logoImageView)
         

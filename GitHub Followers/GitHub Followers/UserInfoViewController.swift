@@ -113,6 +113,7 @@ class UserInfoViewController: UIViewController {
     
 }
 
+
 extension UserInfoViewController: GFRepoInfoItemViewControllerDelegate {
     
     func didTapGitHubProfiles(for user: User) {
@@ -123,6 +124,7 @@ extension UserInfoViewController: GFRepoInfoItemViewControllerDelegate {
         presentSafariViewController(with: url)
     }
 }
+
 
 extension UserInfoViewController: GFFollowerItemInfoViewControllerDelegate {
     

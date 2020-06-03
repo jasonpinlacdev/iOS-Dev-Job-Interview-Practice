@@ -14,7 +14,7 @@ class FollowersViewController: UIViewController {
         case main
     }
     
-    var username: String!
+    var username: String
     var page = 1
     var followers = [Follower]()
     var filteredFollowers = [Follower]()
@@ -24,6 +24,16 @@ class FollowersViewController: UIViewController {
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     var searchController: UISearchController!
+    
+    
+    init(username: String) {
+        self.username = username
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
@@ -39,6 +49,7 @@ class FollowersViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        title = username
     }
     
     
@@ -100,7 +111,6 @@ class FollowersViewController: UIViewController {
     // MARK: - Private Section -
     
     private func configure() {
-        title = username
         view.backgroundColor = UIColor.systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped(_:)))
     }

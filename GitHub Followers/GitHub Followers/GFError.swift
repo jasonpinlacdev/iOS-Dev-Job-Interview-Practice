@@ -16,7 +16,5 @@ enum GFError: String, Error {
     case decodeError = "The data failed to decode correctly. Please try again."
     case unableToFavoriteError = "There was an error favoriting this user . Please try again."
     case alreadyFavoritedError = "This user is already a favorite."
-
-    
 }
 

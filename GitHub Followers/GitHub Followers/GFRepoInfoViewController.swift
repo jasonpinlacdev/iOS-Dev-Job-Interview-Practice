@@ -38,5 +38,6 @@ class GFRepoInfoItemViewController: GFItemInfoViewController {
     @objc func actionButtonTapped(_ sender: GFButton) {
         delegate?.didTapGitHubProfiles(for: user)
     }
+    
 }
 

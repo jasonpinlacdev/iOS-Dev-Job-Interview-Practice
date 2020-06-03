@@ -40,7 +40,9 @@ class GFHeaderInfoViewController: UIViewController {
         configureUIElements()
     }
     
+    
     // MARK: - Private Section -
+    
     
     private func addSubviews() {
         view.addSubview(avatarImageView)
@@ -106,21 +108,10 @@ class GFHeaderInfoViewController: UIViewController {
         usernameLabel.text = user.login
         realNameLabel.text = user.name ?? "Name not available"
         locationLabel.text = user.location ?? "Location not available"
-        locationImageView.image = UIImage(systemName: SFSymbols.location)
+        locationImageView.image = SFSymbolsImages.location
         locationImageView.tintColor = .secondaryLabel
         bioLabel.text = user.bio ?? " Biography not available."
         bioLabel.numberOfLines = 3
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }

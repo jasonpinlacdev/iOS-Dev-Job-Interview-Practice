@@ -36,19 +36,19 @@ class GFItemInfoView: UIView {
     func set(itemInfoType: ItemInfoType, withCount: Int) {
         switch itemInfoType {
         case .repos:
-            symbolImageView.image = UIImage(systemName: SFSymbols.folder)
+            symbolImageView.image = SFSymbolsImages.folder
             titleLabel.text = "Public Repos"
             countLabel.text = "\(withCount)"
         case .gists:
-            symbolImageView.image = UIImage(systemName: SFSymbols.textAlignLeft)
+            symbolImageView.image = SFSymbolsImages.textAlignLeft
             titleLabel.text = "Public Gists"
             countLabel.text = "\(withCount)"
         case .following:
-            symbolImageView.image = UIImage(systemName: SFSymbols.heart)
+            symbolImageView.image = SFSymbolsImages.heart
             titleLabel.text = "Following"
             countLabel.text = "\(withCount)"
         case .followers:
-            symbolImageView.image = UIImage(systemName: SFSymbols.persons)
+            symbolImageView.image = SFSymbolsImages.persons
             titleLabel.text = "Followers"
             countLabel.text = "\(withCount)"
         }

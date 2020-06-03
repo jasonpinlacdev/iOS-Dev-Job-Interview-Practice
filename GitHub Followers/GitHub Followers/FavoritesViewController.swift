@@ -57,8 +57,7 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let followersViewController = FollowersViewController()
-        followersViewController.username = favorites[indexPath.row].login
+        let followersViewController = FollowersViewController(username: favorites[indexPath.row].login)
         navigationController?.pushViewController(followersViewController, animated: true)
     }
 }
