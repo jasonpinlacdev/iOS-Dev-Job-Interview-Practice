@@ -18,7 +18,6 @@ class GFHeaderInfoViewController: UIViewController {
     var bioLabel = GFBodyLabel(textAlignment: .left)
     
     var user: User!
-    
     let mapPin = ""
     
     
@@ -35,7 +34,6 @@ class GFHeaderInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubviews()
         layoutUI()
         configureUIElements()
     }
@@ -43,20 +41,12 @@ class GFHeaderInfoViewController: UIViewController {
     
     // MARK: - Private Section -
     
-    
-    private func addSubviews() {
-        view.addSubview(avatarImageView)
-        view.addSubview(usernameLabel)
-        view.addSubview(realNameLabel)
-        view.addSubview(locationImageView)
-        view.addSubview(locationLabel)
-        view.addSubview(bioLabel)
-    }
-    
-    
+
     private func layoutUI() {
         let padding: CGFloat = 20
         let imagePadding: CGFloat = 12
+        
+        view.addSubViews(avatarImageView, usernameLabel, realNameLabel, locationImageView, locationLabel, bioLabel)
         
         locationImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -94,7 +84,7 @@ class GFHeaderInfoViewController: UIViewController {
             bioLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: imagePadding),
             bioLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bioLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bioLabel.heightAnchor.constraint(equalToConstant: 60)
+            bioLabel.heightAnchor.constraint(equalToConstant: 90)
         ])
     }
     

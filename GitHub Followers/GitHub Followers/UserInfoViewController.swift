@@ -13,10 +13,13 @@ protocol UserInfoViewControllerDelegate: class {
 }
 
 
-class UserInfoViewController: UIViewController {
+class UserInfoViewController: GFDataLoadingViewController {
     
     var username: String!
     weak var delegate: UserInfoViewControllerDelegate?
+    
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     
     let headerContainerView = UIView()
     let itemOneContainerView = UIView()
@@ -28,13 +31,16 @@ class UserInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        configureScrollView()
         layoutUI()
         getUser()
     }
     
     
     func getUser() {
+        showLoadingView()
         NetworkManager.shared.getUser(username: username) { result in
+            self.dismissLoadingView()
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
@@ -56,6 +62,21 @@ class UserInfoViewController: UIViewController {
     }
     
     
+    private func configureScrollView() {
+        view.addSubview(scrollView)
+        scrollView.pinToEdges(of: view)
+        scrollView.addSubview(contentView)
+        contentView.pinToEdges(of: scrollView)
+        
+        // quirk of the content view. it needs more than 4 anchor constraints to satisfy its autolayout. an explicit width and height of how much area you can scroll
+
+        NSLayoutConstraint.activate([
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 500),
+        ])
+    }
+    
+    
     private func layoutUI() {
         let padding: CGFloat = 20
         let itemHeight: CGFloat = 140
@@ -64,37 +85,37 @@ class UserInfoViewController: UIViewController {
         
         for view in itemViews {
             view.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addSubview(view)
+            contentView.addSubview(view)
             NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
-                view.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+                view.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+                view.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             ])
         }
         
         NSLayoutConstraint.activate([
-            headerContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerContainerView.heightAnchor.constraint(equalToConstant: 180),
+            headerContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            headerContainerView.heightAnchor.constraint(equalToConstant: 200),
             itemOneContainerView.topAnchor.constraint(equalTo: headerContainerView.bottomAnchor, constant: padding),
             itemOneContainerView.heightAnchor.constraint(equalToConstant: itemHeight),
             itemTwoContainerView.topAnchor.constraint(equalTo: itemOneContainerView.bottomAnchor, constant: padding),
             itemTwoContainerView.heightAnchor.constraint(equalToConstant: itemHeight),
-            dateLabel.topAnchor.constraint(equalTo: itemTwoContainerView.bottomAnchor, constant: padding),
-            dateLabel.heightAnchor.constraint(equalToConstant: 18),
+            dateLabel.topAnchor.constraint(equalTo: itemTwoContainerView.bottomAnchor, constant: 10),
+            dateLabel.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     
     
     private func configureUIElements(user: User) {
-        let gfRepoInfoItemViewController = GFRepoInfoItemViewController(user: user)
-        gfRepoInfoItemViewController.delegate = self
+        //        let gfRepoInfoItemViewController = GFRepoInfoItemViewController(user: user)
+        //        gfRepoInfoItemViewController.delegate = self
         
-        let gfFollowerItemInfoViewController = GFFollowerItemInfoViewController(user: user)
-        gfFollowerItemInfoViewController.delegate = self
+        //        let gfFollowerItemInfoViewController = GFFollowerItemInfoViewController(user: user)
+        //        gfFollowerItemInfoViewController.delegate = self
         
         self.add(childViewController: GFHeaderInfoViewController(user: user), to: self.headerContainerView)
-        self.add(childViewController: gfRepoInfoItemViewController, to: self.itemOneContainerView)
-        self.add(childViewController: gfFollowerItemInfoViewController, to: self.itemTwoContainerView)
-        let dateString = user.createdAt.convertToDateObject()?.convertToMMMdYYYYStringFormat() ?? "N/A"
+        self.add(childViewController: GFRepoInfoItemViewController(user: user, delegate: self), to: self.itemOneContainerView)
+        self.add(childViewController: GFFollowerItemInfoViewController(user: user, delegate: self), to: self.itemTwoContainerView)
+        let dateString = user.createdAt.convertToMMMdYYYYStringFormat()
         self.dateLabel.text = "GitHub since \(dateString)"
     }
     
@@ -110,7 +131,6 @@ class UserInfoViewController: UIViewController {
     @objc func doneButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
-    
 }
 
 

@@ -22,6 +22,7 @@ class GFFavoriteTableViewCell: UITableViewCell {
         layoutUI()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -29,11 +30,9 @@ class GFFavoriteTableViewCell: UITableViewCell {
     
     func set(favorite: Follower) {
         usernameLabel.text = favorite.login
-        NetworkManager.shared.getAvatarImage(from: favorite.avatarURL) { image in
+        NetworkManager.shared.getAvatarImage(from: favorite.avatarURL) { avatarImage in
             DispatchQueue.main.async {
-                if let avatarImage = image {
-                    self.avatarImageView.image = avatarImage
-                }
+                self.avatarImageView.image = avatarImage
             }
         }
     }
@@ -65,5 +64,4 @@ class GFFavoriteTableViewCell: UITableViewCell {
             usernameLabel.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
-    
 }

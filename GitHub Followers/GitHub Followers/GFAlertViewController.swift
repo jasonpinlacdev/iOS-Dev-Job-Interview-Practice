@@ -20,6 +20,7 @@ class GFAlertViewController: UIViewController {
     private let buttonTitle: String?
     private let padding: CGFloat = 20.0
     
+    
     init(alertTitle: String, alertMessage: String, buttonTitle: String) {
         self.alertTitle = alertTitle
         self.alertMessage = alertMessage
@@ -35,7 +36,8 @@ class GFAlertViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.75)
+//        view.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.75)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         configureContainerView()
         configureTitleLabel()
         configureMessageLabel()

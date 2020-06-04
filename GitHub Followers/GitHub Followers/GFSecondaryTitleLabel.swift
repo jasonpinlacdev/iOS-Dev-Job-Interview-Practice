@@ -22,9 +22,8 @@ class GFSecondaryTitleLabel: UILabel {
     }
     
     
-    init(fontSize: CGFloat) {
-        super.init(frame: .zero)
-        configure()
+    convenience init(fontSize: CGFloat) {
+        self.init(frame: .zero)
         font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
     }
     
@@ -40,5 +39,4 @@ class GFSecondaryTitleLabel: UILabel {
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
 }

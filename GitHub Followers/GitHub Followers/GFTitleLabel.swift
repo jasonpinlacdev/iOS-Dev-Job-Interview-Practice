@@ -22,9 +22,8 @@ class GFTitleLabel: UILabel {
     }
     
     
-    init(textAlignment: NSTextAlignment, size: CGFloat) {
-        super.init(frame: .zero)
-        configure()
+    convenience init(textAlignment: NSTextAlignment, size: CGFloat) {
+        self.init(frame: .zero)
         self.textAlignment = textAlignment
         self.font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.bold)
     }
@@ -40,5 +39,4 @@ class GFTitleLabel: UILabel {
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
 }

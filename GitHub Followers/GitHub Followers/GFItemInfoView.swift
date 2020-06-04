@@ -22,6 +22,7 @@ class GFItemInfoView: UIView {
     var titleLabel = GFTitleLabel(textAlignment: .left, size: 14)
     var countLabel = GFTitleLabel(textAlignment: .center, size: 14)
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -57,10 +58,9 @@ class GFItemInfoView: UIView {
     
     // MARK: - Private Section -
     
+    
     private func configure() {
-        addSubview(symbolImageView)
-        addSubview(titleLabel)
-        addSubview(countLabel)
+        addSubViews(symbolImageView, titleLabel, countLabel)
         
         symbolImageView.translatesAutoresizingMaskIntoConstraints = false
         symbolImageView.contentMode = .scaleAspectFill
@@ -83,7 +83,4 @@ class GFItemInfoView: UIView {
             countLabel.heightAnchor.constraint(equalToConstant: 18.0),
         ])
     }
-    
-    
-    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController {
+class FavoritesViewController: GFDataLoadingViewController {
     
     let tableView = UITableView()
     var favorites = [Follower]()
@@ -26,11 +26,12 @@ class FavoritesViewController: UIViewController {
     
     // MARK: - Private Section -
     
+    
     private func getFavorites() {
         PersistenceManager.retrieveFavorites { result in
             switch result {
             case .success(let favorites):
-                guard !favorites.isEmpty else { self.showEmptyStateView(with: "There are no users favorited.", in: self.view); return}
+                guard !favorites.isEmpty else { self.showEmptyStateView(with: "There are no users favorited. Go add some 😉!", in: self.view); return}
                 self.favorites = favorites
                 self.tableView.reloadData()
                 self.view.bringSubviewToFront(self.tableView)
@@ -48,6 +49,7 @@ class FavoritesViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(GFFavoriteTableViewCell.self, forCellReuseIdentifier: GFFavoriteTableViewCell.reuseID)
+        tableView.removeExcessCells()
         
     }
     
@@ -81,16 +83,18 @@ extension FavoritesViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let favoriteToRemove = favorites[indexPath.row]
-            favorites.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            PersistenceManager.updateWith(favorite: favoriteToRemove, actionType: .remove) { error in
-                if let error = error {
-                    self.presentGFAlertOnMainThread(title: "Failed to Remove", message: error.rawValue, buttonTitle: "Dismiss")
-                }
+        guard editingStyle == .delete else { return }
+        
+        let favoriteToRemove = favorites[indexPath.row]
+        
+        PersistenceManager.updateWith(favorite: favoriteToRemove, actionType: .remove) { error in
+            guard let error = error else {
+                self.favorites.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                return
             }
+            self.presentGFAlertOnMainThread(title: "Failed to Remove", message: error.rawValue, buttonTitle: "Dismiss")
         }
     }
-    
 }
+

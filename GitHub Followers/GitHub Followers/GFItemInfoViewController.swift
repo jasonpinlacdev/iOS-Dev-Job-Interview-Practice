@@ -18,6 +18,7 @@ class GFItemInfoViewController: UIViewController {
     
     var user: User!
     
+    
     init(user: User) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
@@ -57,8 +58,7 @@ class GFItemInfoViewController: UIViewController {
     private func layoutUI() {
         let padding: CGFloat = 20.0
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(stackView)
-        view.addSubview(actionButton)
+        view.addSubViews(stackView, actionButton)
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
@@ -72,6 +72,4 @@ class GFItemInfoViewController: UIViewController {
             actionButton.heightAnchor.constraint(equalToConstant: 44.0),
         ])
     }
-    
-    
 }

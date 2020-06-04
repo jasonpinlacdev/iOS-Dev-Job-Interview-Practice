@@ -9,7 +9,7 @@
 import UIKit
 
 class NetworkManager {
-
+    
     static let shared = NetworkManager()
     
     private let apiToken = "656badfe5bd279b3947e11f502d350ca6d01a7ef"
@@ -17,6 +17,7 @@ class NetworkManager {
     private let perPage = 100
     
     private let avatarImageCache = NSCache<NSString, UIImage>()
+    
     
     func getFollowers(username: String, page: Int, completionHandler: @escaping (Result<[Follower], GFError>) -> Void) {
         let endpoint = baseURL + "/users/\(username)/followers?page=\(page)&per_page=\(perPage)"
@@ -27,7 +28,7 @@ class NetworkManager {
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.addValue("token \(apiToken)", forHTTPHeaderField: "Authorization")
-
+        
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             // check error
             if let _ = error {
@@ -35,11 +36,6 @@ class NetworkManager {
                 return
             }
             
-            
-//            if let r = response as? HTTPURLResponse {
-//                print(r)
-//
-//            }
             // check reponse
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)  else {
                 completionHandler(.failure(.serverError))
@@ -79,10 +75,20 @@ class NetworkManager {
             return
         }
         
-        var urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: url) 
         urlRequest.addValue("token \(apiToken)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            
+//            guard error == nil,
+//                let response = response as? HTTPURLResponse, response.statusCode == 200,
+//                let data = data,
+//                let image = UIImage(data: data)
+//                else {
+//                    completionHandler(nil)
+//                    return
+//            }
+
             if let _ = error {
                 completionHandler(nil)
                 return
@@ -135,7 +141,9 @@ class NetworkManager {
             }
             
             do {
-                let user = try JSONDecoder().decode(User.self, from: data)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let user = try decoder.decode(User.self, from: data)
                 completionHandler(.success(user))
             } catch {
                 completionHandler(.failure(.decodeError))

@@ -11,44 +11,53 @@ import UIKit
 class GFEmptyStateView: UIView {
     
     let messageLabel = GFBodyLabel(textAlignment: .center)
+    let logoImageView = UIImageView()
     
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUIElements()
+        layoutUI()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(message: String) {
-        super.init(frame: .zero)
+    
+    convenience init(message: String) {
+        self.init(frame: .zero)
         messageLabel.text = message
-        configure()
     }
+    
     
     // MARK: - Private Section -
     
-    private func configure() {
-        messageLabel.font = UIFont.systemFont(ofSize: 24, weight: .regular)
-        messageLabel.numberOfLines = 0
-        addSubview(messageLabel)
+    
+    private func configureUIElements() {
+        addSubViews(messageLabel, logoImageView)
         
-        let logoImageView = UIImageView()
+        messageLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        messageLabel.numberOfLines = 3
+        
         logoImageView.image = Images.emptyStateLogo
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(logoImageView)
+    }
+    
+    
+    private func layoutUI() {
+        let centerYAnchorConstraintConstant: CGFloat = DeviceType.isiPhoneSE || DeviceType.isiPhone8Zoomed ? -140 : -175
         
         NSLayoutConstraint.activate([
-            messageLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor, constant: -150),
+            messageLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor, constant: centerYAnchorConstraintConstant),
             messageLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 40),
             messageLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -40),
             
             logoImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 1.3),
             logoImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 1.3),
-            logoImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 180),
-            logoImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 140)
+            logoImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 170),
+            logoImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 100)
         ])
     }
 }

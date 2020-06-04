@@ -15,9 +15,20 @@ protocol GFFollowerItemInfoViewControllerDelegate: class {
 
 class GFFollowerItemInfoViewController: GFItemInfoViewController {
         
-    weak var delegate: GFFollowerItemInfoViewControllerDelegate?
+    weak var delegate: GFFollowerItemInfoViewControllerDelegate!
     
-
+    
+    init(user: User, delegate: GFFollowerItemInfoViewControllerDelegate) {
+        self.delegate = delegate
+        super.init(user: user)
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
          super.viewDidLoad()
          configureItems()
@@ -38,8 +49,6 @@ class GFFollowerItemInfoViewController: GFItemInfoViewController {
     @objc func actionbuttonTapped(_ sender: GFButton) {
         delegate?.didTapGetFollowers(for: user)
     }
-    
-    
 }
 
 

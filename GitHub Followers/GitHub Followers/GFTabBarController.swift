@@ -46,6 +46,4 @@ class GFTabBarController: UITabBarController {
         favoritesNavController.navigationBar.prefersLargeTitles = true
         return favoritesNavController
     }
-    
-    
 }

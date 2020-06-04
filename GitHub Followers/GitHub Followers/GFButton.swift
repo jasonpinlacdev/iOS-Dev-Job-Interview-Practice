@@ -21,9 +21,8 @@ class GFButton: UIButton {
     }
     
     
-    init(backgroundColor: UIColor, title: String) {
-        super.init(frame: .zero)
-        configure()
+    convenience init(backgroundColor: UIColor, title: String) {
+        self.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
     }
@@ -44,5 +43,4 @@ class GFButton: UIButton {
         titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
 }

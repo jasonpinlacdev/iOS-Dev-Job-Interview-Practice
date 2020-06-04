@@ -10,6 +10,7 @@ import Foundation
 
 
 struct User: Codable {
+    
     let login: String
     let avatarURL: String
     let htmlURL: String
@@ -20,7 +21,7 @@ struct User: Codable {
     let publicGists: Int
     let following: Int
     let followers: Int
-    let createdAt: String
+    let createdAt: Date
     
     
     enum CodingKeys: String, CodingKey {
@@ -36,7 +37,6 @@ struct User: Codable {
         case followers
         case createdAt = "created_at"
     }
-    
 }
 
 

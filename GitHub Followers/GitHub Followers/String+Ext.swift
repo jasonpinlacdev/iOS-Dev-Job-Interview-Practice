@@ -18,5 +18,4 @@ extension String {
         formatter.timeZone = .current
         return formatter.date(from: self)
     }
-
 }

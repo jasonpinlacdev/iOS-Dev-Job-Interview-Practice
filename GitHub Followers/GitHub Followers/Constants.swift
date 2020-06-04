@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 enum SFSymbolsImages {
     static let location = UIImage(systemName: "mappin.and.ellipse")
     static let folder = UIImage(systemName: "folder")
@@ -16,6 +15,7 @@ enum SFSymbolsImages {
     static let heart = UIImage(systemName: "heart")
     static let persons = UIImage(systemName: "person.2")
 }
+
 
 enum Images {
     static let avatarPlaceholder = UIImage(named: "avatar-placeholder")
