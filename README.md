@@ -11,6 +11,7 @@ No 3rd party libraries are used for this project. Understanding the trade offs b
 # Details of the project
 * Proper project organization adhering as close as possible to the MVC architecture.
 * Having the applications models conform to the Codable protocol for setting up JSON parsing.
+* A NetworkManager class created to handle and manage all the funcationality for requests to the API endpoints.
 * Proper memory management using capture lists, weak, etc. correctly.
 * Image caching to reduce the number of network calls made.
 * Pagination of network calls to retrieve sets of GitHub followers of a user as needed.
