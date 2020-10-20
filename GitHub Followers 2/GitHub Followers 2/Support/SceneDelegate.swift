@@ -17,9 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = configureRootViewController()
+        window?.rootViewController = createRootViewController()
         window?.makeKeyAndVisible()
-        
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -50,13 +49,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     
-    private func configureRootViewController() -> UITabBarController {
+    private func createRootViewController() -> UITabBarController {
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([configureSearchController(), configureFavoritesController()], animated: true)
+        tabBarController.setViewControllers([createSearchController(), createFavoritesController()], animated: true)
+        UITabBar.appearance().tintColor = .systemGreen
         return tabBarController
     }
     
-    private func configureSearchController() -> UINavigationController {
+    private func createSearchController() -> UINavigationController {
         let searchViewController = SearchController()
         searchViewController.title = "Search"
         searchViewController.view.backgroundColor = UIColor.systemBlue
@@ -65,13 +65,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return searchNavigationController
     }
     
-    private func configureFavoritesController() -> UINavigationController {
-        let followersViewController = FavoritesController()
-        followersViewController.title = "Followers"
+    private func createFavoritesController() -> UINavigationController {
+        let favoritesViewController = FavoritesController()
+        favoritesViewController.title = "Followers"
         let tabBarItem = UITabBarItem(title: "Followers", image: UIImage(systemName: "person.crop.circle"), tag: 1)
-        followersViewController.tabBarItem = tabBarItem
-        followersViewController.view.backgroundColor = UIColor.systemPink
-        let followersNavigationController = UINavigationController(rootViewController: followersViewController)
+        favoritesViewController.tabBarItem = tabBarItem
+        favoritesViewController.view.backgroundColor = UIColor.systemPink
+        let followersNavigationController = UINavigationController(rootViewController: favoritesViewController)
         return followersNavigationController
     }
     

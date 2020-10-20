@@ -13,6 +13,7 @@
 		E126D44D253974BD00ECA5FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E126D44B253974BD00ECA5FA /* LaunchScreen.storyboard */; };
 		E126D45F253ABA9700ECA5FA /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126D45E253ABA9700ECA5FA /* SearchController.swift */; };
 		E126D463253ABAA600ECA5FA /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126D462253ABAA600ECA5FA /* FavoritesController.swift */; };
+		E126D466253EAA2900ECA5FA /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126D465253EAA2900ECA5FA /* GFButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		E126D44E253974BD00ECA5FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E126D45E253ABA9700ECA5FA /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		E126D462253ABAA600ECA5FA /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
+		E126D465253EAA2900ECA5FA /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		E126D459253ABA5800ECA5FA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E126D465253EAA2900ECA5FA /* GFButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E126D441253974B900ECA5FA /* AppDelegate.swift in Sources */,
+				E126D466253EAA2900ECA5FA /* GFButton.swift in Sources */,
 				E126D443253974B900ECA5FA /* SceneDelegate.swift in Sources */,
 				E126D45F253ABA9700ECA5FA /* SearchController.swift in Sources */,
 				E126D463253ABAA600ECA5FA /* FavoritesController.swift in Sources */,
