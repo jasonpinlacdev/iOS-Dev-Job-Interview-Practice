@@ -10,23 +10,32 @@ import UIKit
 final class GFButton: UIButton {
     
     let title: String
-    let color: UIColor
+    let buttonColor: UIColor
     
-    init(title: String, color: UIColor) {
+    override var isHighlighted: Bool {
+        didSet {
+            self.titleLabel?.alpha = (isHighlighted && self.titleLabel != nil) ? 0.25 : 1.0
+        }
+    }
+    
+    init(title: String, buttonColor: UIColor) {
         self.title = title
-        self.color = color
+        self.buttonColor = buttonColor
         super.init(frame: .zero)
-        configureButton()
- 
+        configure()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureButton() {
-        self.titleLabel?.text = title
-        self.backgroundColor = color
+    private func configure() {
+        layer.cornerRadius = 10.0
+        backgroundColor = buttonColor
+        setTitle(title, for: .normal)
+        setTitleColor(.label, for: .normal)
+        titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
 }
