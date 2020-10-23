@@ -22,7 +22,7 @@ class GFTextField: UITextField {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10.0
         layer.borderWidth = 2
-        layer.borderColor = UIColor.systemGray.cgColor
+        layer.borderColor = UIColor.systemGray3.cgColor
         backgroundColor = .tertiarySystemGroupedBackground
         textColor = .label
         textAlignment = .center
@@ -31,6 +31,7 @@ class GFTextField: UITextField {
         minimumFontSize = 10.0
         autocorrectionType = .no
         placeholder = "Enter a username"
+        returnKeyType = .search
     }
     
 }

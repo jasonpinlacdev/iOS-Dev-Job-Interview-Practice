@@ -59,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func createSearchController() -> UINavigationController {
         let searchViewController = SearchController()
         searchViewController.title = "Search"
-        searchViewController.view.backgroundColor = UIColor.systemBlue
+        searchViewController.view.backgroundColor = .systemBackground
         searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         let searchNavigationController = UINavigationController(rootViewController: searchViewController)
         return searchNavigationController
@@ -70,7 +70,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         favoritesViewController.title = "Followers"
         let tabBarItem = UITabBarItem(title: "Followers", image: UIImage(systemName: "person.crop.circle"), tag: 1)
         favoritesViewController.tabBarItem = tabBarItem
-        favoritesViewController.view.backgroundColor = UIColor.systemPink
+        favoritesViewController.view.backgroundColor = .systemBackground
         let followersNavigationController = UINavigationController(rootViewController: favoritesViewController)
         return followersNavigationController
     }
