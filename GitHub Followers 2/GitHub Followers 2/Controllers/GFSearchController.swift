@@ -1,6 +1,8 @@
 import UIKit
 
-class SearchController: UIViewController {
+class GFSearchController: UIViewController {
+    
+
     
     let logoImageView: UIImageView = {
         let logoImageView = UIImageView(image: UIImage(named: "gh-logo"))
@@ -10,26 +12,46 @@ class SearchController: UIViewController {
     let usernameTextField = GFTextField()
     let searchButton = GFButton(title: "Get Followers", buttonColor: .systemGreen)
 
-
+    var usernameIsValid: Bool {
+        get {
+            guard let username = usernameTextField.text,
+                  !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            else { return false }
+            return true
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutUI()
         configure()
+        layoutUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
-    private func configure() {
-        usernameTextField.delegate = self
-        let tapOnView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnViewTap))
-        view.addGestureRecognizer(tapOnView)
+
+    @objc func searchButtonTapped() {
+        guard let username = usernameTextField.text, usernameIsValid else {
+            presentAlert(alertTitle: "Empty Username", alertMessage: "Please enter a valid username. We need to know who to look for.", alertButtonTitle: "Dismiss")
+            return }
+        navigationController?.pushViewController(GFFollowersController(username: username), animated: true)
     }
     
     @objc private func dismissKeyboardOnViewTap() {
         view.endEditing(true)
+    }
+    
+    
+    // MARK: - Configuration and Layout Logic -
+   
+    private func configure() {
+        usernameTextField.delegate = self
+        let tapOnView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnViewTap))
+        view.addGestureRecognizer(tapOnView)
+        searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
     }
     
     private func layoutUI() {
@@ -54,11 +76,9 @@ class SearchController: UIViewController {
             searchButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -75),
         ])
     }
-    
-    
 }
 
-extension SearchController: UITextFieldDelegate {
+extension GFSearchController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }

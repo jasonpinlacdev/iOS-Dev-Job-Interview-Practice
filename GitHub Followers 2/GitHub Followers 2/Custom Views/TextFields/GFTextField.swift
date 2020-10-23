@@ -1,10 +1,3 @@
-//
-//  GFTextField.swift
-//  GitHub Followers 2
-//
-//  Created by Jason Pinlac on 10/20/20.
-//
-
 import UIKit
 
 class GFTextField: UITextField {
@@ -31,7 +24,7 @@ class GFTextField: UITextField {
         minimumFontSize = 10.0
         autocorrectionType = .no
         placeholder = "Enter a username"
-        returnKeyType = .search
+        returnKeyType = .done
     }
     
 }

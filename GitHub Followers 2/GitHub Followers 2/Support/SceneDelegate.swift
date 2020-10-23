@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  GitHub Followers 2
-//
-//  Created by Jason Pinlac on 10/16/20.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -50,25 +43,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func createRootViewController() -> UITabBarController {
+        UITabBar.appearance().tintColor = .systemGreen
+        UINavigationBar.appearance().tintColor = .systemGreen
+        
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([createSearchController(), createFavoritesController()], animated: true)
-        UITabBar.appearance().tintColor = .systemGreen
         return tabBarController
     }
     
     private func createSearchController() -> UINavigationController {
-        let searchViewController = SearchController()
+        let searchViewController = GFSearchController()
         searchViewController.title = "Search"
         searchViewController.view.backgroundColor = .systemBackground
         searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         let searchNavigationController = UINavigationController(rootViewController: searchViewController)
+        searchNavigationController.navigationBar.prefersLargeTitles = true
         return searchNavigationController
     }
     
     private func createFavoritesController() -> UINavigationController {
-        let favoritesViewController = FavoritesController()
-        favoritesViewController.title = "Followers"
-        let tabBarItem = UITabBarItem(title: "Followers", image: UIImage(systemName: "person.crop.circle"), tag: 1)
+        let favoritesViewController = GFFavoritesController()
+        favoritesViewController.title = "Favorites"
+        let tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "person.crop.circle"), tag: 1)
         favoritesViewController.tabBarItem = tabBarItem
         favoritesViewController.view.backgroundColor = .systemBackground
         let followersNavigationController = UINavigationController(rootViewController: favoritesViewController)

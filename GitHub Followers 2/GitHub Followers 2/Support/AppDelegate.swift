@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  GitHub Followers 2
-//
-//  Created by Jason Pinlac on 10/16/20.
-//
-
 import UIKit
 
 @main
