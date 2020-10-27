@@ -2,8 +2,6 @@ import UIKit
 
 class GFSearchController: UIViewController {
     
-
-    
     let logoImageView: UIImageView = {
         let logoImageView = UIImageView(image: UIImage(named: "gh-logo"))
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +18,6 @@ class GFSearchController: UIViewController {
             return true
         }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

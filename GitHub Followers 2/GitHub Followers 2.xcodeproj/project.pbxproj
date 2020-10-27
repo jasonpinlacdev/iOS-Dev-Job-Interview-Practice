@@ -23,6 +23,8 @@
 		E1E3E484254362AF00736110 /* GFAlertContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E3E483254362AF00736110 /* GFAlertContainer.swift */; };
 		E1E3E487254365DA00736110 /* GFAlertVerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E3E486254365D900736110 /* GFAlertVerticalStackView.swift */; };
 		E1E3E48C25436F6200736110 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E3E48B25436F6200736110 /* UIViewController+Ext.swift */; };
+		E1E3E4902548912C00736110 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E3E48F2548912C00736110 /* Follower.swift */; };
+		E1E3E4942548965400736110 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E3E4932548965400736110 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		E1E3E483254362AF00736110 /* GFAlertContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAlertContainer.swift; sourceTree = "<group>"; };
 		E1E3E486254365D900736110 /* GFAlertVerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAlertVerticalStackView.swift; sourceTree = "<group>"; };
 		E1E3E48B25436F6200736110 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		E1E3E48F2548912C00736110 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
+		E1E3E4932548965400736110 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 		E126D458253ABA5500ECA5FA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E1E3E48F2548912C00736110 /* Follower.swift */,
+				E1E3E4932548965400736110 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -255,8 +261,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1E3E487254365DA00736110 /* GFAlertVerticalStackView.swift in Sources */,
+				E1E3E4902548912C00736110 /* Follower.swift in Sources */,
 				E1E3E424253FDF5E00736110 /* GFTextField.swift in Sources */,
 				E1E3E48C25436F6200736110 /* UIViewController+Ext.swift in Sources */,
+				E1E3E4942548965400736110 /* User.swift in Sources */,
 				E126D441253974B900ECA5FA /* AppDelegate.swift in Sources */,
 				E1E3E46D2542775E00736110 /* GFFollowersController.swift in Sources */,
 				E1E3E47325434B3300736110 /* GFAlertController.swift in Sources */,
