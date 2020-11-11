@@ -17,7 +17,7 @@ class GFAlertController: UIViewController {
     lazy var alertTitleLabel = GFTitleLabel(text: alertTitle)
     lazy var alertMessageLabel = GFBodyLabel(text: alertMessage)
     lazy var alertButton = GFButton(title: alertButtonTitle, buttonColor: .systemPink)
-    lazy var verticalStackView = GFAlertVerticalStackView(arrangedSubviews: [alertTitleLabel, alertMessageLabel, alertButton])
+    lazy var verticalStackView = GFAlertStackView(arrangedSubviews: [alertTitleLabel, alertMessageLabel, alertButton])
      
     init(alertTitle: String, alertMessage: String, alertButtonTitle: String) {
         self.alertTitle = alertTitle

@@ -7,12 +7,10 @@
 
 import UIKit
 
-
 extension UIView {
     
     func turnOnRedBorder() {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.systemRed.cgColor
     }
-    
 }

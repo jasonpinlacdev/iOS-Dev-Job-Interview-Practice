@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  GFUser.swift
 //  GitHub Followers 2
 //
 //  Created by Jason Pinlac on 10/27/20.
@@ -8,6 +8,8 @@
 import Foundation
 
 struct GFUser: Codable {
+
+    let identifier = UUID().uuidString
     
     let login: String
     let avatarURL: String
@@ -34,5 +36,16 @@ struct GFUser: Codable {
         case following
         case followers
         case createdAt = "created_at"
+    }
+}
+
+
+extension GFUser: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
+    static func ==(lhs: GFUser, rhs: GFUser) -> Bool {
+        return lhs.login == rhs.login
     }
 }

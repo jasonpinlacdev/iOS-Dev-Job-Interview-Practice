@@ -1,3 +1,10 @@
+//
+//  GFTitleLabel.swift
+//  GitHub Followers 2
+//
+//  Created by Jason Pinlac on 10/23/20.
+//
+
 import UIKit
 
 class GFTitleLabel: UILabel {
@@ -17,5 +24,7 @@ class GFTitleLabel: UILabel {
         textAlignment = .center
         textColor = .label
         translatesAutoresizingMaskIntoConstraints = false
+        adjustsFontSizeToFitWidth = true
+        minimumScaleFactor = 0.75
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GFAlertVerticalStackView: UIStackView {
+class GFAlertStackView: UIStackView {
 
     init(arrangedSubviews: [UIView]) {
         super.init(frame: .zero)

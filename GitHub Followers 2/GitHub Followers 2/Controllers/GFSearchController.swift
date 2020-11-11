@@ -1,15 +1,22 @@
+//
+//  GFSearchController.swift
+//  GitHub Followers 2
+//
+//  Created by Jason Pinlac on 10/23/20.
+//
+
 import UIKit
 
 class GFSearchController: UIViewController {
     
     let logoImageView: UIImageView = {
-        let logoImageView = UIImageView(image: UIImage(named: "gh-logo"))
+        let logoImageView = UIImageView(image: UIImage(named: GFImage.ghLogo.rawValue))
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         return logoImageView
     }()
     let usernameTextField = GFTextField()
     let searchButton = GFButton(title: "Get Followers", buttonColor: .systemGreen)
-
+    
     var usernameIsValid: Bool {
         get {
             guard let username = usernameTextField.text,
@@ -27,14 +34,27 @@ class GFSearchController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
-
+    
     @objc func searchButtonTapped() {
-        guard let username = usernameTextField.text, usernameIsValid else {
+        guard usernameIsValid, let username = usernameTextField.text else {
             presentAlert(alertTitle: "Empty Username", alertMessage: "Please enter a valid username. We need to know who to look for.", alertButtonTitle: "Dismiss")
-            return }
-        navigationController?.pushViewController(GFFollowersController(username: username), animated: true)
+            return
+        }
+        
+        GFNetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+            case .success(let followers):
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(GFFollowersController(username: username, followers: followers), animated: true)
+                }
+            }
+            
+            
+        }
     }
     
     @objc private func dismissKeyboardOnViewTap() {
@@ -43,7 +63,7 @@ class GFSearchController: UIViewController {
     
     
     // MARK: - Configuration and Layout Logic -
-   
+    
     private func configure() {
         usernameTextField.delegate = self
         let tapOnView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnViewTap))
@@ -66,7 +86,7 @@ class GFSearchController: UIViewController {
             usernameTextField.heightAnchor.constraint(equalTo: usernameTextField.widthAnchor, multiplier: 0.175),
             usernameTextField.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
             usernameTextField.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-
+            
             searchButton.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.75),
             searchButton.heightAnchor.constraint(equalTo: searchButton.widthAnchor, multiplier: 0.175),
             searchButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),

@@ -8,7 +8,7 @@
 import UIKit
 
 class GFAlertContainer: UIView {
-    
+
     init() {
         super.init(frame: .zero)
         configure()
