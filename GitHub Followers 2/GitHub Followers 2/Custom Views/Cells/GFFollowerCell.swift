@@ -22,6 +22,16 @@ class GFFollowerCell: UICollectionViewCell {
     
     func set(follower: GFFollower) {
         usernameLabel.text = follower.login
+        GFNetworkManager.shared.downloadImage(urlString: follower.avatarURL) { [weak self] result in
+            switch result {
+            case .failure:
+                break
+            case .success(let image):
+                DispatchQueue.main.async {
+                    self?.avatarImageView.image = image
+                }
+            }
+        }
     }
     
     required init?(coder: NSCoder) {

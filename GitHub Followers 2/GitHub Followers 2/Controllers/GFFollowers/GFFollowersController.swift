@@ -14,7 +14,7 @@ class GFFollowersController: UIViewController {
     
     var collectionView: UICollectionView!
     var diffableDatasource: GFFollowersDataSource!
-    var delegate = GFFollowersDelegate()
+    lazy var delegate = GFFollowersDelegate()
     
     init(username: String, followers: [GFFollower]) {
         self.username = username
@@ -57,8 +57,8 @@ class GFFollowersController: UIViewController {
             cell.set(follower: follower)
             return cell
         })
-        
         diffableDatasource.updateDataSource(with: followers)
+        delegate.dataSource = diffableDatasource
     }
     
 

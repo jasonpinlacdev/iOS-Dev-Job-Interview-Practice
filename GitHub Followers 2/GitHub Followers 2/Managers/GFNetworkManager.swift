@@ -5,8 +5,7 @@
 //  Created by Jason Pinlac on 10/27/20.
 //
 
-import Foundation
-
+import UIKit
 
 class GFNetworkManager {
     
@@ -14,6 +13,8 @@ class GFNetworkManager {
     
     private let session = URLSession.shared
     private let baseURL = "https://api.github.com"
+    
+    private let cache = NSCache<NSString, UIImage>()
     
     private init() { }
     
@@ -97,6 +98,45 @@ class GFNetworkManager {
         task.resume()
     }
     
-    
+    func downloadImage(urlString: String, completionHandler: @escaping (Result<UIImage, GFError>) -> Void) {
+        // check cache first
+        if let image = cache.object(forKey: NSString(string: urlString)) {
+            completionHandler(.success(image))
+            print("found image in the cache")
+            return
+        }
+        
+        // if it doesn't exist then go ahead and create datatask to download the image
+        guard let url = URL(string: urlString) else {
+            completionHandler(.failure(.URLError))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            if error != nil {
+                completionHandler(.failure(.clientError))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                completionHandler(.failure(.serverError))
+                return
+            }
+            
+            guard let data = data else {
+                completionHandler(.failure(.dataError))
+                return
+            }
+            
+            guard let image = UIImage(data: data) else {
+                completionHandler(.failure(.dataError))
+                return
+            }
+            self?.cache.setObject(image, forKey: NSString(string: urlString))
+            print("set image to cache")
+            completionHandler(.success(image))
+        }
+        task.resume()
+    }
     
 }
