@@ -21,7 +21,6 @@ class GFFollowerCellUsernameLabel: UILabel {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         setContentHuggingPriority(.defaultHigh, for: .vertical)
-        
         textAlignment = .center
         textColor = .label
         font = UIFont.systemFont(ofSize: 16.0)

@@ -11,7 +11,7 @@ class GFFollowerCell: UICollectionViewCell {
     
     static let reuseIdentifier = String(describing: GFFollowerCell.self)
     
-    let avatarImageView = GFFollowerCellAvatarImageView()
+    let avatarImageView = GFAvatarImageView()
     let usernameLabel = GFFollowerCellUsernameLabel()
     lazy var verticalStackView = GFFollowerCellStackView(with: [avatarImageView, usernameLabel])
 

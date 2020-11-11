@@ -9,7 +9,7 @@ import Foundation
 
 struct GFFollower: Codable {
     
-    let identifier = UUID().uuidString
+    let identifier = UUID()
     let login: String
     let avatarURL: String
 
@@ -27,7 +27,7 @@ extension GFFollower: Hashable {
     }
     
     static func ==(lhs: GFFollower, rhs: GFFollower) -> Bool {
-        return lhs.login == rhs.login
+        return lhs.identifier == rhs.identifier
     }
 }
 
