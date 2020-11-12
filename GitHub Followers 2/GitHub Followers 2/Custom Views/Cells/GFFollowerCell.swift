@@ -22,7 +22,7 @@ class GFFollowerCell: UICollectionViewCell {
     
     func set(follower: GFFollower) {
         usernameLabel.text = follower.login
-        GFNetworkManager.shared.downloadImage(urlString: follower.avatarURL) { [weak self] result in
+        GFNetworkManager.shared.getAvatarImage(urlString: follower.avatarURL) { [weak self] result in
             switch result {
             case .failure:
                 break

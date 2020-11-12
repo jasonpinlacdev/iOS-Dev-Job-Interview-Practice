@@ -10,12 +10,12 @@ import UIKit
 extension UIViewController {
     
     func presentAlert(alertTitle: String, alertMessage: String, alertButtonTitle: String) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+        DispatchQueue.main.async {
             let alertController = GFAlertController(alertTitle: alertTitle, alertMessage: alertMessage, alertButtonTitle: alertButtonTitle)
             alertController.modalPresentationStyle = .overFullScreen
             alertController.modalTransitionStyle = .crossDissolve
             self.present(alertController, animated: true)
         }
     }
+    
 }

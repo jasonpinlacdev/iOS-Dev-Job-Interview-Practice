@@ -98,11 +98,10 @@ class GFNetworkManager {
         task.resume()
     }
     
-    func downloadImage(urlString: String, completionHandler: @escaping (Result<UIImage, GFError>) -> Void) {
+    func getAvatarImage(urlString: String, completionHandler: @escaping (Result<UIImage, GFError>) -> Void) {
         // check cache first
         if let image = cache.object(forKey: NSString(string: urlString)) {
             completionHandler(.success(image))
-            print("found image in the cache")
             return
         }
         
@@ -133,7 +132,6 @@ class GFNetworkManager {
                 return
             }
             self?.cache.setObject(image, forKey: NSString(string: urlString))
-            print("set image to cache")
             completionHandler(.success(image))
         }
         task.resume()

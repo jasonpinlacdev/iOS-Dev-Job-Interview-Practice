@@ -12,14 +12,20 @@ class GFFollowersController: UIViewController {
     var username: String
     var followers: [GFFollower]
     
+    var hasMoreFollowers = true
+    var nextPageOfFollowersToGet = 2
+    
     var collectionView: UICollectionView!
     var diffableDatasource: GFFollowersDataSource!
-    lazy var delegate = GFFollowersDelegate()
+    lazy var delegate = GFFollowersDelegate(viewController: self)
     
     init(username: String, followers: [GFFollower]) {
         self.username = username
         self.followers = followers
         super.init(nibName: nil, bundle: nil)
+        if followers.count < 100 {
+            hasMoreFollowers = false
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -28,10 +34,6 @@ class GFFollowersController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = username
-        print(followers)
-        
         configureCollectionView()
         configureDiffableDatasource()
     }
@@ -42,6 +44,7 @@ class GFFollowersController: UIViewController {
     }
     
     private func configureCollectionView() {
+        title = username
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = delegate
@@ -58,10 +61,7 @@ class GFFollowersController: UIViewController {
             return cell
         })
         diffableDatasource.updateDataSource(with: followers)
-        delegate.dataSource = diffableDatasource
     }
-    
-
     
 }
 
