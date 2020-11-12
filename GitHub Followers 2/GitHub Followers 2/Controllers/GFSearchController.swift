@@ -43,24 +43,17 @@ class GFSearchController: UIViewController {
             return
         }
         
-        let loadingController = GFLoadingController()
-        loadingController.modalPresentationStyle = .overFullScreen
-        loadingController.modalTransitionStyle = .crossDissolve
-        self.present(loadingController, animated: true)
+        showLoadingView()
         
         GFNetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
             switch result {
             case .failure(let error):
-                DispatchQueue.main.async {
-                    loadingController.dismiss(animated: true, completion: {
-                        self?.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
-                    })
-                }
+                self?.dismissLoadingView()
+                self?.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
             case .success(let followers):
                 DispatchQueue.main.async {
-                    loadingController.dismiss(animated: true, completion: {
-                        self?.navigationController?.pushViewController(GFFollowersController(username: username, followers: followers), animated: true)
-                    })
+                    self?.dismissLoadingView()
+                    self?.navigationController?.pushViewController(GFFollowersController(username: username, followers: followers), animated: true)
                 }
             }
         }

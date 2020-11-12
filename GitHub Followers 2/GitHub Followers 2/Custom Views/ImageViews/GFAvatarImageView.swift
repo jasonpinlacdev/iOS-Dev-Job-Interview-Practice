@@ -21,6 +21,8 @@ class GFAvatarImageView: UIImageView {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         contentMode = .scaleAspectFit
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.systemGray2.cgColor
         layer.cornerRadius = 16.0
         clipsToBounds = true
         image = UIImage(named: GFImage.avatarPlaceholder.rawValue)

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E10C607B255CE80300416659 /* GFLoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C607A255CE80300416659 /* GFLoadingController.swift */; };
 		E126D441253974B900ECA5FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126D440253974B900ECA5FA /* AppDelegate.swift */; };
 		E126D443253974B900ECA5FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126D442253974B900ECA5FA /* SceneDelegate.swift */; };
 		E126D44A253974BD00ECA5FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E126D449253974BD00ECA5FA /* Assets.xcassets */; };
@@ -38,7 +37,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E10C607A255CE80300416659 /* GFLoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFLoadingController.swift; sourceTree = "<group>"; };
 		E126D43D253974B900ECA5FA /* GitHub Followers 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Followers 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E126D440253974B900ECA5FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E126D442253974B900ECA5FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				E1E3E47225434B3300736110 /* GFAlertController.swift */,
-				E10C607A255CE80300416659 /* GFLoadingController.swift */,
 				E126D45E253ABA9700ECA5FA /* GFSearchController.swift */,
 				E126D462253ABAA600ECA5FA /* GFFavoritesController.swift */,
 				E1B3B6F2255C8CDA0000C059 /* GFFollowers */,
@@ -338,7 +335,6 @@
 				E1E3E484254362AF00736110 /* GFAlertContainer.swift in Sources */,
 				E1E3E47C254359D700736110 /* GFBodyLabel.swift in Sources */,
 				E1379664255B7C6F00B8A26F /* GFImage.swift in Sources */,
-				E10C607B255CE80300416659 /* GFLoadingController.swift in Sources */,
 				E1E3E4802543608A00736110 /* UIView+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
