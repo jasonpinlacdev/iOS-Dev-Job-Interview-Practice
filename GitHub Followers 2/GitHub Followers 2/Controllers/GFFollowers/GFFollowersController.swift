@@ -34,8 +34,14 @@ class GFFollowersController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
-        configureDiffableDatasource()
+        title = username
+        if followers.isEmpty {
+            view = GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them.")
+//            view.addSubview(GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them."))
+        } else {
+            configureCollectionView()
+            configureDiffableDatasource()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +50,6 @@ class GFFollowersController: UIViewController {
     }
     
     private func configureCollectionView() {
-        title = username
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = delegate

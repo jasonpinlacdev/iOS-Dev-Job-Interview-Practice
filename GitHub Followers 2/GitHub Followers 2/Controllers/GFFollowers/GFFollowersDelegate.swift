@@ -49,24 +49,26 @@ extension GFFollowersDelegate: UICollectionViewDelegateFlowLayout {
         let contentHeight = scrollView.contentSize.height
         let contentOffset = scrollView.contentOffset.y
         let scrollViewFrameHeight = scrollView.frame.size.height
-        if (scrollViewFrameHeight + contentOffset) > (contentHeight - 100)  {
+        
+        if (scrollViewFrameHeight + contentOffset) > (contentHeight - 200)  {
             
-            followersController.view.isUserInteractionEnabled = false
-            followersController.showLoadingView()
+            let loadingViewController = GFLoadingViewController()
+            followersController.present(loadingViewController, animated: true)
             
             GFNetworkManager.shared.getFollowers(for: followersController.username, page: followersController.nextPageOfFollowersToGet) { [weak self] result in
                 switch result {
                 case .failure:
-                    self?.followersController.dismissLoadingView()
+                    DispatchQueue.main.async {
+                        loadingViewController.dismiss(animated: true)
+                    }
                 case .success(let newFollowers):
                     if newFollowers.count < 100 { self?.followersController.hasMoreFollowers = false }
                     self?.followersController.followers.append(contentsOf: newFollowers)
                     self?.followersController.diffableDatasource.updateDataSource(with: (self?.followersController.followers)!)
                     self?.followersController.nextPageOfFollowersToGet += 1
                     
-                    self?.followersController.dismissLoadingView()
                     DispatchQueue.main.async {
-                        self?.followersController.view.isUserInteractionEnabled = true
+                        loadingViewController.dismiss(animated: true)
                     }
                 }
             }

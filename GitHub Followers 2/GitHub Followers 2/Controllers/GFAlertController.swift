@@ -13,7 +13,7 @@ class GFAlertController: UIViewController {
     let alertMessage: String
     let alertButtonTitle: String
     
-    let alertContainterView = GFAlertContainer()
+    let alertContainterView = GFAlertContainerView()
     lazy var alertTitleLabel = GFTitleLabel(text: alertTitle)
     lazy var alertMessageLabel = GFBodyLabel(text: alertMessage)
     lazy var alertButton = GFButton(title: alertButtonTitle, buttonColor: .systemPink)

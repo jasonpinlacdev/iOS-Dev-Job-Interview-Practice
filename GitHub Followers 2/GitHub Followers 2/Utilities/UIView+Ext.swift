@@ -13,4 +13,9 @@ extension UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.systemRed.cgColor
     }
+    
+    func turnOnBlueBorder() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.systemBlue.cgColor
+    }
 }

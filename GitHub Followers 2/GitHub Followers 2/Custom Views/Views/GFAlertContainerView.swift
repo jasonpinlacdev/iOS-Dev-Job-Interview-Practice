@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GFAlertContainer: UIView {
+class GFAlertContainerView: UIView {
 
     init() {
         super.init(frame: .zero)
