@@ -8,9 +8,10 @@
 import UIKit
 
 class GFFollowersController: UIViewController {
-        
+    
     var username: String
     var followers: [GFFollower]
+    var filteredFollowers: [GFFollower]!
     
     var hasMoreFollowers = true
     var nextPageOfFollowersToGet = 2
@@ -36,9 +37,10 @@ class GFFollowersController: UIViewController {
         super.viewDidLoad()
         title = username
         if followers.isEmpty {
-            view = GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them.")
-//            view.addSubview(GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them."))
+            //            view = GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them.")
+            view.addSubview(GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them."))
         } else {
+            configureSearchController()
             configureCollectionView()
             configureDiffableDatasource()
         }
@@ -68,6 +70,37 @@ class GFFollowersController: UIViewController {
         diffableDatasource.updateDataSource(with: followers)
     }
     
+    private func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search for a username..."
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+    }
+    
+}
+
+
+extension GFFollowersController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+            diffableDatasource.updateDataSource(with: followers)
+            return
+        }
+        filteredFollowers = followers.filter { follower in
+            return follower.login.lowercased().contains(searchText.lowercased())
+        }
+        diffableDatasource.updateDataSource(with: filteredFollowers)
+    }
+}
+
+extension GFFollowersController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        diffableDatasource.updateDataSource(with: followers)
+    }
 }
 
 
