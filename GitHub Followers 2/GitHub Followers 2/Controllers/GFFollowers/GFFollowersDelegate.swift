@@ -37,10 +37,28 @@ extension GFFollowersDelegate: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let item = followersController.diffableDatasource.itemIdentifier(for: indexPath) else { fatalError("Failed to get item identifier for selected item at index path") }
-        print(item.login)
+        guard let follower = followersController.diffableDatasource.itemIdentifier(for: indexPath) else { fatalError("Failed to get item identifier for selected item at index path") }
+            
+        let loadingController = GFLoadingViewController()
+        followersController.present(loadingController, animated: true)
+        
+        GFNetworkManager.shared.getUser(for: follower.login, completionHandler: { [weak self] result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    loadingController.dismiss(animated: true, completion: {
+                        self?.followersController.present(UINavigationController(rootViewController: GFUserInfoController(user: user)), animated: true)
+                    })
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    loadingController.dismiss(animated: true, completion: {
+                        self?.followersController.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+                    })
+                }
+            }
+        })
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
