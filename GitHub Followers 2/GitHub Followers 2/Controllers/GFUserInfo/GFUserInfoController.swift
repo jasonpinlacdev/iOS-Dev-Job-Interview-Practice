@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import SafariServices
+
+protocol GFUserInfoControllerDelegate {
+    func getFollowersTapped(username: String, followers: [GFFollower])
+}
 
 class GFUserInfoController: UIViewController {
     
@@ -15,6 +20,8 @@ class GFUserInfoController: UIViewController {
     let topItemContainerView = UIView()
     let bottomItemContainerView = UIView()
     var containerViews = [UIView]()
+    
+    var delegate: GFUserInfoControllerDelegate?
     
     init(user: GFUser) {
         self.user = user
@@ -42,11 +49,13 @@ class GFUserInfoController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTappedToDismissController))
         
         let formattedDateCreatedAt = user.createdAt.convertedToDateObject?.convertedMonthYearFormat
-        
         dateLabel.text = "GitHub since \(formattedDateCreatedAt ?? "Unknown")"
         dateLabel.textAlignment = .center
         dateLabel.textColor = .label
         dateLabel.font = UIFont.systemFont(ofSize: 18)
+        
+        topItemViewController.actionButton.addTarget(self, action: #selector(gitHubProfileButtonTapped), for: .touchUpInside)
+        bottomItemViewController.actionButton.addTarget(self, action: #selector(getFollowersButtonTapped), for: .touchUpInside)
     }
     
     private func layoutUI() {
@@ -95,6 +104,35 @@ class GFUserInfoController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc func gitHubProfileButtonTapped() {
+        guard let url = URL(string: user.htmlURL) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true)
+    }
+    
+    @objc func getFollowersButtonTapped() {
+        let loadingViewController = GFLoadingViewController()
+        present(loadingViewController, animated: true)
+        
+        GFNetworkManager.shared.getFollowers(for: user.login, page: 1, completionHandler: { [weak self] result in
+            switch result {
+            case .success(let followers):
+                DispatchQueue.main.async {
+                    loadingViewController.dismiss(animated: true, completion: {
+                        self?.dismiss(animated: true, completion: {
+                            self?.delegate?.getFollowersTapped(username: (self?.user.login)!, followers: followers)
+                        })
+                    })
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    loadingViewController.dismiss(animated: true, completion: {
+                        self?.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+                    })
+                }
+            }
+        })
 
+    }
 }
 

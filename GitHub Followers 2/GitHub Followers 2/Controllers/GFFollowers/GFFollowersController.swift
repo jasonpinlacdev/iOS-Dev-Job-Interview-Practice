@@ -18,7 +18,7 @@ class GFFollowersController: UIViewController {
     
     var collectionView: UICollectionView!
     var diffableDatasource: GFFollowersDataSource!
-    lazy var delegate = GFFollowersDelegate(viewController: self)
+    lazy var delegateFlowLayout = GFFollowersDelegateFlowLayout(viewController: self)
     
     init(username: String, followers: [GFFollower]) {
         self.username = username
@@ -37,7 +37,6 @@ class GFFollowersController: UIViewController {
         super.viewDidLoad()
         title = username
         if followers.isEmpty {
-            //            view = GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them.")
             view.addSubview(GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them."))
         } else {
             configureSearchController()
@@ -54,7 +53,7 @@ class GFFollowersController: UIViewController {
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = delegate
+        collectionView.delegate = delegateFlowLayout
         collectionView.register(GFFollowerCell.self, forCellWithReuseIdentifier: GFFollowerCell.reuseIdentifier)
         view.addSubview(collectionView)
     }
@@ -83,7 +82,6 @@ class GFFollowersController: UIViewController {
 
 
 extension GFFollowersController: UISearchResultsUpdating {
-    
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
             diffableDatasource.updateDataSource(with: followers)
@@ -97,10 +95,15 @@ extension GFFollowersController: UISearchResultsUpdating {
 }
 
 extension GFFollowersController: UISearchBarDelegate {
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         diffableDatasource.updateDataSource(with: followers)
     }
 }
 
+
+extension GFFollowersController: GFUserInfoControllerDelegate {
+    func getFollowersTapped(username: String, followers: [GFFollower]) {
+        navigationController?.pushViewController(GFFollowersController(username: username, followers: followers), animated: true)
+    }
+}
 

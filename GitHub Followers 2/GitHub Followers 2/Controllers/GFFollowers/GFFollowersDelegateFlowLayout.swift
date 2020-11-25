@@ -49,8 +49,10 @@ extension GFFollowersDelegateFlowLayout: UICollectionViewDelegateFlowLayout{
             case .success(let user):
                 DispatchQueue.main.async {
                     loadingController.dismiss(animated: true, completion: {
+                       
                         let userInfoController = GFUserInfoController(user: user)
-                        userInfoController.delegate = self!
+                        userInfoController.delegate = self?.followersController
+                        
                         self?.followersController.present(UINavigationController(rootViewController: userInfoController), animated: true)
                     })
                 }
@@ -98,10 +100,4 @@ extension GFFollowersDelegateFlowLayout: UICollectionViewDelegateFlowLayout{
     }
 }
 
-extension GFFollowersDelegateFlowLayout: GFUserInfoControllerDelegate {
-    func getFollowersTapped(followers: [GFFollower]) {
-        followersController.dismiss(animated: true)
-        
-    }
-}
 

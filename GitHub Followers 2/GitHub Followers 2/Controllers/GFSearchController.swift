@@ -48,16 +48,18 @@ class GFSearchController: UIViewController {
         
         GFNetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
             switch result {
+            case .success(let followers):
+                DispatchQueue.main.async {
+                    loadingViewController.dismiss(animated: true, completion: {
+                        
+                        let followersController = GFFollowersController(username: username, followers: followers)
+                        self?.navigationController?.pushViewController(followersController, animated: true)
+                    })
+                }
             case .failure(let error):
                 DispatchQueue.main.async {
                     loadingViewController.dismiss(animated: true, completion: {
                         self?.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
-                    })
-                }
-            case .success(let followers):
-                DispatchQueue.main.async {
-                    loadingViewController.dismiss(animated: true, completion: {
-                        self?.navigationController?.pushViewController(GFFollowersController(username: username, followers: followers), animated: true)
                     })
                 }
             }

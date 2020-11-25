@@ -25,7 +25,7 @@
 		E13A0637256DD61900F4920C /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A0636256DD61900F4920C /* String+Ext.swift */; };
 		E13A063F256DD9B300F4920C /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A063E256DD9B300F4920C /* Date+Ext.swift */; };
 		E145B30D254A251700A3B645 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145B30C254A251700A3B645 /* GFError.swift */; };
-		E1B3B6F0255C8CB00000C059 /* GFFollowersDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B3B6EF255C8CB00000C059 /* GFFollowersDelegate.swift */; };
+		E1B3B6F0255C8CB00000C059 /* GFFollowersDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B3B6EF255C8CB00000C059 /* GFFollowersDelegateFlowLayout.swift */; };
 		E1B3B6F5255C8E5B0000C059 /* GFFollowersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B3B6F4255C8E5B0000C059 /* GFFollowersDataSource.swift */; };
 		E1D15C4A2565C2D800DC8395 /* GFUserInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D15C492565C2D800DC8395 /* GFUserInfoController.swift */; };
 		E1D15C4F2565F80800DC8395 /* GFUserInfoHeaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D15C4E2565F80800DC8395 /* GFUserInfoHeaderController.swift */; };
@@ -66,7 +66,7 @@
 		E13A0636256DD61900F4920C /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		E13A063E256DD9B300F4920C /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		E145B30C254A251700A3B645 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
-		E1B3B6EF255C8CB00000C059 /* GFFollowersDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersDelegate.swift; sourceTree = "<group>"; };
+		E1B3B6EF255C8CB00000C059 /* GFFollowersDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersDelegateFlowLayout.swift; sourceTree = "<group>"; };
 		E1B3B6F4255C8E5B0000C059 /* GFFollowersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersDataSource.swift; sourceTree = "<group>"; };
 		E1D15C492565C2D800DC8395 /* GFUserInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserInfoController.swift; sourceTree = "<group>"; };
 		E1D15C4E2565F80800DC8395 /* GFUserInfoHeaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserInfoHeaderController.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 			children = (
 				E1E3E46C2542775E00736110 /* GFFollowersController.swift */,
 				E1B3B6F4255C8E5B0000C059 /* GFFollowersDataSource.swift */,
-				E1B3B6EF255C8CB00000C059 /* GFFollowersDelegate.swift */,
+				E1B3B6EF255C8CB00000C059 /* GFFollowersDelegateFlowLayout.swift */,
 			);
 			path = GFFollowers;
 			sourceTree = "<group>";
@@ -373,7 +373,7 @@
 				E126D45F253ABA9700ECA5FA /* GFSearchController.swift in Sources */,
 				E10C6088255E1EA400416659 /* GFEmptyStateView.swift in Sources */,
 				E126D463253ABAA600ECA5FA /* GFFavoritesController.swift in Sources */,
-				E1B3B6F0255C8CB00000C059 /* GFFollowersDelegate.swift in Sources */,
+				E1B3B6F0255C8CB00000C059 /* GFFollowersDelegateFlowLayout.swift in Sources */,
 				E12B802C255A63FA00F57AD1 /* GFFollowerCell.swift in Sources */,
 				E1379658255B6B7100B8A26F /* GFFollowerCellStackView.swift in Sources */,
 				E1E3E484254362AF00736110 /* GFAlertContainerView.swift in Sources */,
