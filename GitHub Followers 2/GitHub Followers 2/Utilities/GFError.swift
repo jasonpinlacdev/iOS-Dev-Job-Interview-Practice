@@ -14,6 +14,11 @@ enum GFError: String, Error {
     case MIMEError = "Wrong response MIME type recieved from the server. Please try again."
     case dataError = "Invalid data recieved from the server. Please try again."
     case decodeError = "The JSON data could not be decoded correctly for its Swift model type."
+    
+    case saveFavoritesError = "There was an error saving this user to favorites."
+    case retrieveFavoritesError = "There was an error retrieving your favorites."
+    case alreadyInFavoritesError = "This user already is in your favorites."
+    case removeFavoriteError = "There was an error removing this user from favorites."
 }
 
 enum ResponseMIMEType: String {

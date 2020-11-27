@@ -15,6 +15,7 @@ protocol GFUserInfoControllerDelegate {
 class GFUserInfoController: UIViewController {
     
     let user: GFUser
+    var isUserFavorited = false
     
     let headerContainerView = UIView()
     let topItemContainerView = UIView()
@@ -35,7 +36,7 @@ class GFUserInfoController: UIViewController {
     lazy var headerViewController = GFUserInfoHeaderController(user: self.user)
     lazy var topItemViewController = GFUserInfoItemController(leftItemView: GFUserInfoItemView(iconName: "folder", title: "Public Repos", count: user.publicRepos), rightItemView: GFUserInfoItemView(iconName: "text.alignleft", title: "Public Gists", count: user.publicGists), actionButtonTitle: "GitHub Profile", actionButtonColor: UIColor.systemPurple)
     lazy var bottomItemViewController = GFUserInfoItemController(leftItemView: GFUserInfoItemView(iconName: "heart", title: "Following", count: user.following), rightItemView: GFUserInfoItemView(iconName: "person.2", title: "Followers", count: user.followers), actionButtonTitle: "Get Followers", actionButtonColor: UIColor.systemGreen)
-
+    
     let dateLabel = UILabel()
     
     override func viewDidLoad() {
@@ -46,7 +47,19 @@ class GFUserInfoController: UIViewController {
     
     private func configure() {
         view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTappedToDismissController))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTappedToDismissController))
+        
+        GFPersistenceManager.shared.retrieveFavorites { [weak self] result in
+            switch result {
+            case .success(let favorites):
+                self?.isUserFavorited = favorites.contains(where: {$0.login == user.login})
+            case .failure(let error):
+                self?.isUserFavorited = false
+                presentAlert(alertTitle: "Favorites Error", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+            }
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: isUserFavorited ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), style: .plain, target: self, action: #selector(starButtonTapped))
         
         let formattedDateCreatedAt = user.createdAt.convertedToDateObject?.convertedMonthYearFormat
         dateLabel.text = "GitHub since \(formattedDateCreatedAt ?? "Unknown")"
@@ -132,7 +145,29 @@ class GFUserInfoController: UIViewController {
                 }
             }
         })
-
+    }
+    
+    @objc func starButtonTapped() {
+        switch isUserFavorited {
+        case true:
+            isUserFavorited = false
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star")
+            GFPersistenceManager.shared.updateFavoritesWith(user: user, typeOfUpdate: .remove, completionHandler: { error in
+                if let error = error {
+                    presentAlert(alertTitle: "Favorites Error", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+                    navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star.fill")
+                }
+            })
+        case false:
+            isUserFavorited = true
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star.fill")
+            GFPersistenceManager.shared.updateFavoritesWith(user: user, typeOfUpdate: .add, completionHandler: { error in
+                if let error = error {
+                    presentAlert(alertTitle: "Favorites Error", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+                    navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star.fill")
+                }
+            })
+        }
     }
 }
 

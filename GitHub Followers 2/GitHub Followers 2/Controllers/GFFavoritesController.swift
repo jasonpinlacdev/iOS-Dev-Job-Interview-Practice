@@ -8,6 +8,8 @@
 import UIKit
 
 class GFFavoritesController: UIViewController {
+    
+    let tableView = UITableView(frame: .zero, style: .plain)
 
     override func viewDidLoad() {
         super.viewDidLoad()
