@@ -80,6 +80,26 @@ extension GFFavoritesController: UITableViewDelegate {
         navigationController?.pushViewController(userInfoController, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            GFPersistenceManager.shared.updateFavoritesWith(user: favorites[indexPath.row], typeOfUpdate: .remove) { error in
+                if let error = error {
+                    presentAlert(alertTitle: "Something went wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+                } else {
+                    GFPersistenceManager.shared.retrieveFavorites { [weak self] result in
+                        switch result {
+                        case .success(let favorites):
+                            self?.favorites = favorites
+                        case .failure:
+                            break
+                        }
+                    }
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            }
+        }
+    }
+    
 }
 
 extension GFFavoritesController: UITableViewDataSource {

@@ -52,7 +52,7 @@ class GFFavoritesCell: UITableViewCell {
         contentView.addSubview(avatarImageView)
         contentView.addSubview(loginLabel)
         
-        let padding: CGFloat = 10.0
+        let padding: CGFloat = 12.0
         NSLayoutConstraint.activate([
             avatarImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
