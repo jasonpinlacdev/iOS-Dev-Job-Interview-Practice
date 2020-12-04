@@ -9,6 +9,41 @@ import UIKit
 
 class GFFavoritesController: UIViewController {
     
+    lazy var tableView = UITableView(frame: view.bounds, style: .plain)
+    lazy var emptyStateView = GFEmptyStateView(frame: view.bounds, message: "You don't have any users favorited.")
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+
+    
+}
+
+extension GFFavoritesController: GFUserInfoControllerDelegate {
+    func getFollowersTapped(username: String, followers: [GFFollower]) {
+        navigationController?.pushViewController(GFFollowersController(username: username, followers: followers), animated: true)
+    }
+}
+
+
+
+
+
+// MARK: - FIRST IMPLEMENTATIN ON THE FAVORITES LIST TABLEVIEW USING TRADITIONAL DATASOURCE AND DELEGATE PROTOCOLS
+
+/*
+//
+//  GFFavoritesController.swift
+//  GitHub Followers 2
+//
+//  Created by Jason Pinlac on 10/23/20.
+//
+
+import UIKit
+
+class GFFavoritesController: UIViewController {
+    
     var favorites: [GFUser] = []
     
     lazy var tableView = UITableView(frame: view.bounds, style: .plain)
@@ -117,3 +152,4 @@ extension GFFavoritesController: GFUserInfoControllerDelegate {
         navigationController?.pushViewController(GFFollowersController(username: username, followers: followers), animated: true)
     }
 }
+*/

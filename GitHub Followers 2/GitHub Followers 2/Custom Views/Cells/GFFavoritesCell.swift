@@ -27,7 +27,7 @@ class GFFavoritesCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutUI()
-        self.accessoryType = .disclosureIndicator
+
     }
     
     required init?(coder: NSCoder) {
@@ -49,19 +49,20 @@ class GFFavoritesCell: UITableViewCell {
     }
     
     private func layoutUI() {
-        contentView.addSubview(avatarImageView)
-        contentView.addSubview(loginLabel)
+        self.accessoryType = .disclosureIndicator
+        addSubview(avatarImageView)
+        addSubview(loginLabel)
         
         let padding: CGFloat = 12.0
         NSLayoutConstraint.activate([
-            avatarImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            avatarImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             avatarImageView.widthAnchor.constraint(equalToConstant: 75.0),
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
             
             loginLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
             loginLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: padding),
-            loginLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            loginLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             loginLabel.heightAnchor.constraint(equalToConstant: 32.0),
         ])
     }
