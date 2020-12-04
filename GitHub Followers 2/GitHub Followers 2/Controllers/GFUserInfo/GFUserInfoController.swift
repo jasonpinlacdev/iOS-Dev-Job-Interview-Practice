@@ -45,6 +45,10 @@ class GFUserInfoController: UIViewController {
         layoutUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
     private func configure() {
         view.backgroundColor = .systemBackground
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTappedToDismissController))
@@ -114,7 +118,11 @@ class GFUserInfoController: UIViewController {
     }
     
     @objc func doneTappedToDismissController() {
-        self.dismiss(animated: true)
+        if self.presentingViewController == nil {
+            navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     
     @objc func gitHubProfileButtonTapped() {

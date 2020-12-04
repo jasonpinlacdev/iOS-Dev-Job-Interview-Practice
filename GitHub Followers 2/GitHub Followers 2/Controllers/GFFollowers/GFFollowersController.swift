@@ -35,6 +35,7 @@ class GFFollowersController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         title = username
         if followers.isEmpty {
             view.addSubview(GFEmptyStateView(frame: self.view.frame, message: "This user doesn't have any followers. Go follow them."))
@@ -47,7 +48,7 @@ class GFFollowersController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.largeTitleDisplayMode = .always
     }
     
     private func configureCollectionView() {

@@ -64,7 +64,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         searchViewController.view.backgroundColor = .systemBackground
         searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         let searchNavigationController = UINavigationController(rootViewController: searchViewController)
-        searchNavigationController.navigationBar.prefersLargeTitles = true
         return searchNavigationController
     }
     
@@ -74,8 +73,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "person.crop.circle"), tag: 1)
         favoritesViewController.tabBarItem = tabBarItem
         favoritesViewController.view.backgroundColor = .systemBackground
-        let followersNavigationController = UINavigationController(rootViewController: favoritesViewController)
-        return followersNavigationController
+        let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
+        return favoritesNavigationController
     }
     
 }
