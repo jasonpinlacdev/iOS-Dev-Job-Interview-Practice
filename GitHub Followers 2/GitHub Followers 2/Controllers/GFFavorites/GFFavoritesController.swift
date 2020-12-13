@@ -8,32 +8,26 @@
 import UIKit
 
 class GFFavoritesController: UIViewController {
+    
     lazy var tableView = UITableView(frame: view.bounds, style: .plain)
     lazy var emptyStateView = GFEmptyStateView(frame: view.bounds, message: "You don't have any users favorited.")
-    
     var favorites = [GFUser]()
-    
     var datasource: GFFavoritesDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getFavorites()
-        
-        if favorites.isEmpty {
-            view.addSubview(emptyStateView)
-        } else {
-            configureTableView()
-            configureDatasource()
-        }
+        configureTableView()
+        configureDatasource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getFavorites()
         if favorites.isEmpty {
-            tableView.removeFromSuperview()
-            view.addSubview(emptyStateView)
+            view.bringSubviewToFront(emptyStateView)
         } else {
-            emptyStateView.removeFromSuperview()
+            view.bringSubviewToFront(tableView)
             updateDatasource(with: favorites, animatingDifferences: false)
         }
     }
@@ -48,10 +42,13 @@ class GFFavoritesController: UIViewController {
             }
         }
     }
-    
+
     private func configureTableView() {
+        title  = "Favorites"
+        view.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.register(GFFavoritesCell.self, forCellReuseIdentifier: GFFavoritesCell.reuseIdentifier)
+        view.addSubview(emptyStateView)
         view.addSubview(tableView)
     }
     

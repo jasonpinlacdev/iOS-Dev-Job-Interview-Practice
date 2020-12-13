@@ -16,7 +16,7 @@ class GFUserInfoHeaderController: UIViewController {
     let avatarImageView = GFAvatarImageView()
     lazy var loginLabel = GFSecondaryTitleLabel(fontSize: 34, text: user.login)
     let nameLabel = UILabel()
-    let locationPinImageView = UIImageView(image: UIImage(systemName: "mappin.and.ellipse"))
+    let locationPinImageView = UIImageView(image: GFImage.mappinAndEllipse)
     let locationLabel = UILabel()
     lazy var bioLabel = GFBodyLabel(text: user.bio ?? "Biography Unavailable")
     

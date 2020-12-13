@@ -5,10 +5,13 @@
 //  Created by Jason Pinlac on 11/10/20.
 //
 
-import Foundation
+import UIKit
 
-enum GFImage: String {
-    case avatarPlaceholder = "avatar-placeholder"
-    case emptyStateLogo = "empty-state-logo"
-    case ghLogo = "gh-logo"
+enum GFImage {
+    static let avatarPlaceholder = UIImage(named: "avatar-placeholder")
+    static let emptyStateLogo = UIImage(named: "empty-state-logo")
+    static let ghLogo = UIImage(named: "gh-logo")
+    static let starFill = UIImage(systemName: "star.fill")
+    static let star = UIImage(systemName: "star")
+    static let mappinAndEllipse = UIImage(systemName: "mappin.and.ellipse")
 }

@@ -25,7 +25,7 @@ class GFAvatarImageView: UIImageView {
         layer.borderColor = UIColor.systemGray2.cgColor
         layer.cornerRadius = 16.0
         clipsToBounds = true
-        image = UIImage(named: GFImage.avatarPlaceholder.rawValue)
+        image = GFImage.avatarPlaceholder
     }
     
 }

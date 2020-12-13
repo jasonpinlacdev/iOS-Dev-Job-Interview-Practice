@@ -63,7 +63,7 @@ class GFUserInfoController: UIViewController {
             }
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: isUserFavorited ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), style: .plain, target: self, action: #selector(starButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: isUserFavorited ? GFImage.starFill : GFImage.star, style: .plain, target: self, action: #selector(starButtonTapped))
         
         let formattedDateCreatedAt = user.createdAt.convertedToDateObject?.convertedMonthYearFormat
         dateLabel.text = "GitHub since \(formattedDateCreatedAt ?? "Unknown")"
@@ -159,20 +159,20 @@ class GFUserInfoController: UIViewController {
         switch isUserFavorited {
         case true:
             isUserFavorited = false
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star")
+            navigationItem.rightBarButtonItem?.image = GFImage.star
             GFPersistenceManager.shared.updateFavoritesWith(user: user, typeOfUpdate: .remove, completionHandler: { error in
                 if let error = error {
                     presentAlert(alertTitle: "Favorites Error", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
-                    navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star.fill")
+                    navigationItem.rightBarButtonItem?.image = GFImage.starFill
                 }
             })
         case false:
             isUserFavorited = true
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star.fill")
+            navigationItem.rightBarButtonItem?.image = GFImage.starFill
             GFPersistenceManager.shared.updateFavoritesWith(user: user, typeOfUpdate: .add, completionHandler: { error in
                 if let error = error {
                     presentAlert(alertTitle: "Favorites Error", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
-                    navigationItem.rightBarButtonItem?.image = UIImage(systemName: "star.fill")
+                    navigationItem.rightBarButtonItem?.image = GFImage.starFill
                 }
             })
         }

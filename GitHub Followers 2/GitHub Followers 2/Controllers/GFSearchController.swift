@@ -10,7 +10,7 @@ import UIKit
 class GFSearchController: UIViewController {
     
     let logoImageView: UIImageView = {
-        let logoImageView = UIImageView(image: UIImage(named: GFImage.ghLogo.rawValue))
+        let logoImageView = UIImageView(image: GFImage.ghLogo)
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         return logoImageView
     }()
@@ -47,19 +47,20 @@ class GFSearchController: UIViewController {
         present(loadingViewController, animated: true)
         
         GFNetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let followers):
                 DispatchQueue.main.async {
                     loadingViewController.dismiss(animated: true, completion: {
                         
                         let followersController = GFFollowersController(username: username, followers: followers)
-                        self?.navigationController?.pushViewController(followersController, animated: true)
+                        self.navigationController?.pushViewController(followersController, animated: true)
                     })
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
                     loadingViewController.dismiss(animated: true, completion: {
-                        self?.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
+                        self.presentAlert(alertTitle: "Something Went Wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
                     })
                 }
             }
@@ -74,6 +75,8 @@ class GFSearchController: UIViewController {
     // MARK: - Configuration and Layout Logic -
     
     private func configure() {
+        title = "Search"
+        view.backgroundColor = .systemBackground
         usernameTextField.delegate = self
         let tapOnView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnViewTap))
         view.addGestureRecognizer(tapOnView)

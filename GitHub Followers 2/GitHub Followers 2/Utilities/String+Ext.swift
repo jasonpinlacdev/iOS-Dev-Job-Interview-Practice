@@ -9,7 +9,6 @@ import Foundation
 
 
 extension String {
-    
     var convertedToDateObject: Date? {
         get {
             let dateFormatter = DateFormatter()

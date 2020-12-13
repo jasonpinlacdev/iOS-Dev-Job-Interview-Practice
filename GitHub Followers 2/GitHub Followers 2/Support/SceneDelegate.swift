@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = createRootViewController()
+        window?.rootViewController = GFTabBarController()
         window?.makeKeyAndVisible()
     }
     
@@ -47,34 +47,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-    }
-    
-    private func createRootViewController() -> UITabBarController {
-        UITabBar.appearance().tintColor = .systemGreen
-        UINavigationBar.appearance().tintColor = .systemGreen
-        
-        let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([createSearchController(), createFavoritesController()], animated: true)
-        return tabBarController
-    }
-    
-    private func createSearchController() -> UINavigationController {
-        let searchViewController = GFSearchController()
-        searchViewController.title = "Search"
-        searchViewController.view.backgroundColor = .systemBackground
-        searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        let searchNavigationController = UINavigationController(rootViewController: searchViewController)
-        return searchNavigationController
-    }
-    
-    private func createFavoritesController() -> UINavigationController {
-        let favoritesViewController = GFFavoritesController()
-        favoritesViewController.title = "Favorites"
-        let tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "person.crop.circle"), tag: 1)
-        favoritesViewController.tabBarItem = tabBarItem
-        favoritesViewController.view.backgroundColor = .systemBackground
-        let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
-        return favoritesNavigationController
     }
     
 }

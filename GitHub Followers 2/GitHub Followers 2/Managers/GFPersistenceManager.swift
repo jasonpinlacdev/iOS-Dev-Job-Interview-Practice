@@ -13,7 +13,6 @@ enum FavoriteUpdateType {
     case remove
 }
 
-
 class GFPersistenceManager {
     
     static let shared = GFPersistenceManager()

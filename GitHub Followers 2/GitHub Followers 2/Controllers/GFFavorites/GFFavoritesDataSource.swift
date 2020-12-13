@@ -31,9 +31,14 @@ class GFFavoritesDataSource: UITableViewDiffableDataSource<FavoritesSection, GFU
                     if let error = error {
                         favoritesController?.presentAlert(alertTitle: "Something went wrong", alertMessage: error.rawValue, alertButtonTitle: "Dismiss")
                     } else {
-                        favoritesController?.getFavorites()
-                        if let favorites = favoritesController?.favorites {
-                            favoritesController?.updateDatasource(with: favorites, animatingDifferences: false)
+                        if let favoritesController = favoritesController {
+                            favoritesController.getFavorites()
+                            if favoritesController.favorites.isEmpty {
+                                favoritesController.view.bringSubviewToFront(favoritesController.emptyStateView)
+                            } else {
+                                favoritesController.view.bringSubviewToFront(favoritesController.tableView)
+                                favoritesController.updateDatasource(with: favoritesController.favorites, animatingDifferences: true)
+                            }
                         }
                     }
                 }

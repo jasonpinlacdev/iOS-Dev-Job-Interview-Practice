@@ -31,7 +31,7 @@ class GFEmptyStateView: UIView {
     private func configure() {
         backgroundColor = .systemBackground
         
-        let emptyStateLogo = UIImageView(image: UIImage(named: GFImage.emptyStateLogo.rawValue))
+        let emptyStateLogo = UIImageView(image: GFImage.emptyStateLogo)
         emptyStateLogo.translatesAutoresizingMaskIntoConstraints = false
         emptyStateLogo.contentMode = .scaleAspectFill
   
