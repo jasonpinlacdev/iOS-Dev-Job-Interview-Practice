@@ -9,23 +9,27 @@
 /* Begin PBXBuildFile section */
 		E1F9614626DD67E700CB4B39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9614526DD67E700CB4B39 /* AppDelegate.swift */; };
 		E1F9614826DD67E700CB4B39 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9614726DD67E700CB4B39 /* SceneDelegate.swift */; };
-		E1F9614A26DD67E700CB4B39 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9614926DD67E700CB4B39 /* ViewController.swift */; };
-		E1F9614D26DD67E700CB4B39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F9614B26DD67E700CB4B39 /* Main.storyboard */; };
 		E1F9614F26DD680400CB4B39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F9614E26DD680400CB4B39 /* Assets.xcassets */; };
 		E1F9615226DD680400CB4B39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F9615026DD680400CB4B39 /* LaunchScreen.storyboard */; };
-		E1F9616026DEB09A00CB4B39 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9615F26DEB09A00CB4B39 /* Errors.swift */; };
+		E1F9616226DEDAF300CB4B39 /* GFSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9616126DEDAF300CB4B39 /* GFSearchViewController.swift */; };
+		E1F9616526DEDB2400CB4B39 /* GFFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9616426DEDB2400CB4B39 /* GFFavoritesViewController.swift */; };
+		E1F9617126DF0A4900CB4B39 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9617026DF0A4800CB4B39 /* GFButton.swift */; };
+		E1F9617526DF27BF00CB4B39 /* GFSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9617426DF27BF00CB4B39 /* GFSearchTextField.swift */; };
+		E1F9617A26DF381B00CB4B39 /* GFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9617926DF381B00CB4B39 /* GFImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E1F9614226DD67E700CB4B39 /* GitHub Followers 3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Followers 3.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F9614526DD67E700CB4B39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1F9614726DD67E700CB4B39 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E1F9614926DD67E700CB4B39 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E1F9614C26DD67E700CB4B39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1F9614E26DD680400CB4B39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1F9615126DD680400CB4B39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1F9615326DD680400CB4B39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1F9615F26DEB09A00CB4B39 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		E1F9616126DEDAF300CB4B39 /* GFSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSearchViewController.swift; sourceTree = "<group>"; };
+		E1F9616426DEDB2400CB4B39 /* GFFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFavoritesViewController.swift; sourceTree = "<group>"; };
+		E1F9617026DF0A4800CB4B39 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
+		E1F9617426DF27BF00CB4B39 /* GFSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSearchTextField.swift; sourceTree = "<group>"; };
+		E1F9617926DF381B00CB4B39 /* GFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,30 +62,21 @@
 		E1F9614426DD67E700CB4B39 /* GitHub Followers 3 */ = {
 			isa = PBXGroup;
 			children = (
-				E1F9615E26DEB08B00CB4B39 /* Enums */,
+				E1F9617826DF37F100CB4B39 /* Enums */,
 				E1F9615C26DDC3D300CB4B39 /* Models */,
 				E1F9615B26DDC3CF00CB4B39 /* Views */,
 				E1F9615A26DDC3C500CB4B39 /* Controllers */,
-				E1F9615926DDC3B400CB4B39 /* Storyboards */,
 				E1F9615D26DDC3D900CB4B39 /* Support */,
 				E1F9615326DD680400CB4B39 /* Info.plist */,
 			);
 			path = "GitHub Followers 3";
 			sourceTree = "<group>";
 		};
-		E1F9615926DDC3B400CB4B39 /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				E1F9615026DD680400CB4B39 /* LaunchScreen.storyboard */,
-				E1F9614B26DD67E700CB4B39 /* Main.storyboard */,
-			);
-			path = Storyboards;
-			sourceTree = "<group>";
-		};
 		E1F9615A26DDC3C500CB4B39 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E1F9614926DD67E700CB4B39 /* ViewController.swift */,
+				E1F9616126DEDAF300CB4B39 /* GFSearchViewController.swift */,
+				E1F9616426DEDB2400CB4B39 /* GFFavoritesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -89,6 +84,8 @@
 		E1F9615B26DDC3CF00CB4B39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E1F9617026DF0A4800CB4B39 /* GFButton.swift */,
+				E1F9617426DF27BF00CB4B39 /* GFSearchTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -103,6 +100,7 @@
 		E1F9615D26DDC3D900CB4B39 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				E1F9615026DD680400CB4B39 /* LaunchScreen.storyboard */,
 				E1F9614526DD67E700CB4B39 /* AppDelegate.swift */,
 				E1F9614726DD67E700CB4B39 /* SceneDelegate.swift */,
 				E1F9614E26DD680400CB4B39 /* Assets.xcassets */,
@@ -110,10 +108,10 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		E1F9615E26DEB08B00CB4B39 /* Enums */ = {
+		E1F9617826DF37F100CB4B39 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				E1F9615F26DEB09A00CB4B39 /* Errors.swift */,
+				E1F9617926DF381B00CB4B39 /* GFImage.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -177,7 +175,6 @@
 			files = (
 				E1F9615226DD680400CB4B39 /* LaunchScreen.storyboard in Resources */,
 				E1F9614F26DD680400CB4B39 /* Assets.xcassets in Resources */,
-				E1F9614D26DD67E700CB4B39 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,24 +185,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1F9616026DEB09A00CB4B39 /* Errors.swift in Sources */,
-				E1F9614A26DD67E700CB4B39 /* ViewController.swift in Sources */,
+				E1F9616226DEDAF300CB4B39 /* GFSearchViewController.swift in Sources */,
+				E1F9617A26DF381B00CB4B39 /* GFImage.swift in Sources */,
+				E1F9617126DF0A4900CB4B39 /* GFButton.swift in Sources */,
 				E1F9614626DD67E700CB4B39 /* AppDelegate.swift in Sources */,
 				E1F9614826DD67E700CB4B39 /* SceneDelegate.swift in Sources */,
+				E1F9617526DF27BF00CB4B39 /* GFSearchTextField.swift in Sources */,
+				E1F9616526DEDB2400CB4B39 /* GFFavoritesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E1F9614B26DD67E700CB4B39 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E1F9614C26DD67E700CB4B39 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E1F9615026DD680400CB4B39 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -348,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dev.jasonpinlac.GitHub-Followers-3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -367,7 +359,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dev.jasonpinlac.GitHub-Followers-3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
