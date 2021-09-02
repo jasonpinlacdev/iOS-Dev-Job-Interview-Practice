@@ -21,8 +21,8 @@ class GFSearchViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configure()
     configureLayout()
-    searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -30,66 +30,80 @@ class GFSearchViewController: UIViewController {
     self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
   
+  private func configure() {
+    searchTextField.delegate = self
+    searchTextField.addDoneButton(target: self, selector: #selector(textFieldDoneButtonTapped))
+    let tapToEndEditing = UITapGestureRecognizer(target: self, action: #selector(textFieldDoneButtonTapped))
+    self.view.addGestureRecognizer(tapToEndEditing)
+    searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+  }
+  
   private func configureLayout() {
-    view.backgroundColor = .systemBackground
+    var padding: CGFloat = 20.0
     
+    
+    view.backgroundColor = .systemBackground
     view.addSubview(GFLogoImageView)
     view.addSubview(searchTextField)
     view.addSubview(searchButton)
-    
     NSLayoutConstraint.activate([
-      GFLogoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+      GFLogoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
       GFLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      GFLogoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40),
+      GFLogoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: padding * -4),
       GFLogoImageView.heightAnchor.constraint(equalTo: GFLogoImageView.widthAnchor),
-
-      searchTextField.topAnchor.constraint(equalTo: GFLogoImageView.bottomAnchor, constant: 20),
-      searchTextField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40),
-      searchTextField.heightAnchor.constraint(equalToConstant: 75),
+      searchTextField.topAnchor.constraint(equalTo: GFLogoImageView.bottomAnchor, constant: padding * 2),
+      searchTextField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: padding * -2),
+      searchTextField.heightAnchor.constraint(equalToConstant: 50),
       searchTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-      
-      searchButton.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
-      searchButton.widthAnchor.constraint(equalTo: searchTextField.widthAnchor, multiplier: 0.5),
-      searchButton.heightAnchor.constraint(equalTo: searchTextField.heightAnchor, multiplier: 0.75),
+      searchButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: padding * -2),
+      searchButton.widthAnchor.constraint(equalTo: searchTextField.widthAnchor),
+      searchButton.heightAnchor.constraint(equalToConstant: 50),
       searchButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
     ])
   }
   
+  @objc func textFieldDoneButtonTapped() {
+    self.view.endEditing(true)
+  }
+  
   @objc private func searchButtonTapped() {
-    print("Search button tapped!")
+    // validate username entered in search textfield
+    guard let username = searchTextField.text else { return }
+    guard !username.isEmpty else {
+      presentGFAlertViewController(titleText: "Username Empty", bodyText: "The username field is empty.\n Type in a username to search for its followers.", buttonText: "Dismiss")
+//      let alertViewController = GFAlertViewController(titleText: "Username Empty", bodyText: "The username field is empty.\n Type in a username to search for its followers.", buttonText: "Dismiss")
+//      alertViewController.modalPresentationStyle = .overFullScreen
+//      alertViewController.modalTransitionStyle = .crossDissolve
+//      present(alertViewController, animated: true, completion: nil)
+      return
+    }
+
+    // throw up loading screen here
+    NetworkManager.shared.getFollowers(for: username) { [weak self] result in
+    // remove loading screen here
+      guard let self = self else { return }
+      switch result {
+      case .failure(let error):
+        print(error)
+      case .success(let usernameFollowerDataString):
+        DispatchQueue.main.async {
+          let followersViewController = GFFollowersViewController(username: username, followersData: usernameFollowerDataString)
+          self.navigationController?.pushViewController(followersViewController, animated: true)
+        }
+      }
+    }
   }
   
   
   
+
   
   
-  
-  
-  
-  //  func getUserJSON(for username: String) {
-  //    //    let token = "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"
-  //    let url = URL(string: "https://api.github.com/rate_limit")!
-  //    //    let url = URL(string: "https://api.github.com/users/\(username)")!
-  //    var request = URLRequest(url: url)
-  //    //    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-  //
-  //    let urlSessionConfiguration = URLSessionConfiguration.default
-  //    urlSessionConfiguration.waitsForConnectivity = true
-  //
-  //    let urlSession = URLSession(configuration: urlSessionConfiguration)
-  //
-  //    let urlSessionDataTask = urlSession.dataTask(with: request) { data, urlResponse, error in
-  //      guard error == nil else { return }
-  //      guard let urlResponse = urlResponse as? HTTPURLResponse, (0...200).contains(urlResponse.statusCode) else { return }
-  //
-  //      guard let data = data,
-  //
-  //            let dataAsString = String(data: data, encoding: .utf8) else { return }
-  //      print(dataAsString)
-  //    }
-  //
-  //    urlSessionDataTask.resume()
-  //  }
-  
-  
+}
+
+
+extension GFSearchViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    return textField.resignFirstResponder()
+  }
 }

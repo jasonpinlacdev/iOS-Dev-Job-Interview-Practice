@@ -21,17 +21,18 @@ class GFSearchTextField: UITextField {
   private func configure() {
     self.layer.cornerRadius = 10
     self.layer.borderWidth = 2
-    self.layer.borderColor = UIColor.systemGray4.cgColor
+    self.layer.borderColor = UIColor.systemGray.cgColor
     self.textColor = .label
     self.tintColor = .label
     self.textAlignment = .center
-    self.font = UIFont.preferredFont(forTextStyle: .title2)
+    self.font = UIFont.preferredFont(forTextStyle: .largeTitle)
     self.adjustsFontSizeToFitWidth = true
     self.minimumFontSize = 12
     self.backgroundColor = .tertiarySystemBackground
     self.autocorrectionType = .no
     self.translatesAutoresizingMaskIntoConstraints = false
     self.placeholder = "Username"
+    self.returnKeyType = .done
   }
   
 }

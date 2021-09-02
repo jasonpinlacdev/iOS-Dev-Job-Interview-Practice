@@ -62,6 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     searchViewController.title = "Search"
     searchViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass.circle")
     let searchNavigationController = UINavigationController(rootViewController: searchViewController)
+    searchNavigationController.navigationBar.prefersLargeTitles = true
     searchNavigationController.navigationBar.tintColor = .systemGreen
     return searchNavigationController
   }
