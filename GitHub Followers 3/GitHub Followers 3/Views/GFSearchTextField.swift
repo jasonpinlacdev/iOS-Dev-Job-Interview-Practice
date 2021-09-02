@@ -25,7 +25,7 @@ class GFSearchTextField: UITextField {
     self.textColor = .label
     self.tintColor = .label
     self.textAlignment = .center
-    self.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+    self.font = UIFont.preferredFont(forTextStyle: .title1)
     self.adjustsFontSizeToFitWidth = true
     self.minimumFontSize = 12
     self.backgroundColor = .tertiarySystemBackground

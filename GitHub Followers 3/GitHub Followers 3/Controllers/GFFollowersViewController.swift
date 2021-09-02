@@ -10,11 +10,11 @@ import UIKit
 class GFFollowersViewController: UIViewController {
   
   var username: String
-  var followersData: String
+  var followers: [GFFollower]
   
-  init(username: String, followersData: String) {
+  init(username: String, followers: [GFFollower]) {
     self.username = username
-    self.followersData = followersData
+    self.followers = followers
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -26,12 +26,12 @@ class GFFollowersViewController: UIViewController {
     super.viewDidLoad()
     configure()
     configureLayout()
-    print(followersData)
+    print(followers[0].login)
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.setNavigationBarHidden(false, animated: false)
+    navigationController?.setNavigationBarHidden(false, animated: true)
   }
   
   private func configure() {

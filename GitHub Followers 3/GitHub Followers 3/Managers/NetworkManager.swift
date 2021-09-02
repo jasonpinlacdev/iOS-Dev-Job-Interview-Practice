@@ -12,21 +12,23 @@ class NetworkManager {
   
   static let shared = NetworkManager()
   
+  private var baseURL = "https://api.github.com/users"
+  
   private init() {}
   
-  func getFollowers(for username: String, completionHandler: @escaping (Result<String, GFError>) -> Void) {
+  
+  func getFollowers(for username: String, page: Int, completionHandler: @escaping (Result<[GFFollower], GFError>) -> Void) {
     let username = username
-    let url = URL(string: "https://api.github.com/users/\(username)/followers")!
+    let url = URL(string: "https://api.github.com/users/\(username)/followers?per_page=100&page=\(page)")!
+    
     URLSession.shared.dataTask(with: url) { data, response, error in
-      // this is the completion handler when the network call has completed
-      if let data = data {
-        if let dataAsString = String(data: data, encoding: .utf8) {
-          completionHandler(.success(dataAsString))
-        }
-      } else {
-        completionHandler(.failure(GFError.networkError))
-      }
+      guard error == nil else { completionHandler(.failure(.networkError)); return }
+      guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { completionHandler(.failure(.httpReponseError)); return }
+      guard let data = data else { completionHandler(.failure(.dataError)); return }
+      guard let followers = try? JSONDecoder().decode([GFFollower].self, from: data) else { completionHandler(.failure(.jsonDecodingError)); return }
+      completionHandler(.success(followers))
     }.resume()
+    
   }
   
 }

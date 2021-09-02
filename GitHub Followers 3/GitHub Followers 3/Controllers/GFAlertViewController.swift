@@ -9,15 +9,7 @@ import UIKit
 
 class GFAlertViewController: UIViewController {
   
-  let containerView: UIView = {
-    let view = UIView()
-    view.backgroundColor = .systemBackground
-    view.layer.cornerRadius = 16
-    view.layer.borderWidth = 2
-    view.layer.borderColor = UIColor.systemGray.cgColor
-    view.translatesAutoresizingMaskIntoConstraints = false
-    return view
-  }()
+  let containerView = GFAlerContainerView()
   let titleLabel = GFTitleLabel(alignment: .center, fontSize: 31.0)
   let bodyLabel = GFBodyLabel(alignment: .center)
   lazy var button = GFButton(buttonTitle: self.buttonText, buttonColor: .systemPink)

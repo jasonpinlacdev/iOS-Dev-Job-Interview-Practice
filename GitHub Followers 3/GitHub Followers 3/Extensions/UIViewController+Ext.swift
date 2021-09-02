@@ -18,4 +18,19 @@ extension UIViewController {
     }
   }
   
+  func presentGFLoadingViewController() {
+    DispatchQueue.main.async {
+      let loadingViewController = GFLoadingViewController()
+      loadingViewController.modalPresentationStyle = .overFullScreen
+      loadingViewController.modalTransitionStyle = .crossDissolve
+      self.present(loadingViewController, animated: true, completion: nil)
+    }
+  }
+  
+  func dismissGFLoadingViewController(completionHandler: (() -> Void)? = nil) {
+    DispatchQueue.main.async {
+      self.dismiss(animated: true, completion: completionHandler)
+    }
+  }
+  
 }

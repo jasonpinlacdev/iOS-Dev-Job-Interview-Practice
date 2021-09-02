@@ -27,7 +27,7 @@ class GFSearchViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
+    self.navigationController?.setNavigationBarHidden(true, animated: true)
   }
   
   private func configure() {
@@ -39,8 +39,7 @@ class GFSearchViewController: UIViewController {
   }
   
   private func configureLayout() {
-    var padding: CGFloat = 20.0
-    
+    let padding: CGFloat = 20.0
     
     view.backgroundColor = .systemBackground
     view.addSubview(GFLogoImageView)
@@ -67,31 +66,25 @@ class GFSearchViewController: UIViewController {
   }
   
   @objc private func searchButtonTapped() {
-    // validate username entered in search textfield
     guard let username = searchTextField.text else { return }
-    guard !username.isEmpty else {
-      presentGFAlertViewController(titleText: "Username Empty", bodyText: "The username field is empty.\n Type in a username to search for its followers.", buttonText: "Dismiss")
-//      let alertViewController = GFAlertViewController(titleText: "Username Empty", bodyText: "The username field is empty.\n Type in a username to search for its followers.", buttonText: "Dismiss")
-//      alertViewController.modalPresentationStyle = .overFullScreen
-//      alertViewController.modalTransitionStyle = .crossDissolve
-//      present(alertViewController, animated: true, completion: nil)
-      return
-    }
+    guard !username.isEmpty else { presentGFAlertViewController(titleText: "Username Empty", bodyText: "The username field is empty.\n Type in a username to search for its followers.", buttonText: "Dismiss"); return }
+    
+    presentGFLoadingViewController()
 
-    // throw up loading screen here
-    NetworkManager.shared.getFollowers(for: username) { [weak self] result in
-    // remove loading screen here
-      guard let self = self else { return }
-      switch result {
-      case .failure(let error):
-        print(error)
-      case .success(let usernameFollowerDataString):
-        DispatchQueue.main.async {
-          let followersViewController = GFFollowersViewController(username: username, followersData: usernameFollowerDataString)
-          self.navigationController?.pushViewController(followersViewController, animated: true)
+    NetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
+      self?.dismissGFLoadingViewController {
+        switch result {
+        case .failure(let error):
+          self?.presentGFAlertViewController(titleText: "Something went wrong", bodyText: error.rawValue, buttonText: "Dismiss")
+        case .success(let followers):
+          DispatchQueue.main.async {
+            let followersViewController = GFFollowersViewController(username: username, followers: followers)
+            self?.navigationController?.pushViewController(followersViewController, animated: true)
+          }
         }
       }
     }
+    
   }
   
   
