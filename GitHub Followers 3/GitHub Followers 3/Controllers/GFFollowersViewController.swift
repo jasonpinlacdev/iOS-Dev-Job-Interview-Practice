@@ -26,7 +26,10 @@ class GFFollowersViewController: UIViewController {
     super.viewDidLoad()
     configure()
     configureLayout()
-    print(followers[0].login)
+    print(followers.count)
+    followers.forEach { follower  in
+      print(follower)
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {

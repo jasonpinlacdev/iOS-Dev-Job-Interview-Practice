@@ -67,29 +67,32 @@ class GFSearchViewController: UIViewController {
   
   @objc private func searchButtonTapped() {
     guard let username = searchTextField.text else { return }
-    guard !username.isEmpty else { presentGFAlertViewController(titleText: "Username Empty", bodyText: "The username field is empty.\n Type in a username to search for its followers.", buttonText: "Dismiss"); return }
+    guard !username.isEmpty else { presentGFAlertViewController(titleText: "Username Empty", bodyText: GFError.emptyUsernameError.rawValue, buttonText: "Dismiss"); return }
     
     presentGFLoadingViewController()
-
+    
     NetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
-      self?.dismissGFLoadingViewController {
-        switch result {
-        case .failure(let error):
-          self?.presentGFAlertViewController(titleText: "Something went wrong", bodyText: error.rawValue, buttonText: "Dismiss")
-        case .success(let followers):
-          DispatchQueue.main.async {
+      DispatchQueue.main.async {
+        self?.dismissGFLoadingViewController(completionHandler: {
+          switch result {
+          case .failure(let error):
+            self?.presentGFAlertViewController(titleText: "Something went wrong", bodyText: error.rawValue, buttonText: "Dismiss")
+          case .success(let followers):
             let followersViewController = GFFollowersViewController(username: username, followers: followers)
             self?.navigationController?.pushViewController(followersViewController, animated: true)
           }
-        }
+        })
       }
     }
+    
     
   }
   
   
   
-
+  
+  
+  
   
   
 }
