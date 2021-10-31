@@ -2,25 +2,27 @@
 //  GFImage.swift
 //  GitHub Followers 3
 //
-//  Created by Jason Pinlac on 10/10/21.
+//  Created by Jason Pinlac on 10/31/21.
 //
 
-import Foundation
 import UIKit
 
+
 enum GFImage {
-  case logo
+  case mainLogo
   case emptyStateLogo
-  case avatarPlaceholder
+  case avatarPlaceHolder
   
-  var image: UIImage? {
+  var image: UIImage {
     switch self {
-    case .logo:
-      return UIImage(named: "gh-logo")
+    case .mainLogo:
+      return UIImage(named: "avatar-placeholder")!
     case .emptyStateLogo:
-      return UIImage(named: "empty-state-logo")
-    case .avatarPlaceholder:
-      return UIImage(named: "avatar-placeholder")
+      return UIImage(named: "empty-state-logo")!
+    case .avatarPlaceHolder:
+      return UIImage(named: "gh-logo")!
     }
   }
+  
+  
 }

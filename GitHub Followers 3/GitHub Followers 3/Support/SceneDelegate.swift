@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  GitHub Followers 3
 //
-//  Created by Jason Pinlac on 10/9/21.
+//  Created by Jason Pinlac on 10/30/21.
 //
 
 import UIKit
@@ -11,15 +11,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
 
+
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     guard let windowScene = (scene as? UIWindowScene) else { return }
-    
-    self.window = UIWindow(windowScene: windowScene)    
-    window?.rootViewController = configureRootViewController()
-    window?.makeKeyAndVisible()
+    self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+    self.window?.windowScene = windowScene
+    self.window?.rootViewController = createRootViewController()
+    self.window?.makeKeyAndVisible()
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {
@@ -49,48 +50,48 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use this method to save data, release shared resources, and store enough scene-specific state information
     // to restore the scene back to its current state.
   }
-  
+
+
 }
 
-// MARK: - Methods for configuring the root ViewController -
+
+
+// MARK: - Scene Delegate Extension to configure rootViewController for application -
 extension SceneDelegate {
+  func createRootViewController() -> UITabBarController {
+    setupAppearancesForTabBarAndNavigationBar()
+    let rootTabBarController = UITabBarController()
+    rootTabBarController.viewControllers = [createSearchController(), createFavoritesController()]
+    return rootTabBarController
+  }
   
-  private func configureRootViewController() -> UITabBarController {
+  func createSearchController() -> UINavigationController {
+    let searchController = GFSearchController()
+    searchController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+    return UINavigationController(rootViewController: searchController)
+  }
+  
+  func createFavoritesController() -> UINavigationController {
+    let favoritesController = GFFavoritesController()
+    favoritesController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+    return UINavigationController(rootViewController: favoritesController)
+  }
+  
+  func setupAppearancesForTabBarAndNavigationBar() {
+    // Here we set the UITabBar appearance using the app-wide proxy
     let tabBarAppearance = UITabBarAppearance()
-    tabBarAppearance.configureWithDefaultBackground()
-    
-    let tabBarController = UITabBarController()
-    tabBarController.tabBar.tintColor = .systemGreen
-    tabBarController.tabBar.standardAppearance = tabBarAppearance
-    tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance
-    tabBarController.viewControllers = [configureSearchViewController(), configureFavoritesViewController()]
-    return tabBarController
-  }
-  
-  private func configureSearchViewController() -> UINavigationController {
+    tabBarAppearance.backgroundColor = .systemBackground
+    tabBarAppearance.shadowColor = .systemBackground
+    UITabBar.appearance().standardAppearance = tabBarAppearance
+    UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+    UITabBar.appearance().tintColor = .systemGreen
+    // Here we set the UINavigationBar appearance using the app-wide proxy
     let navigationBarAppearance = UINavigationBarAppearance()
-    navigationBarAppearance.configureWithDefaultBackground()
-
-    let searchViewController = GFSearchViewController()
-    searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-
-    let searchNavigationController = UINavigationController(rootViewController: searchViewController)
-    searchNavigationController.navigationBar.standardAppearance = navigationBarAppearance
-    searchNavigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-    return searchNavigationController
+    navigationBarAppearance.backgroundColor = .systemBackground
+    navigationBarAppearance.shadowColor = .systemBackground
+    UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+    UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+    UINavigationBar.appearance().tintColor = .systemGreen
   }
-  
-  private func configureFavoritesViewController() -> UINavigationController {
-    let navigationBarAppearance = UINavigationBarAppearance()
-    navigationBarAppearance.configureWithDefaultBackground()
-
-    let favoritesViewController = GFFavoritesViewController()
-    favoritesViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-    
-    let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
-    favoritesNavigationController.navigationBar.standardAppearance = navigationBarAppearance
-    favoritesNavigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-    return favoritesNavigationController
-  }
-  
 }
+
