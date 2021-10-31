@@ -15,6 +15,8 @@
 		E135B21A272DC56000CD5991 /* GFFavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B219272DC56000CD5991 /* GFFavoritesController.swift */; };
 		E135B21D272F315100CD5991 /* GFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B21C272F315100CD5991 /* GFImage.swift */; };
 		E135B21F272F359F00CD5991 /* GFSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B21E272F359F00CD5991 /* GFSymbol.swift */; };
+		E135B221272F375D00CD5991 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B220272F375D00CD5991 /* GFButton.swift */; };
+		E135B223272F49CE00CD5991 /* GFSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B222272F49CE00CD5991 /* GFSearchTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		E135B219272DC56000CD5991 /* GFFavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFavoritesController.swift; sourceTree = "<group>"; };
 		E135B21C272F315100CD5991 /* GFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFImage.swift; sourceTree = "<group>"; };
 		E135B21E272F359F00CD5991 /* GFSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSymbol.swift; sourceTree = "<group>"; };
+		E135B220272F375D00CD5991 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
+		E135B222272F49CE00CD5991 /* GFSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSearchTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,8 @@
 		E135B215272DC18800CD5991 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E135B220272F375D00CD5991 /* GFButton.swift */,
+				E135B222272F49CE00CD5991 /* GFSearchTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,8 +192,10 @@
 				E135B21F272F359F00CD5991 /* GFSymbol.swift in Sources */,
 				E135B21D272F315100CD5991 /* GFImage.swift in Sources */,
 				E135B200272DBC7000CD5991 /* AppDelegate.swift in Sources */,
+				E135B221272F375D00CD5991 /* GFButton.swift in Sources */,
 				E135B202272DBC7000CD5991 /* SceneDelegate.swift in Sources */,
 				E135B21A272DC56000CD5991 /* GFFavoritesController.swift in Sources */,
+				E135B223272F49CE00CD5991 /* GFSearchTextField.swift in Sources */,
 				E135B218272DC55200CD5991 /* GFSearchController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

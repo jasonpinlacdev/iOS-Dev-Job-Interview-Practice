@@ -16,11 +16,11 @@ enum GFImage {
   var image: UIImage {
     switch self {
     case .mainLogo:
-      return UIImage(named: "avatar-placeholder")!
+      return UIImage(named: "gh-logo")!
     case .emptyStateLogo:
       return UIImage(named: "empty-state-logo")!
     case .avatarPlaceHolder:
-      return UIImage(named: "gh-logo")!
+      return UIImage(named: "avatar-placeholder")!
     }
   }
   

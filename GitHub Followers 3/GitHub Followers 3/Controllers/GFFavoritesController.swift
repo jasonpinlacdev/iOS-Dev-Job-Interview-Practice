@@ -11,11 +11,11 @@ class GFFavoritesController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setup()
+    configure()
   }
   
-  func setup() {
+  func configure() {
     self.title = "GFFavoritesController"
-    self.view.backgroundColor = .systemBlue
+    self.view.backgroundColor = .systemBackground
   }
 }

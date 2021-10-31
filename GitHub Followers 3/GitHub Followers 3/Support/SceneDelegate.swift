@@ -59,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // MARK: - Scene Delegate Extension to configure rootViewController for application -
 extension SceneDelegate {
   func createRootViewController() -> UITabBarController {
-    setupAppearancesForTabBarAndNavigationBar()
+    configureAppearancesForTabBarAndNavigationBar()
     let rootTabBarController = UITabBarController()
     rootTabBarController.viewControllers = [createSearchController(), createFavoritesController()]
     return rootTabBarController
@@ -77,7 +77,7 @@ extension SceneDelegate {
     return UINavigationController(rootViewController: favoritesController)
   }
   
-  func setupAppearancesForTabBarAndNavigationBar() {
+  func configureAppearancesForTabBarAndNavigationBar() {
     // Here we set the UITabBar appearance using the app-wide proxy
     let tabBarAppearance = UITabBarAppearance()
     tabBarAppearance.backgroundColor = .systemBackground
