@@ -9,10 +9,6 @@ import UIKit
 
 class GFSearchController: UIViewController {
   
-  
-  // NEXT THING TO DO IS DISMISS KEYBOARD
-  
-  
   let mainLogoImageView: UIImageView = {
     let imageView = UIImageView(image: GFImage.mainLogo.image)
     imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,12 +23,13 @@ class GFSearchController: UIViewController {
     super.viewDidLoad()
     configure()
     configureLayout()
+    configureSearchTextFieldForKeyboardDismissal()
   }
   
   override func viewDidAppear(_ animated: Bool) {
     navigationController?.setNavigationBarHidden(true, animated: false)
   }
-
+  
   private func configure() {
     self.title = "GFSearchController"
     self.view.backgroundColor = .systemBackground
@@ -60,11 +57,54 @@ class GFSearchController: UIViewController {
       searchButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.90),
       searchButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
     ])
-  
-    
-    
-    
   }
   
+}
+
+
+// This extension is for the different implementations that are used to dismiss the searchTextField's keyboard
+// 1) UITextFieldDelegate protocol method - textFieldShouldReturn to resign firstResponder keyboard
+// 2) UITextField extension method to addDoneButton to invoke the searchController's view.endEditing method
+// 3) UIGestureRecognizer for a tap on the searchControllers view to invoke the searchController's view.endEditing method
+// Also we use the global NotificationCenter.default to subscribe to the keyboardShowing and keyboardHiding events to adjust our view as keyboard propagates
+extension GFSearchController {
+  
+  private func configureSearchTextFieldForKeyboardDismissal() {
+    searchTextField.delegate = self
+    searchTextField.addDoneButton(target: self, selector: #selector(keyboardToolbarDoneButtonTapped))
+    let dismissKeyboardOnTapGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing))
+    self.view.addGestureRecognizer(dismissKeyboardOnTapGestureRecognizer)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+  
+  @objc private func keyboardToolbarDoneButtonTapped() {
+    self.view.endEditing(true)
+  }
+  
+  @objc private func keyboardWillShow(notification: NSNotification) {
+    guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+    let bottomOfSearchButton = searchButton.frame.maxY
+    let topOfKeyboard = keyboardFrame.minY
+    if bottomOfSearchButton > topOfKeyboard { // this means keyboard overlaps button
+      let overlap = bottomOfSearchButton - topOfKeyboard
+      self.view.frame.origin.y = 0 - overlap - 15
+    }
+  }
+  
+  @objc private func keyboardWillHide(notification: NSNotification) {
+    self.view.frame.origin.y = 0
+  }
   
 }
+
+
+extension GFSearchController: UITextFieldDelegate {
+
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    // when the textField returns you dismiss/resign the firstResponder which in this case is the Keyboard.
+    return textField.resignFirstResponder()
+  }
+  
+}
+
