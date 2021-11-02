@@ -24,10 +24,12 @@ class GFSearchController: UIViewController {
     configure()
     configureLayout()
     configureSearchTextFieldForKeyboardDismissal()
+    searchButton.addTarget(self, action: #selector(searchFollowers), for: .touchUpInside)
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    navigationController?.setNavigationBarHidden(true, animated: false)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.setNavigationBarHidden(true, animated: true)
   }
   
   private func configure() {
@@ -62,20 +64,63 @@ class GFSearchController: UIViewController {
 }
 
 
+
+// This extension contains the implementations for accepting a username search entry, validating it, hitting GitHub's API to retrieve the followers, and pushing the GFFollowersController onto the navigation stack.
+extension GFSearchController {
+  
+  @objc private func searchFollowers() {
+    searchTextField.resignFirstResponder()
+    guard let username = searchTextField.text else { return }
+    
+    if validEntry(for: username) {
+      
+      let followers = getFollowers(for: username)
+      pushFollowersController(followers: followers)
+    
+    }
+  }
+  
+  private func validEntry(for username: String) -> Bool {
+    if username.isEmpty {
+      self.presentGFAlertController(alertTitle: "Empty Username", alertMessage: "The username you entered is empty.", alertButtonText: "Dismiss")
+      return false
+    }
+    return true
+  }
+  
+  
+  private func getFollowers(for username:String) -> [GFFollower] {
+    return [GFFollower]()
+  }
+  
+  
+  private func pushFollowersController(followers: [GFFollower]) {
+    let followerController = GFFollowersController()
+    self.navigationController?.pushViewController(followerController, animated: true)
+  }
+  
+  
+}
+
+
 // This extension is for the different implementations that are used to dismiss the searchTextField's keyboard
 // 1) UITextFieldDelegate protocol method - textFieldShouldReturn to resign firstResponder keyboard
 // 2) UITextField extension method to addDoneButton to invoke the searchController's view.endEditing method
 // 3) UIGestureRecognizer for a tap on the searchControllers view to invoke the searchController's view.endEditing method
 // Also we use the global NotificationCenter.default to subscribe to the keyboardShowing and keyboardHiding events to adjust our view as keyboard propagates
-extension GFSearchController {
-  
+extension GFSearchController: UITextFieldDelegate {
   private func configureSearchTextFieldForKeyboardDismissal() {
     searchTextField.delegate = self
     searchTextField.addDoneButton(target: self, selector: #selector(keyboardToolbarDoneButtonTapped))
-    let dismissKeyboardOnTapGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing))
+    let dismissKeyboardOnTapGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
     self.view.addGestureRecognizer(dismissKeyboardOnTapGestureRecognizer)
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    // when the textField returns you dismiss/resign the firstResponder which in this case is the Keyboard.
+    return textField.resignFirstResponder()
   }
   
   @objc private func keyboardToolbarDoneButtonTapped() {
@@ -97,14 +142,3 @@ extension GFSearchController {
   }
   
 }
-
-
-extension GFSearchController: UITextFieldDelegate {
-
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    // when the textField returns you dismiss/resign the firstResponder which in this case is the Keyboard.
-    return textField.resignFirstResponder()
-  }
-  
-}
-

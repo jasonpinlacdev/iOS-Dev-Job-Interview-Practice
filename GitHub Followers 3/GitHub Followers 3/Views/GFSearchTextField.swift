@@ -19,20 +19,21 @@ class GFSearchTextField: UITextField {
   }
   
   private func configure() {
-    placeholder = "Enter Username"
+    placeholder = "Enter a username"
     textAlignment = .center
     
     font = UIFont.preferredFont(forTextStyle: .title1)
     adjustsFontSizeToFitWidth = true
     minimumFontSize = 18
     
+    keyboardType = .default
     returnKeyType = .done
     autocorrectionType = .no
     
     clipsToBounds = true
     layer.cornerRadius = 32
     layer.borderWidth = 2.0
-    layer.borderColor = UIColor.tertiaryLabel.cgColor
+    layer.borderColor = UIColor.systemGray3.cgColor
     translatesAutoresizingMaskIntoConstraints = false
   }
 

@@ -81,17 +81,18 @@ extension SceneDelegate {
     // Here we set the UITabBar appearance using the app-wide proxy
     let tabBarAppearance = UITabBarAppearance()
     tabBarAppearance.backgroundColor = .systemBackground
-    tabBarAppearance.shadowColor = .systemBackground
+//    tabBarAppearance.shadowColor = .systemBackground
     UITabBar.appearance().standardAppearance = tabBarAppearance
     UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
     UITabBar.appearance().tintColor = .systemGreen
     // Here we set the UINavigationBar appearance using the app-wide proxy
     let navigationBarAppearance = UINavigationBarAppearance()
     navigationBarAppearance.backgroundColor = .systemBackground
-    navigationBarAppearance.shadowColor = .systemBackground
+//    navigationBarAppearance.shadowColor = .systemBackground
     UINavigationBar.appearance().standardAppearance = navigationBarAppearance
     UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     UINavigationBar.appearance().tintColor = .systemGreen
+    UINavigationBar.appearance().prefersLargeTitles = true
   }
 }
 
