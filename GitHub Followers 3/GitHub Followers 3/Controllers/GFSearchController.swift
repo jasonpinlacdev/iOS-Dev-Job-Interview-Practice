@@ -61,44 +61,20 @@ class GFSearchController: UIViewController {
     ])
   }
   
-}
-
-
-
-// This extension contains the implementations for accepting a username search entry, validating it, hitting GitHub's API to retrieve the followers, and pushing the GFFollowersController onto the navigation stack.
-extension GFSearchController {
-  
   @objc private func searchFollowers() {
     searchTextField.resignFirstResponder()
     guard let username = searchTextField.text else { return }
-    
-    if validEntry(for: username) {
-      
-      let followers = getFollowers(for: username)
-      pushFollowersController(followers: followers)
-    
-    }
-  }
-  
-  private func validEntry(for username: String) -> Bool {
     if username.isEmpty {
       self.presentGFAlertController(alertTitle: "Empty Username", alertMessage: "The username you entered is empty.", alertButtonText: "Dismiss")
-      return false
+      return
     }
-    return true
+    
+    
+    GFNetworkManager.shared.getFollowers(for: username)
+//    { result in
+//      print(result)
+//    }
   }
-  
-  
-  private func getFollowers(for username:String) -> [GFFollower] {
-    return [GFFollower]()
-  }
-  
-  
-  private func pushFollowersController(followers: [GFFollower]) {
-    let followerController = GFFollowersController()
-    self.navigationController?.pushViewController(followerController, animated: true)
-  }
-  
   
 }
 
