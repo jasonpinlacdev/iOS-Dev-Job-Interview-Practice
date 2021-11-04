@@ -10,6 +10,10 @@ import UIKit
 class GFFollowersController: UIViewController {
   
   let followers: [GFFollower]
+  let currentPage = 1
+  
+  let collectionView = UICollectionView()
+  // collectionView, dataSource, layout(flow or compositional), custom reusable cell
   
   init(followers: [GFFollower]) {
     self.followers = followers
@@ -24,6 +28,7 @@ class GFFollowersController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
+    configureLayout()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -33,9 +38,22 @@ class GFFollowersController: UIViewController {
   
   private func configure() {
     self.title = "FollowersController"
-    self.view.backgroundColor = .systemBackground
     navigationItem.largeTitleDisplayMode = .always
+    self.view.backgroundColor = .systemBackground
   }
+  
+  private func configureLayout() {
+    view.addSubview(collectionView)
+  }
+  
+  private func configureCollectionView() {
+    self.collectionView.dataSource = UICollectionViewDiffableDataSource<<#SectionIdentifierType: Hashable#>, ItemIdentifierType>(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+      <#code#>
+    })
+  }
+  
+  
+  
   
   
 }

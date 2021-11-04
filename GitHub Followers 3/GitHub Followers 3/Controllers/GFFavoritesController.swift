@@ -17,5 +17,6 @@ class GFFavoritesController: UIViewController {
   func configure() {
     self.title = "GFFavoritesController"
     self.view.backgroundColor = .systemBackground
+    navigationItem.largeTitleDisplayMode = .never
   }
 }
