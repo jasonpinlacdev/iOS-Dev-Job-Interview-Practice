@@ -14,6 +14,7 @@ enum GFError: Error {
   case serverError
   case dataError
   case dataDecodingError
+  case avatarImageDownloadError
   
   
   var errorTitle: String {
@@ -28,6 +29,8 @@ enum GFError: Error {
       return "Invalid Data Error"
     case .dataDecodingError:
       return "Invalid Data Decoding Error"
+    case .avatarImageDownloadError:
+      return "Avatar Image Download Error"
     }
   }
   
@@ -43,6 +46,9 @@ enum GFError: Error {
       return "The data retrieved from the request is invalid."
     case .dataDecodingError:
       return "The data retrieved from the request could not properly be decoded to followers."
+    case .avatarImageDownloadError:
+      return "Failed to retrieve follower avatar image."
     }
   }
+  
 }

@@ -31,7 +31,7 @@
 		E135B23D2731C87200CD5991 /* GFNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B23C2731C87200CD5991 /* GFNetworkManager.swift */; };
 		E135B23F2734734700CD5991 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B23E2734734700CD5991 /* GFError.swift */; };
 		E135B242273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B241273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift */; };
-		E13C034A273709680034E9D2 /* GFFollowerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0349273709680034E9D2 /* GFFollowerCollectionViewCell.swift */; };
+		E13C034A273709680034E9D2 /* GFFollowersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */; };
 		E13C034C27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C034B27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +62,7 @@
 		E135B23C2731C87200CD5991 /* GFNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFNetworkManager.swift; sourceTree = "<group>"; };
 		E135B23E2734734700CD5991 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
 		E135B241273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
-		E13C0349273709680034E9D2 /* GFFollowerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowerCollectionViewCell.swift; sourceTree = "<group>"; };
+		E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewCell.swift; sourceTree = "<group>"; };
 		E13C034B27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewDelegateFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,7 +137,7 @@
 				E135B22D2730BA3700CD5991 /* GFAlertContainerView.swift */,
 				E135B22F2730BA4700CD5991 /* GFTitleLabel.swift */,
 				E135B2312730BA5A00CD5991 /* GFBodyLabel.swift */,
-				E13C0349273709680034E9D2 /* GFFollowerCollectionViewCell.swift */,
+				E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 				E135B242273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift in Sources */,
 				E135B22A2730B1FD00CD5991 /* GFollower.swift in Sources */,
 				E135B221272F375D00CD5991 /* GFButton.swift in Sources */,
-				E13C034A273709680034E9D2 /* GFFollowerCollectionViewCell.swift in Sources */,
+				E13C034A273709680034E9D2 /* GFFollowersCollectionViewCell.swift in Sources */,
 				E135B226272F7F9C00CD5991 /* UITextField+AddDoneButton.swift in Sources */,
 				E135B202272DBC7000CD5991 /* SceneDelegate.swift in Sources */,
 				E135B2342730BA9100CD5991 /* GFAlertController.swift in Sources */,

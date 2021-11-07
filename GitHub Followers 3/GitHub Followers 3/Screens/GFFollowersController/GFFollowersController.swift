@@ -27,16 +27,9 @@ class GFFollowersController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    print(followers)
     configure()
     configureLayout()
-    
-    configureCollectionViewDiffableDataSource()
-    self.collectionView.register(GFFollowerCollectionViewCell.self, forCellWithReuseIdentifier: GFFollowerCollectionViewCell.reuseIdentifier)
-    self.collectionView.delegate = self.collectionViewDelegateFlowLayout
-    self.collectionView.dataSource = self.collectionViewDiffableDataSource
-    
-//    configureCollectionView()
+    configureCollectionView()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +46,6 @@ class GFFollowersController: UIViewController {
   private func configureLayout() {
     self.collectionView.translatesAutoresizingMaskIntoConstraints = false
     self.view.addSubview(self.collectionView)
-    self.collectionView.backgroundColor = .systemPink
     
     NSLayoutConstraint.activate([
       self.collectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -72,15 +64,15 @@ class GFFollowersController: UIViewController {
 extension GFFollowersController {
   
   private func configureCollectionView() {
-    configureCollectionViewDiffableDataSource()
-    self.collectionView.register(GFFollowerCollectionViewCell.self, forCellWithReuseIdentifier: GFFollowerCollectionViewCell.reuseIdentifier)
+    self.collectionView.register(GFFollowersCollectionViewCell.self, forCellWithReuseIdentifier: GFFollowersCollectionViewCell.reuseIdentifier)
     self.collectionView.delegate = self.collectionViewDelegateFlowLayout
     self.collectionView.dataSource = self.collectionViewDiffableDataSource
+    configureCollectionViewDiffableDataSource()
   }
 
   private func configureCollectionViewDiffableDataSource() {
     self.collectionViewDiffableDataSource = GFFollowersCollectionViewDiffableDataSource(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, follower in
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCollectionViewCell.reuseIdentifier, for: indexPath) as? GFFollowerCollectionViewCell else { fatalError("Failed to dequeue a GFFollowerCollectionViewCell.")}
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowersCollectionViewCell.reuseIdentifier, for: indexPath) as? GFFollowersCollectionViewCell else { fatalError("Failed to dequeue a GFFollowerCollectionViewCell.")}
       cell.setup(follower: follower)
       return cell
     })

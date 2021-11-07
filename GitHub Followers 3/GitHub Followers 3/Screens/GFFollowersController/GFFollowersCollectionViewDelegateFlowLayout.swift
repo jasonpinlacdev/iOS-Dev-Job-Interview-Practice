@@ -26,7 +26,7 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
     let availableWidth = maxWidth - (spacingBetweenItems * (numberOfItemsPerRow - 1))
     let itemWidth = (availableWidth/self.numberOfItemsPerRow)
   
-    return CGSize(width: itemWidth, height: itemWidth)
+    return CGSize(width: itemWidth, height: itemWidth * 1.33)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

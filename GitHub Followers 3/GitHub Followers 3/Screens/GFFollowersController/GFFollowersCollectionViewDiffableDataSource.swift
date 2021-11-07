@@ -20,7 +20,7 @@ class GFFollowersCollectionViewDiffableDataSource: UICollectionViewDiffableDataS
     self.apply(initialSnapshot, animatingDifferences: false)
   }
   
-  func applySnapshotUpdate(with followers: [GFFollower]) {
+  func applySnapshotUpdate(withMore followers: [GFFollower]) {
     
   }
   

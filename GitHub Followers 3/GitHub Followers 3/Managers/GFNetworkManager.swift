@@ -48,6 +48,17 @@ class GFNetworkManager  {
   }
   
   
+  func getAvatarImage(for follower: GFFollower, completionHandler: @escaping (Result<UIImage?, GFError>) -> Void){
+    DispatchQueue.global(qos: .utility).async {
+      let imageEndpoint = follower.avatarURL
+      guard let imageURL = URL(string: imageEndpoint) else { completionHandler(.failure(.avatarImageDownloadError)); return }
+      guard let imageData = try? Data(contentsOf: imageURL) else { completionHandler(.failure(.avatarImageDownloadError)); return }
+      let avatarImage = UIImage(data: imageData)
+      completionHandler(.success(avatarImage))
+    }
+  }
+  
+  
 
 
 //  func getFollowers(for username: String, perPage: Int = 100, page: Int, completionHandler: @escaping ((GFError?, [GFFollower]?) -> Void)) {

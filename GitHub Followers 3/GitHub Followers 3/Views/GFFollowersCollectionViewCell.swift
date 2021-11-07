@@ -19,12 +19,20 @@ class GFFollowersCollectionViewCell: UICollectionViewCell {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-        self.contentView.backgroundColor = .systemGreen
-        configureLayout()
+    configure()
+    configureLayout()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  private func configure() {
+    followerAvatarImageView.layer.cornerRadius = 10
+    followerAvatarImageView.clipsToBounds = true
+    followerUsernameLabel.textAlignment = .center
+    followerUsernameLabel.lineBreakMode = .byTruncatingTail
+    followerUsernameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
   }
   
   private func configureLayout() {
@@ -34,14 +42,30 @@ class GFFollowersCollectionViewCell: UICollectionViewCell {
     self.contentView.addSubview(followerUsernameLabel)
     
     NSLayoutConstraint.activate([
-    
+      followerAvatarImageView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+      followerAvatarImageView.heightAnchor.constraint(equalTo: followerAvatarImageView.widthAnchor),
+      followerAvatarImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+      followerAvatarImageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+      
+      followerUsernameLabel.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+      followerUsernameLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+      followerUsernameLabel.topAnchor.constraint(equalTo: followerAvatarImageView.bottomAnchor),
+      followerUsernameLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
     ])
     
   }
   
   func setup(follower: GFFollower) {
-//    followerAvatarImageView.image =
-//    followerUsernameLabel.text =
+    self.followerAvatarImageView.image = GFImage.avatarPlaceHolder.image
+    self.followerUsernameLabel.text = follower.login
+    GFNetworkManager.shared.getAvatarImage(for: follower) { [weak self] result in
+      switch result {
+      case .success(let image):
+        DispatchQueue.main.async { self?.followerAvatarImageView.image = image }
+      case . failure(_):
+        return 
+      }
+    }
   }
   
 }
