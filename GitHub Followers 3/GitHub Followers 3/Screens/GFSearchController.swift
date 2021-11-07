@@ -68,7 +68,7 @@ class GFSearchController: UIViewController {
     guard let username = searchTextField.text else { return }
     
     if username.isEmpty {
-      self.presentGFAlertController(alertTitle: "Empty Username", alertMessage: "The username you entered is empty.", alertButtonText: "Dismiss")
+      self.presentGFAlertController(alertTitle: GFError.emptyUsername.errorTitle, alertMessage: GFError.emptyUsername.errorMessageDescription, alertButtonText: "Dismiss")
       return
     }
     

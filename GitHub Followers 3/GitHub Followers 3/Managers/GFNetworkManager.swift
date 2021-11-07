@@ -25,10 +25,22 @@ class GFNetworkManager  {
     
     let task = URLSession.shared.dataTask(with: url) { data, urlResponse, error in
       //This closure is executed at the end of the datatask and is async on a background thread
-      guard error == nil else { completionHandler(.failure(.localError)); return }
-      guard let urlResponse = urlResponse as? HTTPURLResponse, (0...200).contains(urlResponse.statusCode) else { completionHandler(.failure(.serverError)); return }
-      guard let data = data else { completionHandler(.failure(.dataError)); return }
-      guard let followers = try? JSONDecoder().decode([GFFollower].self, from: data) else { completionHandler(.failure(.dataDecodingError)); return }
+      guard error == nil else {
+        completionHandler(.failure(.localError))
+        return
+      }
+      guard let urlResponse = urlResponse as? HTTPURLResponse, (0...200).contains(urlResponse.statusCode) else {
+        completionHandler(.failure(.serverError))
+        return
+      }
+      guard let data = data else {
+        completionHandler(.failure(.dataError))
+        return
+      }
+      guard let followers = try? JSONDecoder().decode([GFFollower].self, from: data) else {
+        completionHandler(.failure(.dataDecodingError))
+        return
+      }
       completionHandler(.success(followers))
     }
     
@@ -46,13 +58,9 @@ class GFNetworkManager  {
 //    let task = URLSession.shared.dataTask(with: url) { data, urlResponse, error in
 //      //This closure is executed at the end of the datatask and is async on a background thread
 //      guard error == nil else { completionHandler(.localError, nil); return }
-//
 //      guard let urlResponse = urlResponse as? HTTPURLResponse, (0...200).contains(urlResponse.statusCode) else { completionHandler(.serverError, nil); return }
-//
 //      guard let data = data else { completionHandler(.dataError, nil); return }
-//
 //      guard let followers = try? JSONDecoder().decode([GFFollower].self, from: data) else { completionHandler(.dataDecodingError, nil); return }
-//
 //      completionHandler(nil, followers)
 //    }
 //

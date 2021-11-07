@@ -9,6 +9,7 @@ import Foundation
 
 
 enum GFError: Error {
+  case emptyUsername
   case localError
   case serverError
   case dataError
@@ -16,8 +17,9 @@ enum GFError: Error {
   
   
   var errorTitle: String {
-    let errorTitle: String = "Error"
     switch self {
+    case .emptyUsername:
+      return "Empty Username Error"
     case .localError:
       return "Invalid Connection Error"
     case .serverError:
@@ -27,12 +29,12 @@ enum GFError: Error {
     case .dataDecodingError:
       return "Invalid Data Decoding Error"
     }
-    return errorTitle
   }
   
   var errorMessageDescription: String {
-    let errorMessageDescription: String = "Something went wrong."
     switch self {
+    case .emptyUsername:
+      return "The username you entered is empty. Try again."
     case .localError:
       return "Unable to complete the request. Please check your internet connection."
     case .serverError:
@@ -42,6 +44,5 @@ enum GFError: Error {
     case .dataDecodingError:
       return "The data retrieved from the request could not properly be decoded to followers."
     }
-    return errorMessageDescription
   }
 }
