@@ -14,7 +14,7 @@ enum GFError: Error {
   case serverError
   case dataError
   case dataDecodingError
-  case avatarImageDownloadError
+  case avatarImageDownloadError // <-- this error here is just a placeholder for our result type when making the async network call. I don't use this error case when presenting the GFAlertController
   
   
   var errorTitle: String {

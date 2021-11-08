@@ -58,6 +58,9 @@ class GFFollowersCollectionViewCell: UICollectionViewCell {
   func setup(follower: GFFollower) {
     self.followerAvatarImageView.image = GFImage.avatarPlaceHolder.image
     self.followerUsernameLabel.text = follower.login
+    
+    // This network call to download the follower avatar image is extremely inefficient because everytime we dequeue a reusable collection view cell, we will have to make this network call to populate the imageView.
+    // Instead, we will implement a cache and store the image the first time we download it. Now, everytime we dequeue a reusable cell and populate it for a follower, instead of re-downloading the image data, we will check the cache to see if it exists and set it.
     GFNetworkManager.shared.getAvatarImage(for: follower) { [weak self] result in
       switch result {
       case .success(let image):
