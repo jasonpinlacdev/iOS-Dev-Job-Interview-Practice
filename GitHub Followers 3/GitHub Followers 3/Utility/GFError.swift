@@ -10,6 +10,7 @@ import Foundation
 
 enum GFError: Error {
   case emptyUsername
+  case invalidUsername
   case localError
   case serverError
   case dataError
@@ -31,6 +32,8 @@ enum GFError: Error {
       return "Invalid Data Decoding Error"
     case .avatarImageDownloadError:
       return "Avatar Image Download Error"
+    case .invalidUsername:
+      return "Invalid Username Error"
     }
   }
   
@@ -48,6 +51,8 @@ enum GFError: Error {
       return "The data retrieved from the request could not properly be decoded to followers."
     case .avatarImageDownloadError:
       return "Failed to retrieve follower avatar image."
+    case .invalidUsername:
+      return "The username you entered is an invalid entry. Try again."
     }
   }
   

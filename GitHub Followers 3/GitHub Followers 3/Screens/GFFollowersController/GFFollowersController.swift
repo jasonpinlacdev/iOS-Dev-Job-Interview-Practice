@@ -10,13 +10,24 @@ import UIKit
 class GFFollowersController: UIViewController {
   
   let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-  var collectionViewDelegateFlowLayout = GFFollowersCollectionViewDelegateFlowLayout(numberOfItemsPerRow: 3, spacingBetweenItems: 10)
+  lazy var collectionViewDelegateFlowLayout = GFFollowersCollectionViewDelegateFlowLayout(numberOfItemsPerRow: 3, spacingBetweenItems: 10, followersController: self)
   var collectionViewDiffableDataSource: GFFollowersCollectionViewDiffableDataSource!
   
-  let followers: [GFFollower]
+  let username: String
   
-  init(followers: [GFFollower]) {
-    self.followers = followers
+  var followersOfCurrentPage: [GFFollower]
+  var allFollowersSoFar: [GFFollower]
+  var currentPageOfFollowers = 1
+  
+  var hasMoreFollowers: Bool {
+    followersOfCurrentPage.count < 100 ? false : true
+  }
+  
+  
+  init(username: String, followers: [GFFollower]) {
+    self.username = username
+    self.followersOfCurrentPage = followers
+    self.allFollowersSoFar = self.followersOfCurrentPage
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -76,6 +87,6 @@ extension GFFollowersController {
       cell.setup(follower: follower)
       return cell
     })
-    self.collectionViewDiffableDataSource.setupInitialSnapshot(with: self.followers)
+    self.collectionViewDiffableDataSource.setupInitialSnapshot(with: self.allFollowersSoFar)
   }
 }

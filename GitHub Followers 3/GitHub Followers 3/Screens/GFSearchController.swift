@@ -82,7 +82,7 @@ class GFSearchController: UIViewController {
         self?.dismissGFLoadingController(animated: true) {
           switch result {
           case .success(let followers):
-            let followersController = GFFollowersController(followers: followers)
+            let followersController = GFFollowersController(username: username, followers: followers)
             self?.navigationController?.pushViewController(followersController, animated: true)
           case .failure(let error):
             self?.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")

@@ -8,13 +8,16 @@
 import UIKit
 
 class GFFollowersCollectionViewDelegateFlowLayout: NSObject {
+  
+  weak var followersController: GFFollowersController!
 
   let numberOfItemsPerRow: CGFloat
   let spacingBetweenItems: CGFloat
   
-  init(numberOfItemsPerRow: CGFloat, spacingBetweenItems: CGFloat) {
+  init(numberOfItemsPerRow: CGFloat, spacingBetweenItems: CGFloat, followersController: GFFollowersController) {
     self.numberOfItemsPerRow = numberOfItemsPerRow
     self.spacingBetweenItems = spacingBetweenItems
+    self.followersController  = followersController
   }
   
 }
@@ -36,4 +39,35 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 10
   }
+  
+  
+  func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    if followersController.hasMoreFollowers && (scrollView.contentOffset.y + scrollView.bounds.height >= scrollView.contentSize.height - 100) {
+  
+      followersController.currentPageOfFollowers += 1
+      let nextPage = followersController.currentPageOfFollowers
+      
+      followersController.presentGFLoadingController(animated: true, completion: nil)
+      
+      GFNetworkManager.shared.getFollowers(for: followersController.username, page: nextPage) { [weak self] result in
+        guard let self = self else { return }
+        
+        DispatchQueue.main.async {
+          self.followersController.dismissGFLoadingController(animated: true, completion: nil)
+        }
+  
+        switch result {
+        case .success(let followersOfPage):
+          self.followersController.followersOfCurrentPage = followersOfPage
+          self.followersController.allFollowersSoFar.append(contentsOf: self.followersController.followersOfCurrentPage)
+          DispatchQueue.main.async {
+            self.followersController.collectionViewDiffableDataSource.applySnapshotUpdate(with: self.followersController.allFollowersSoFar)
+          }
+        case .failure(_):
+          return
+        }
+      }
+    }
+  }
+  
 }

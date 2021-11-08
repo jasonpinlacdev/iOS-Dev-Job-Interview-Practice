@@ -22,7 +22,10 @@ class GFNetworkManager  {
   func getFollowers(for username: String, perPage: Int = 100, page: Int = 1, completionHandler: @escaping (Result<[GFFollower], GFError>) -> Void) {
     //example for parameters -> https://api.github.com/users/jasonpinlacdev/followers?per_page=1&page=3
     let endPoint = baseURL + "/users/\(username)/followers?per_page=\(perPage)&page=\(page)"
-    let url = URL(string: endPoint)!
+    guard let url = URL(string: endPoint) else {
+      completionHandler(.failure(.invalidUsername))
+      return
+    }
     
     let task = URLSession.shared.dataTask(with: url) { data, urlResponse, error in
       //This closure is executed at the end of the datatask and is async on a background thread
