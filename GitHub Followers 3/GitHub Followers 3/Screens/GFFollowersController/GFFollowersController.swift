@@ -39,8 +39,20 @@ class GFFollowersController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
-    configureLayout()
-    configureCollectionView()
+    if self.followersOfCurrentPage.isEmpty {
+      let followersEmptyStateView = GFFollowersEmptyStateView()
+      followersEmptyStateView.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(followersEmptyStateView)
+      NSLayoutConstraint.activate([
+        followersEmptyStateView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        followersEmptyStateView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        followersEmptyStateView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor),
+        followersEmptyStateView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
+      ])
+    } else {
+      configureCollectionViewLayout()
+      configureCollectionView()
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -49,12 +61,12 @@ class GFFollowersController: UIViewController {
   }
   
   private func configure() {
-    self.title = "FollowersController"
+    self.title = "\(username)'s Followers"
     navigationItem.largeTitleDisplayMode = .always
     self.view.backgroundColor = .systemBackground
   }
 
-  private func configureLayout() {
+  private func configureCollectionViewLayout() {
     self.collectionView.translatesAutoresizingMaskIntoConstraints = false
     self.view.addSubview(self.collectionView)
     

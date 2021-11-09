@@ -33,6 +33,7 @@
 		E135B242273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B241273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift */; };
 		E13C034A273709680034E9D2 /* GFFollowersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */; };
 		E13C034C27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C034B27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift */; };
+		E13C034E2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C034D2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		E135B241273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewCell.swift; sourceTree = "<group>"; };
 		E13C034B27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewDelegateFlowLayout.swift; sourceTree = "<group>"; };
+		E13C034D2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersEmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				E135B22F2730BA4700CD5991 /* GFTitleLabel.swift */,
 				E135B2312730BA5A00CD5991 /* GFBodyLabel.swift */,
 				E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */,
+				E13C034D2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				E135B202272DBC7000CD5991 /* SceneDelegate.swift in Sources */,
 				E135B2342730BA9100CD5991 /* GFAlertController.swift in Sources */,
 				E135B23A2731C3E700CD5991 /* UIViewController+PresentGFLoadingController.swift in Sources */,
+				E13C034E2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift in Sources */,
 				E135B21A272DC56000CD5991 /* GFFavoritesController.swift in Sources */,
 				E13C034C27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift in Sources */,
 				E135B223272F49CE00CD5991 /* GFSearchTextField.swift in Sources */,
