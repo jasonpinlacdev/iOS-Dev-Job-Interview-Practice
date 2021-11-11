@@ -14,10 +14,11 @@ class GFFollowersController: UIViewController {
   var collectionViewDiffableDataSource: GFFollowersCollectionViewDiffableDataSource!
   
   let username: String
-  
   var followersOfCurrentPage: [GFFollower]
   var allFollowersSoFar: [GFFollower]
   var currentPageOfFollowers = 1
+  
+  var searchedFollowers = [GFFollower]()
   
   var hasMoreFollowers: Bool {
     followersOfCurrentPage.count < 100 ? false : true
@@ -27,7 +28,7 @@ class GFFollowersController: UIViewController {
   init(username: String, followers: [GFFollower]) {
     self.username = username
     self.followersOfCurrentPage = followers
-    self.allFollowersSoFar = self.followersOfCurrentPage
+    self.allFollowersSoFar = followers
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -35,10 +36,11 @@ class GFFollowersController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
+    configureSearchController()
     if self.followersOfCurrentPage.isEmpty {
       let followersEmptyStateView = GFFollowersEmptyStateView()
       followersEmptyStateView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +67,16 @@ class GFFollowersController: UIViewController {
     navigationItem.largeTitleDisplayMode = .always
     self.view.backgroundColor = .systemBackground
   }
-
+  
+  private func configureSearchController() {
+    let searchController = UISearchController()
+    searchController.searchBar.placeholder = "Search a username"
+    searchController.obscuresBackgroundDuringPresentation = false
+    self.navigationItem.searchController = searchController
+    self.navigationItem.hidesSearchBarWhenScrolling = false
+    searchController.searchResultsUpdater = self
+  }
+  
   private func configureCollectionViewLayout() {
     self.collectionView.translatesAutoresizingMaskIntoConstraints = false
     self.view.addSubview(self.collectionView)
@@ -77,14 +88,6 @@ class GFFollowersController: UIViewController {
       self.collectionView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.95),
     ])
   }
-
-}
-
-
-
-// MARK: - CollectionView Setup -
-// This extension contains the code implementations to configure and setup the collectionView for this GFFollowersController. Flowlayout and DiffableDataSource
-extension GFFollowersController {
   
   private func configureCollectionView() {
     self.collectionView.register(GFFollowersCollectionViewCell.self, forCellWithReuseIdentifier: GFFollowersCollectionViewCell.reuseIdentifier)
@@ -92,7 +95,7 @@ extension GFFollowersController {
     self.collectionView.dataSource = self.collectionViewDiffableDataSource
     configureCollectionViewDiffableDataSource()
   }
-
+  
   private func configureCollectionViewDiffableDataSource() {
     self.collectionViewDiffableDataSource = GFFollowersCollectionViewDiffableDataSource(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, follower in
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowersCollectionViewCell.reuseIdentifier, for: indexPath) as? GFFollowersCollectionViewCell else { fatalError("Failed to dequeue a GFFollowerCollectionViewCell.")}
@@ -101,4 +104,26 @@ extension GFFollowersController {
     })
     self.collectionViewDiffableDataSource.setupInitialSnapshot(with: self.allFollowersSoFar)
   }
+  
 }
+
+
+extension GFFollowersController: UISearchResultsUpdating {
+  
+  func updateSearchResults(for searchController: UISearchController) {
+    guard let searchText = searchController.searchBar.text?.lowercased(), !searchText.isEmpty else {
+      self.collectionViewDiffableDataSource.applySnapshotUpdate(with: self.allFollowersSoFar, completionHandler: nil)
+      return
+    }
+   
+    self.searchedFollowers = allFollowersSoFar.filter({ follower in
+      let followerUsername = follower.login.lowercased()
+      return followerUsername.contains(searchText)
+    })
+    
+    self.collectionViewDiffableDataSource.applySnapshotUpdate(with: searchedFollowers, completionHandler: nil)
+  }
+  
+
+}
+

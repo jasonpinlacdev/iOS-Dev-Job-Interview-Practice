@@ -55,7 +55,7 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
         DispatchQueue.main.async {
           self.followersController.dismissGFLoadingController(animated: true, completion: nil)
         }
-  
+        
         switch result {
         case .success(let followersOfPage):
           self.followersController.followersOfCurrentPage = followersOfPage
