@@ -71,32 +71,23 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
     followersController.presentGFLoadingController(animated: true, completion: nil)
-    
     guard let diffableDataSource = collectionView.dataSource as? GFFollowersCollectionViewDiffableDataSource else { return }
     guard let follower = diffableDataSource.itemIdentifier(for: indexPath) else { return }
     let followerUsername = follower.login
-    
-    
     GFNetworkManager.shared.getUser(for: followerUsername) { [weak self] result in
-      
       DispatchQueue.main.async {
         self?.followersController.dismissGFLoadingController(animated: true, completion: {
           switch result {
           case .success(let user):
-            let userDetailController = GFUserDetailController()
-            followersController.present(userDetailController, animated: true, completion: nil)
+            let userDetailController = GFUserDetailController(user: user)
+            self?.followersController.present(userDetailController, animated: true, completion: nil)
           case .failure(let error):
+            self?.followersController.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
           }
         })
       }
-   
-      
     }
-    
-    
-    
   }
   
 }

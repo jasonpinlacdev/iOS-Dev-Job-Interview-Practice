@@ -55,7 +55,7 @@ enum GFError: Error {
       return "Failed to retrieve follower avatar image."
     case .invalidUsername:
       return "The username you entered is an invalid entry. Try again."
-    case:
+    case .getUserError:
       return "Could not retrieve the details on the user. Try again."
     }
   }

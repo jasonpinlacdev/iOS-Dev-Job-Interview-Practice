@@ -17,6 +17,8 @@ import UIKit
 
 class GFUserDetailCardView: UIView {
   
+  var delegate: GFUserDetailCardViewDelegate!
+  
   private let horizontalStackView: UIStackView = {
     let horizontalStackView = UIStackView(frame: .zero)
     horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +34,7 @@ class GFUserDetailCardView: UIView {
     return verticalStackView
   }()
 
-  var delegate: GFUserDetailCardViewDelegate!
+
 
   init(leftDetailCardElementSymbol: UIImage, leftDetailCardElementTitle: String, leftDetailCardElementValue: Int, rightDetailCardElementSymbol: UIImage, rightDetailCardElementTitle: String, rightDetailCardElementValue: Int, actionButtonTitle: String, actionButtonColor: UIColor) {
     super.init(frame: .zero)
