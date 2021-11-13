@@ -9,10 +9,10 @@ import UIKit
 
 class GFFollowersCollectionViewDelegateFlowLayout: NSObject {
   
-  weak var followersController: GFFollowersController!
+  private weak var followersController: GFFollowersController!
 
-  let numberOfItemsPerRow: CGFloat
-  let spacingBetweenItems: CGFloat
+  private let numberOfItemsPerRow: CGFloat
+  private let spacingBetweenItems: CGFloat
   
   init(numberOfItemsPerRow: CGFloat, spacingBetweenItems: CGFloat, followersController: GFFollowersController) {
     self.numberOfItemsPerRow = numberOfItemsPerRow
@@ -68,6 +68,35 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
         }
       }
     }
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    followersController.presentGFLoadingController(animated: true, completion: nil)
+    
+    guard let diffableDataSource = collectionView.dataSource as? GFFollowersCollectionViewDiffableDataSource else { return }
+    guard let follower = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+    let followerUsername = follower.login
+    
+    
+    GFNetworkManager.shared.getUser(for: followerUsername) { [weak self] result in
+      
+      DispatchQueue.main.async {
+        self?.followersController.dismissGFLoadingController(animated: true, completion: {
+          switch result {
+          case .success(let user):
+            let userDetailController = GFUserDetailController()
+            followersController.present(userDetailController, animated: true, completion: nil)
+          case .failure(let error):
+          }
+        })
+      }
+   
+      
+    }
+    
+    
+    
   }
   
 }

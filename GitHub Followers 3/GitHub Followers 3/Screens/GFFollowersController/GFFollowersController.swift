@@ -124,6 +124,5 @@ extension GFFollowersController: UISearchResultsUpdating {
     self.collectionViewDiffableDataSource.applySnapshotUpdate(with: searchedFollowers, completionHandler: nil)
   }
   
-
 }
 

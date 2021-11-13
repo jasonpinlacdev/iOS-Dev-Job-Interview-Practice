@@ -16,7 +16,7 @@ enum GFError: Error {
   case dataError
   case dataDecodingError
   case avatarImageDownloadError // <-- this error here is just a placeholder for our result type when making the async network call. I don't use this error case when presenting the GFAlertController
-  
+  case getUserError
   
   var errorTitle: String {
     switch self {
@@ -34,6 +34,8 @@ enum GFError: Error {
       return "Avatar Image Download Error"
     case .invalidUsername:
       return "Invalid Username Error"
+    case .getUserError:
+      return "User Detail Retrieval Error"
     }
   }
   
@@ -53,6 +55,8 @@ enum GFError: Error {
       return "Failed to retrieve follower avatar image."
     case .invalidUsername:
       return "The username you entered is an invalid entry. Try again."
+    case:
+      return "Could not retrieve the details on the user. Try again."
     }
   }
   

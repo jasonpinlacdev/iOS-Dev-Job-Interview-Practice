@@ -52,6 +52,36 @@ class GFNetworkManager  {
   }
   
   
+  func getUser(for username: String, completionHandler: @escaping (Result<GFUser, GFError>) -> Void) {
+    
+    let endpoint = baseURL + "/users/\(username)"
+    guard let url = URL(string: endpoint) else { completionHandler(.failure(.getUserError)); return }
+    
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+      guard error == nil else {
+        completionHandler(.failure(.localError))
+        return
+      }
+      guard let httpResponse = response as? HTTPURLResponse, (0...200).contains(httpResponse.statusCode) else {
+        completionHandler(.failure(.serverError))
+        return
+      }
+      guard let jsonData = data else {
+        completionHandler(.failure(.dataError))
+        return
+      }
+      guard let user = try? JSONDecoder().decode(GFUser.self, from: jsonData) else {
+        completionHandler(.failure(.dataDecodingError))
+        return
+      }
+      
+      completionHandler(.success(user))
+    }
+    
+    task.resume()
+  }
+  
+  
   
   func getAvatarImage(for follower: GFFollower, completionHandler: @escaping (Result<UIImage?, GFError>) -> Void){
     // check to see if image already exists in cache. Use the follower avatarURL as the key
@@ -75,25 +105,9 @@ class GFNetworkManager  {
    
   }
   
+ 
   
   
-  
-  //  func getFollowers(for username: String, perPage: Int = 100, page: Int, completionHandler: @escaping ((GFError?, [GFFollower]?) -> Void)) {
-  //
-  //    let endPoint = baseURL + "/users/\(username)/followers?per_page=\(perPage)&page=\(page)"
-  //    let url = URL(string: endPoint)!
-  //
-  //    let task = URLSession.shared.dataTask(with: url) { data, urlResponse, error in
-  //      //This closure is executed at the end of the datatask and is async on a background thread
-  //      guard error == nil else { completionHandler(.localError, nil); return }
-  //      guard let urlResponse = urlResponse as? HTTPURLResponse, (0...200).contains(urlResponse.statusCode) else { completionHandler(.serverError, nil); return }
-  //      guard let data = data else { completionHandler(.dataError, nil); return }
-  //      guard let followers = try? JSONDecoder().decode([GFFollower].self, from: data) else { completionHandler(.dataDecodingError, nil); return }
-  //      completionHandler(nil, followers)
-  //    }
-  //
-  //    task.resume()
-  //  }
   
   
   

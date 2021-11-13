@@ -34,6 +34,10 @@
 		E13C034A273709680034E9D2 /* GFFollowersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */; };
 		E13C034C27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C034B27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift */; };
 		E13C034E2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C034D2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift */; };
+		E13C0350273DC4560034E9D2 /* GFUserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C034F273DC4560034E9D2 /* GFUserDetailController.swift */; };
+		E13C0352273DC52A0034E9D2 /* GFUserDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0351273DC52A0034E9D2 /* GFUserDetailCardView.swift */; };
+		E13C0354273DC5410034E9D2 /* GFUserDetailCardViewElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0353273DC5410034E9D2 /* GFUserDetailCardViewElementView.swift */; };
+		E13C03562740538B0034E9D2 /* GFUserDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03552740538B0034E9D2 /* GFUserDetailInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +70,10 @@
 		E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewCell.swift; sourceTree = "<group>"; };
 		E13C034B27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewDelegateFlowLayout.swift; sourceTree = "<group>"; };
 		E13C034D2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersEmptyStateView.swift; sourceTree = "<group>"; };
+		E13C034F273DC4560034E9D2 /* GFUserDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailController.swift; sourceTree = "<group>"; };
+		E13C0351273DC52A0034E9D2 /* GFUserDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardView.swift; sourceTree = "<group>"; };
+		E13C0353273DC5410034E9D2 /* GFUserDetailCardViewElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardViewElementView.swift; sourceTree = "<group>"; };
+		E13C03552740538B0034E9D2 /* GFUserDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +149,9 @@
 				E135B2312730BA5A00CD5991 /* GFBodyLabel.swift */,
 				E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */,
 				E13C034D2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift */,
+				E13C03552740538B0034E9D2 /* GFUserDetailInfoView.swift */,
+				E13C0351273DC52A0034E9D2 /* GFUserDetailCardView.swift */,
+				E13C0353273DC5410034E9D2 /* GFUserDetailCardViewElementView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -198,6 +209,7 @@
 				E135B217272DC55200CD5991 /* GFSearchController.swift */,
 				E135B24027348DF800CD5991 /* GFFollowersController */,
 				E135B219272DC56000CD5991 /* GFFavoritesController.swift */,
+				E13C034F273DC4560034E9D2 /* GFUserDetailController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -272,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E13C0350273DC4560034E9D2 /* GFUserDetailController.swift in Sources */,
 				E135B2302730BA4700CD5991 /* GFTitleLabel.swift in Sources */,
 				E135B228273096B000CD5991 /* GFFollowersController.swift in Sources */,
 				E135B21F272F359F00CD5991 /* GFSymbol.swift in Sources */,
@@ -289,10 +302,13 @@
 				E13C034A273709680034E9D2 /* GFFollowersCollectionViewCell.swift in Sources */,
 				E135B226272F7F9C00CD5991 /* UITextField+AddDoneButton.swift in Sources */,
 				E135B202272DBC7000CD5991 /* SceneDelegate.swift in Sources */,
+				E13C0354273DC5410034E9D2 /* GFUserDetailCardViewElementView.swift in Sources */,
 				E135B2342730BA9100CD5991 /* GFAlertController.swift in Sources */,
 				E135B23A2731C3E700CD5991 /* UIViewController+PresentGFLoadingController.swift in Sources */,
 				E13C034E2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift in Sources */,
 				E135B21A272DC56000CD5991 /* GFFavoritesController.swift in Sources */,
+				E13C0352273DC52A0034E9D2 /* GFUserDetailCardView.swift in Sources */,
+				E13C03562740538B0034E9D2 /* GFUserDetailInfoView.swift in Sources */,
 				E13C034C27371C810034E9D2 /* GFFollowersCollectionViewDelegateFlowLayout.swift in Sources */,
 				E135B223272F49CE00CD5991 /* GFSearchTextField.swift in Sources */,
 				E135B218272DC55200CD5991 /* GFSearchController.swift in Sources */,
