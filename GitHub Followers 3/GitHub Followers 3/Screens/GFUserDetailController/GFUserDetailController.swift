@@ -11,6 +11,9 @@ class GFUserDetailController: UIViewController {
   
   private let user: GFUser
   
+  private let topUserDetailCardViewDelegate = GFUserDetailCardViewDelegateTop()
+  private let bottomUserDetailCardViewDelegate = GFUserDetailCardViewDelegateBottom()
+  
   var userDetailInformationView: GFUserDetailInformationView
   let topUserDetailCardView: GFUserDetailCardView
   let bottomUserDetailCardView: GFUserDetailCardView
@@ -39,8 +42,12 @@ class GFUserDetailController: UIViewController {
   init(user: GFUser) {
     self.user = user
     userDetailInformationView = GFUserDetailInformationView(user: self.user)
-    topUserDetailCardView = GFUserDetailCardView()
-    bottomUserDetailCardView = GFUserDetailCardView()
+    topUserDetailCardView = GFUserDetailCardView(user: self.user, actionButtonTitle: "GitHub Profile", actionButtonColor: .systemPurple)
+    bottomUserDetailCardView = GFUserDetailCardView(user: self.user, actionButtonTitle: "Get Followers", actionButtonColor: .systemGreen)
+    
+    topUserDetailCardView.delegate = topUserDetailCardViewDelegate
+    bottomUserDetailCardView.delegate = bottomUserDetailCardViewDelegate
+    
     super.init(nibName: nil, bundle: nil)
   }
   
