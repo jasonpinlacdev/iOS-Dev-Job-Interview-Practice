@@ -9,27 +9,45 @@ import UIKit
 
 class GFUserDetailController: UIViewController {
   
-  let user: GFUser
+  private let user: GFUser
   
-  let userDetailInfoView: GFUserDetailInfoView
-//  let userDetailCardViewTop: GFUserDetailCardView
-//  let userDetailCardViewBottom: GFUserDetailCardView
-//  let dateCreatedLabel: UILabel
+  var userDetailInformationView: GFUserDetailInformationView
+  let topUserDetailCardView: GFUserDetailCardView
+  let bottomUserDetailCardView: GFUserDetailCardView
+  
+  let verticalStackView: UIStackView = {
+    let verticalStackView = UIStackView()
+    verticalStackView.axis = .vertical
+    verticalStackView.alignment = .fill
+    verticalStackView.distribution = .fillProportionally
+    verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+    verticalStackView.spacing = 10.0
+    return verticalStackView
+  }()
+  
+  let dateCreatedLabel: GFTitleLabel = {
+    let dateCreatedLabel = GFTitleLabel(alignment: .center)
+    dateCreatedLabel.text = "Created on May 7th, 1989"
+    dateCreatedLabel.textAlignment = .center
+    dateCreatedLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+    dateCreatedLabel.textColor = .secondaryLabel
+    dateCreatedLabel.translatesAutoresizingMaskIntoConstraints = false
+    return dateCreatedLabel
+  }()
+  
   
   init(user: GFUser) {
     self.user = user
-    self.userDetailInfoView = GFUserDetailInfoView(username: self.user.login, realName: self.user.name, location: self.user.location, bio: self.user.bio)
-//    self.userDetailCardViewTop = GFUserDetailCardView(leftDetailCardElementSymbol: <#T##UIImage#>, leftDetailCardElementTitle: <#T##String#>, leftDetailCardElementValue: <#T##Int#>, rightDetailCardElementSymbol: <#T##UIImage#>, rightDetailCardElementTitle: <#T##String#>, rightDetailCardElementValue: <#T##Int#>, actionButtonTitle: <#T##String#>, actionButtonColor: <#T##UIColor#>)
-//    self.userDetailCardViewBottom = GFUserDetailInfoView(username: <#T##String#>, realName: <#T##String#>, location: <#T##String#>, bio: <#T##String#>)
-//    self.dateCreatedLabel = UILabel()
+    userDetailInformationView = GFUserDetailInformationView(user: self.user)
+    topUserDetailCardView = GFUserDetailCardView()
+    bottomUserDetailCardView = GFUserDetailCardView()
     super.init(nibName: nil, bundle: nil)
-
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
@@ -38,24 +56,31 @@ class GFUserDetailController: UIViewController {
   
   private func configure() {
     self.view.backgroundColor = .systemBackground
-//    userDetailCardViewTop.delegate = self
-//    userDetailCardViewBottom.delegate = self
   }
   
   private func configureLayout() {
-    self.view.addSubview(userDetailInfoView)
-//    self.view.addSubview(userDetailCardViewTop)
-//    self.view.addSubview(userDetailCardViewBottom)
-//    self.view.addSubview(dateCreatedLabel)
+    let padding: CGFloat = 10.0
     
+    self.view.addSubview(dateCreatedLabel)
+    self.view.addSubview(verticalStackView)
+    self.verticalStackView.addArrangedSubview(userDetailInformationView)
+    self.verticalStackView.addArrangedSubview(topUserDetailCardView)
+    self.verticalStackView.addArrangedSubview(bottomUserDetailCardView)
+  
     NSLayoutConstraint.activate([
-      userDetailInfoView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-      userDetailInfoView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-      userDetailInfoView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-      userDetailInfoView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+      dateCreatedLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+      dateCreatedLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
+      dateCreatedLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
+      
+      verticalStackView.bottomAnchor.constraint(equalTo: dateCreatedLabel.topAnchor, constant: -padding),
+      verticalStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: padding),
+      verticalStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
+      verticalStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
     ])
     
+    
   }
+  
   
   
   

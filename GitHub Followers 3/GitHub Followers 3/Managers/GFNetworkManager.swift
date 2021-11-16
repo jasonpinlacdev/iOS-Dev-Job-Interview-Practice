@@ -83,16 +83,16 @@ class GFNetworkManager  {
   
   
   
-  func getAvatarImage(for follower: GFFollower, completionHandler: @escaping (Result<UIImage?, GFError>) -> Void){
+  func getAvatarImage(for avatarURLString: String, completionHandler: @escaping (Result<UIImage?, GFError>) -> Void){
     // check to see if image already exists in cache. Use the follower avatarURL as the key
-    let avatarImageCacheKey = NSString(string: follower.avatarURL)
+    let avatarImageCacheKey = NSString(string: avatarURLString)
     if let avatarImage = self.avatarImageCache.object(forKey: avatarImageCacheKey) {
       // if it does, retrieve image from cache and pass in as the success result of our completion handler param of type Result
       completionHandler(.success(avatarImage))
     } else {
       // if it doesn't make the async network call and then store it in the cache right before we call the completion handler and pass the avatar UIImage
       DispatchQueue.global(qos: .utility).async { [weak self] in
-        let imageEndpoint = follower.avatarURL
+        let imageEndpoint = avatarURLString
         guard let imageURL = URL(string: imageEndpoint) else { completionHandler(.failure(.avatarImageDownloadError)); return }
         guard let imageData = try? Data(contentsOf: imageURL) else { completionHandler(.failure(.avatarImageDownloadError)); return }
         let avatarImage = UIImage(data: imageData)

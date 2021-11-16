@@ -13,6 +13,7 @@ enum GFSymbol {
   case following // heart heart
   case repos // folder folder
   case gists // lines of code text.alignleft
+  case mapPin
   
   var image: UIImage? {
     switch self {
@@ -24,6 +25,8 @@ enum GFSymbol {
       return UIImage(systemName: "folder")
     case .gists:
       return UIImage(systemName: "text.alignleft")
+    case .mapPin:
+      return UIImage(systemName: "mappin.and.ellipse")
     }
   }
   
