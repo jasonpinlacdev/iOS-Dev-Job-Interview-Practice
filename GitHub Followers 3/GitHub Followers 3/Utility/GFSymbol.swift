@@ -18,7 +18,7 @@ enum GFSymbol {
   var image: UIImage? {
     switch self {
     case .followers:
-      return UIImage(systemName: "person.3.sequence")
+      return UIImage(systemName: "person.2")
     case .following:
       return UIImage(systemName: "heart")
     case .repos:

@@ -7,28 +7,28 @@
 
 import UIKit
 
-protocol GFUserDetailCardViewDelegate {
-  func didTapActionButton()
-}
-
-
 class GFUserDetailCardView: UIView {
-  
-  let user: GFUser
-  
-  var delegate: GFUserDetailCardViewDelegate?
   
   let leftDetailCardElementView: GFUserDetailCardElementView
   let rightDetailCardElementView: GFUserDetailCardElementView
   let actionButton: GFButton
   
-  init(user: GFUser, actionButtonTitle: String, actionButtonColor: UIColor) {
-    self.user = user
-    
-    leftDetailCardElementView = GFUserDetailCardElementView(user: user)
-    rightDetailCardElementView = GFUserDetailCardElementView(user: user)
+  var onActionButtonTap: ((GFButton)-> Void)?
+  
+  let horizontalStackView: UIStackView = {
+    let horizontalStackView = UIStackView()
+    horizontalStackView.axis = .horizontal
+    horizontalStackView.alignment = .fill
+    horizontalStackView.distribution = .fillEqually
+    horizontalStackView.spacing = 10.0
+    horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+    return horizontalStackView
+  }()
+  
+  init(leftElementSymbol: UIImage?, leftElementName: String, leftElementValue: Int, rightElementSymbol: UIImage?, rightElementName: String, rightElementValue: Int, actionButtonTitle: String, actionButtonColor: UIColor) {
+    leftDetailCardElementView = GFUserDetailCardElementView(elementSymbol: leftElementSymbol, elementName: leftElementName, elementValue: leftElementValue)
+    rightDetailCardElementView = GFUserDetailCardElementView(elementSymbol: rightElementSymbol, elementName: rightElementName, elementValue: rightElementValue)
     actionButton = GFButton(title: actionButtonTitle, color: actionButtonColor)
-    
     super.init(frame: .zero)
     configure()
     configureLayout()
@@ -41,33 +41,36 @@ class GFUserDetailCardView: UIView {
   private func configure() {
     self.backgroundColor = .systemGray3
     self.layer.cornerRadius = 16
-    
-    actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
+    actionButton.addTarget(self, action: #selector(actionButtonTapped) , for: .touchUpInside)
   }
+
   
   private func configureLayout() {
+    let padding: CGFloat = 10.0
     
-    leftDetailCardElementView.translatesAutoresizingMaskIntoConstraints = false
-    rightDetailCardElementView.translatesAutoresizingMaskIntoConstraints = false
-    actionButton.translatesAutoresizingMaskIntoConstraints = false
-    
-    self.addSubview(leftDetailCardElementView)
-    self.addSubview(rightDetailCardElementView)
     self.addSubview(actionButton)
+    self.addSubview(horizontalStackView)
+    self.horizontalStackView.addArrangedSubview(leftDetailCardElementView)
+    self.horizontalStackView.addArrangedSubview(rightDetailCardElementView)
     
     NSLayoutConstraint.activate([
-      actionButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.75),
+      horizontalStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+      horizontalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+      horizontalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+      horizontalStackView.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -padding),
+      
+      actionButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+      actionButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
       actionButton.heightAnchor.constraint(equalToConstant: 75.0),
       actionButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-      actionButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+      actionButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
     ])
-    
   }
   
-  @objc private func didTapActionButton() {
-    self.delegate?.didTapActionButton()
+  @objc private func actionButtonTapped() {
+    self.onActionButtonTap?(actionButton)
   }
-  
   
   
 }
+

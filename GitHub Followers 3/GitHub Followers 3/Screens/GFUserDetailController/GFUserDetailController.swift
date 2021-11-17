@@ -11,22 +11,10 @@ class GFUserDetailController: UIViewController {
   
   private let user: GFUser
   
-  private let topUserDetailCardViewDelegate = GFUserDetailCardViewDelegateTop()
-  private let bottomUserDetailCardViewDelegate = GFUserDetailCardViewDelegateBottom()
-  
   var userDetailInformationView: GFUserDetailInformationView
   let topUserDetailCardView: GFUserDetailCardView
   let bottomUserDetailCardView: GFUserDetailCardView
   
-  let verticalStackView: UIStackView = {
-    let verticalStackView = UIStackView()
-    verticalStackView.axis = .vertical
-    verticalStackView.alignment = .fill
-    verticalStackView.distribution = .fillProportionally
-    verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-    verticalStackView.spacing = 10.0
-    return verticalStackView
-  }()
   
   let dateCreatedLabel: GFTitleLabel = {
     let dateCreatedLabel = GFTitleLabel(alignment: .center)
@@ -38,16 +26,11 @@ class GFUserDetailController: UIViewController {
     return dateCreatedLabel
   }()
   
-  
   init(user: GFUser) {
     self.user = user
     userDetailInformationView = GFUserDetailInformationView(user: self.user)
-    topUserDetailCardView = GFUserDetailCardView(user: self.user, actionButtonTitle: "GitHub Profile", actionButtonColor: .systemPurple)
-    bottomUserDetailCardView = GFUserDetailCardView(user: self.user, actionButtonTitle: "Get Followers", actionButtonColor: .systemGreen)
-    
-    topUserDetailCardView.delegate = topUserDetailCardViewDelegate
-    bottomUserDetailCardView.delegate = bottomUserDetailCardViewDelegate
-    
+    topUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.repos.image, leftElementName: "Public Repos", leftElementValue: self.user.publicRepos, rightElementSymbol: GFSymbol.gists.image, rightElementName: "Public Gists", rightElementValue: self.user.publicGists, actionButtonTitle: "GitHubProfile", actionButtonColor: .systemPurple)
+    bottomUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.following.image, leftElementName: "Following", leftElementValue: self.user.following, rightElementSymbol: GFSymbol.followers.image, rightElementName: "Followers", rightElementValue: self.user.followers, actionButtonTitle: "Get Followers", actionButtonColor: .systemGreen)
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -59,6 +42,7 @@ class GFUserDetailController: UIViewController {
     super.viewDidLoad()
     configure()
     configureLayout()
+    configureDetailCardViewActionButtons()
   }
   
   private func configure() {
@@ -68,28 +52,46 @@ class GFUserDetailController: UIViewController {
   private func configureLayout() {
     let padding: CGFloat = 10.0
     
+    userDetailInformationView.translatesAutoresizingMaskIntoConstraints = false
+    topUserDetailCardView.translatesAutoresizingMaskIntoConstraints = false
+    bottomUserDetailCardView.translatesAutoresizingMaskIntoConstraints = false
+    
+    self.view.addSubview(userDetailInformationView)
+    self.view.addSubview(topUserDetailCardView)
+    self.view.addSubview(bottomUserDetailCardView)
     self.view.addSubview(dateCreatedLabel)
-    self.view.addSubview(verticalStackView)
-    self.verticalStackView.addArrangedSubview(userDetailInformationView)
-    self.verticalStackView.addArrangedSubview(topUserDetailCardView)
-    self.verticalStackView.addArrangedSubview(bottomUserDetailCardView)
   
     NSLayoutConstraint.activate([
-      dateCreatedLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-      dateCreatedLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
-      dateCreatedLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
+      userDetailInformationView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: padding),
+      userDetailInformationView.heightAnchor.constraint(equalToConstant: 250),
+      userDetailInformationView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+      userDetailInformationView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+
+      topUserDetailCardView.topAnchor.constraint(equalTo: userDetailInformationView.bottomAnchor, constant: padding),
+      topUserDetailCardView.heightAnchor.constraint(equalToConstant: 175),
+      topUserDetailCardView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+      topUserDetailCardView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
       
-      verticalStackView.bottomAnchor.constraint(equalTo: dateCreatedLabel.topAnchor, constant: -padding),
-      verticalStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: padding),
-      verticalStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
-      verticalStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
+      bottomUserDetailCardView.heightAnchor.constraint(equalTo: topUserDetailCardView.heightAnchor),
+      bottomUserDetailCardView.topAnchor.constraint(equalTo: topUserDetailCardView.bottomAnchor, constant: padding),
+      bottomUserDetailCardView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+      bottomUserDetailCardView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+      
+      dateCreatedLabel.heightAnchor.constraint(equalToConstant: 25),
+      dateCreatedLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+      dateCreatedLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+      dateCreatedLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
     ])
-    
-    
   }
   
-  
-  
+  private func configureDetailCardViewActionButtons() {
+    topUserDetailCardView.onActionButtonTap = { button in
+      print("TOP BUTTON TAPPED")
+    }
+    bottomUserDetailCardView.onActionButtonTap = { button in
+      print("BOTTOM BUTTON TAPPED")
+    }
+  }
   
 }
 

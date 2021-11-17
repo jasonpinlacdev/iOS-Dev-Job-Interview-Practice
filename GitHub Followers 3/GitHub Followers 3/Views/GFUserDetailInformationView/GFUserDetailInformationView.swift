@@ -22,6 +22,7 @@ class GFUserDetailInformationView: UIView {
   
   let usernameLabel: GFTitleLabel = {
     let usernameLabel = GFTitleLabel(alignment: .left)
+    usernameLabel.translatesAutoresizingMaskIntoConstraints = false
     return usernameLabel
   }()
   
@@ -29,6 +30,7 @@ class GFUserDetailInformationView: UIView {
     let realNameLabel = GFTitleLabel(alignment: .left)
     realNameLabel.font = UIFont.preferredFont(forTextStyle: .title2)
     realNameLabel.textColor = .secondaryLabel
+    realNameLabel.translatesAutoresizingMaskIntoConstraints = false
     return realNameLabel
   }()
   
@@ -43,7 +45,8 @@ class GFUserDetailInformationView: UIView {
     let locationLabel = GFTitleLabel(alignment: .left)
     locationLabel.font = UIFont.preferredFont(forTextStyle: .title2)
     locationLabel.textColor = .secondaryLabel
-    locationLabel.lineBreakMode = .byTruncatingTail
+    locationLabel.numberOfLines = 0
+    locationLabel.translatesAutoresizingMaskIntoConstraints = false
     return locationLabel
   }()
   
@@ -59,7 +62,6 @@ class GFUserDetailInformationView: UIView {
   }()
   
   
-  
   init(user: GFUser) {
     self.user = user
     super.init(frame: .zero)
@@ -72,6 +74,9 @@ class GFUserDetailInformationView: UIView {
   }
   
   private func configure() {
+    self.layer.cornerRadius = 16
+    self.clipsToBounds = true
+    
     GFNetworkManager.shared.getAvatarImage(for: user.avatarURL) { result in
       switch result {
       case .success(let image):
@@ -101,12 +106,12 @@ class GFUserDetailInformationView: UIView {
     self.addSubview(bioLabel)
     
     NSLayoutConstraint.activate([
-      userAvatarImageView.topAnchor.constraint(equalTo: self.topAnchor),
-      userAvatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+      userAvatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+      userAvatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
       userAvatarImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.35),
       userAvatarImageView.heightAnchor.constraint(equalTo: userAvatarImageView.widthAnchor),
       
-      usernameLabel.topAnchor.constraint(equalTo: self.topAnchor),
+      usernameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
       usernameLabel.leadingAnchor.constraint(equalTo: userAvatarImageView.trailingAnchor, constant: padding),
       usernameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
       
@@ -121,11 +126,11 @@ class GFUserDetailInformationView: UIView {
 
       locationLabel.topAnchor.constraint(equalTo: realNameLabel.bottomAnchor, constant: padding),
       locationLabel.leadingAnchor.constraint(equalTo: locationPinImageView.trailingAnchor, constant: padding),
-      locationLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+      locationLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
       
       bioLabel.topAnchor.constraint(equalTo: userAvatarImageView.bottomAnchor, constant: padding),
-      bioLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-      bioLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+      bioLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+      bioLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
     ])
   }
 

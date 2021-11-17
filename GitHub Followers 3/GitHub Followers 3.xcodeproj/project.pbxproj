@@ -39,8 +39,6 @@
 		E13C03642741D1410034E9D2 /* GFUserDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03632741D1410034E9D2 /* GFUserDetailCardView.swift */; };
 		E13C03662741D1560034E9D2 /* GFUserDetailCardElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03652741D1560034E9D2 /* GFUserDetailCardElementView.swift */; };
 		E13C0368274312460034E9D2 /* UIView+EnableYellowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0367274312460034E9D2 /* UIView+EnableYellowBorder.swift */; };
-		E13C036A274333950034E9D2 /* GFUserDetailCardViewDelgateTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0369274333950034E9D2 /* GFUserDetailCardViewDelgateTop.swift */; };
-		E13C036C274333AC0034E9D2 /* GFUserDetailCardViewDelegateBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C036B274333AC0034E9D2 /* GFUserDetailCardViewDelegateBottom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,8 +76,6 @@
 		E13C03632741D1410034E9D2 /* GFUserDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardView.swift; sourceTree = "<group>"; };
 		E13C03652741D1560034E9D2 /* GFUserDetailCardElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardElementView.swift; sourceTree = "<group>"; };
 		E13C0367274312460034E9D2 /* UIView+EnableYellowBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+EnableYellowBorder.swift"; sourceTree = "<group>"; };
-		E13C0369274333950034E9D2 /* GFUserDetailCardViewDelgateTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardViewDelgateTop.swift; sourceTree = "<group>"; };
-		E13C036B274333AC0034E9D2 /* GFUserDetailCardViewDelegateBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardViewDelegateBottom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,8 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				E13C034F273DC4560034E9D2 /* GFUserDetailController.swift */,
-				E13C0369274333950034E9D2 /* GFUserDetailCardViewDelgateTop.swift */,
-				E13C036B274333AC0034E9D2 /* GFUserDetailCardViewDelegateBottom.swift */,
 			);
 			path = GFUserDetailController;
 			sourceTree = "<group>";
@@ -316,8 +310,6 @@
 				E135B21F272F359F00CD5991 /* GFSymbol.swift in Sources */,
 				E135B23D2731C87200CD5991 /* GFNetworkManager.swift in Sources */,
 				E135B2382731C23300CD5991 /* GFLoadingController.swift in Sources */,
-				E13C036C274333AC0034E9D2 /* GFUserDetailCardViewDelegateBottom.swift in Sources */,
-				E13C036A274333950034E9D2 /* GFUserDetailCardViewDelgateTop.swift in Sources */,
 				E135B22E2730BA3700CD5991 /* GFAlertContainerView.swift in Sources */,
 				E135B2322730BA5A00CD5991 /* GFBodyLabel.swift in Sources */,
 				E135B2362731BD9D00CD5991 /* UIViewController+PresentGFAlertController.swift in Sources */,
