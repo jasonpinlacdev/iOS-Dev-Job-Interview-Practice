@@ -40,7 +40,6 @@ class GFFollowersController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
-    configureSearchController()
     if self.followersOfCurrentPage.isEmpty {
       let followersEmptyStateView = GFFollowersEmptyStateView()
       followersEmptyStateView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +51,7 @@ class GFFollowersController: UIViewController {
         followersEmptyStateView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
       ])
     } else {
+      configureSearchController()
       configureCollectionViewLayout()
       configureCollectionView()
     }
@@ -72,6 +72,7 @@ class GFFollowersController: UIViewController {
     let searchController = UISearchController()
     searchController.searchBar.placeholder = "Search a username"
     searchController.obscuresBackgroundDuringPresentation = false
+    searchController.searchBar.delegate = self
     self.navigationItem.searchController = searchController
     self.navigationItem.hidesSearchBarWhenScrolling = false
     searchController.searchResultsUpdater = self
@@ -108,21 +109,24 @@ class GFFollowersController: UIViewController {
 }
 
 
-extension GFFollowersController: UISearchResultsUpdating {
+extension GFFollowersController: UISearchResultsUpdating, UISearchBarDelegate {
   
   func updateSearchResults(for searchController: UISearchController) {
     guard let searchText = searchController.searchBar.text?.lowercased(), !searchText.isEmpty else {
-      self.collectionViewDiffableDataSource.applySnapshotUpdate(with: self.allFollowersSoFar, completionHandler: nil)
+      self.collectionViewDiffableDataSource.applySnapshotUpdate(with: allFollowersSoFar, completionHandler: nil)
       return
     }
-   
+    
     self.searchedFollowers = allFollowersSoFar.filter({ follower in
       let followerUsername = follower.login.lowercased()
       return followerUsername.contains(searchText)
     })
-    
     self.collectionViewDiffableDataSource.applySnapshotUpdate(with: searchedFollowers, completionHandler: nil)
   }
   
+  
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    self.collectionViewDiffableDataSource.applySnapshotUpdate(with: allFollowersSoFar, completionHandler: nil)
+  }
 }
 

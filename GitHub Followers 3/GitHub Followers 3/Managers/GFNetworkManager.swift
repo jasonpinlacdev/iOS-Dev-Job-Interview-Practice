@@ -9,7 +9,7 @@ import UIKit
 
 class GFNetworkManager  {
   
-  static let shared =  GFNetworkManager()
+  static let shared = GFNetworkManager()
   
   private let avatarImageCache = NSCache<NSString, UIImage>() // an NSCache is just a dictionary but special. It's special because the OS will automatically remove objects from the cache if the device is running low on memory. Helpfully, if the system does encounter memory pressure NSCache will automatically start to remove items without you knowing about it, which means you won't get a memory warning unless even more RAM needs to be cleared. It will also remove items intelligently, trying to keep as much cached as possible.
   

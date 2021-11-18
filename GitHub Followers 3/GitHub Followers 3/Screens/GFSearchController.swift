@@ -72,25 +72,29 @@ class GFSearchController: UIViewController {
       return
     }
     
-    self.presentGFLoadingController(animated: true, completion: nil)
-    
-    GFNetworkManager.shared.getFollowers(for: username) { [weak self] result in
-      // this completion handler is called within the dataTask's completion handler.
-      // This means that this call back function is executed async on a background thread.
+    self.showLoadingView(onView: self.view) {
       
-      DispatchQueue.main.async {
-        self?.dismissGFLoadingController(animated: true) {
-          switch result {
-          case .success(let followers):
-            let followersController = GFFollowersController(username: username, followers: followers)
-            self?.navigationController?.pushViewController(followersController, animated: true)
-          case .failure(let error):
-            self?.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
-          }
+      GFNetworkManager.shared.getFollowers(for: username) { [weak self] result in
+        // this completion handler is called within the dataTask's completion handler.
+        // This means that this call back function is executed async on a background thread.
+        
+        DispatchQueue.main.async {
+          self?.removeLoadingView(completionHandler: {
+            switch result {
+            case .success(let followers):
+              let followersController = GFFollowersController(username: username, followers: followers)
+              self?.navigationController?.pushViewController(followersController, animated: true)
+            case .failure(let error):
+              self?.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
+            }
+          })
         }
       }
+      
     }
+    
   }
+  
   
 }
 

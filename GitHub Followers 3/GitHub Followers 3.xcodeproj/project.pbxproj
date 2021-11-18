@@ -26,8 +26,6 @@
 		E135B2322730BA5A00CD5991 /* GFBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B2312730BA5A00CD5991 /* GFBodyLabel.swift */; };
 		E135B2342730BA9100CD5991 /* GFAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B2332730BA9100CD5991 /* GFAlertController.swift */; };
 		E135B2362731BD9D00CD5991 /* UIViewController+PresentGFAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B2352731BD9D00CD5991 /* UIViewController+PresentGFAlertController.swift */; };
-		E135B2382731C23300CD5991 /* GFLoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B2372731C23300CD5991 /* GFLoadingController.swift */; };
-		E135B23A2731C3E700CD5991 /* UIViewController+PresentGFLoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B2392731C3E700CD5991 /* UIViewController+PresentGFLoadingController.swift */; };
 		E135B23D2731C87200CD5991 /* GFNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B23C2731C87200CD5991 /* GFNetworkManager.swift */; };
 		E135B23F2734734700CD5991 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B23E2734734700CD5991 /* GFError.swift */; };
 		E135B242273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135B241273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift */; };
@@ -39,6 +37,7 @@
 		E13C03642741D1410034E9D2 /* GFUserDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03632741D1410034E9D2 /* GFUserDetailCardView.swift */; };
 		E13C03662741D1560034E9D2 /* GFUserDetailCardElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03652741D1560034E9D2 /* GFUserDetailCardElementView.swift */; };
 		E13C0368274312460034E9D2 /* UIView+EnableYellowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0367274312460034E9D2 /* UIView+EnableYellowBorder.swift */; };
+		E13C037027460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C036F27460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,8 +62,6 @@
 		E135B2312730BA5A00CD5991 /* GFBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFBodyLabel.swift; sourceTree = "<group>"; };
 		E135B2332730BA9100CD5991 /* GFAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAlertController.swift; sourceTree = "<group>"; };
 		E135B2352731BD9D00CD5991 /* UIViewController+PresentGFAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentGFAlertController.swift"; sourceTree = "<group>"; };
-		E135B2372731C23300CD5991 /* GFLoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFLoadingController.swift; sourceTree = "<group>"; };
-		E135B2392731C3E700CD5991 /* UIViewController+PresentGFLoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentGFLoadingController.swift"; sourceTree = "<group>"; };
 		E135B23C2731C87200CD5991 /* GFNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFNetworkManager.swift; sourceTree = "<group>"; };
 		E135B23E2734734700CD5991 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
 		E135B241273498F000CD5991 /* GFFollowersCollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersCollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
@@ -76,6 +73,7 @@
 		E13C03632741D1410034E9D2 /* GFUserDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardView.swift; sourceTree = "<group>"; };
 		E13C03652741D1560034E9D2 /* GFUserDetailCardElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserDetailCardElementView.swift; sourceTree = "<group>"; };
 		E13C0367274312460034E9D2 /* UIView+EnableYellowBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+EnableYellowBorder.swift"; sourceTree = "<group>"; };
+		E13C036F27460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowLoadingView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				E135B2332730BA9100CD5991 /* GFAlertController.swift */,
-				E135B2372731C23300CD5991 /* GFLoadingController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -180,8 +177,8 @@
 			children = (
 				E135B225272F7F9B00CD5991 /* UITextField+AddDoneButton.swift */,
 				E135B2352731BD9D00CD5991 /* UIViewController+PresentGFAlertController.swift */,
-				E135B2392731C3E700CD5991 /* UIViewController+PresentGFLoadingController.swift */,
 				E13C0367274312460034E9D2 /* UIView+EnableYellowBorder.swift */,
+				E13C036F27460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -309,7 +306,7 @@
 				E135B228273096B000CD5991 /* GFFollowersController.swift in Sources */,
 				E135B21F272F359F00CD5991 /* GFSymbol.swift in Sources */,
 				E135B23D2731C87200CD5991 /* GFNetworkManager.swift in Sources */,
-				E135B2382731C23300CD5991 /* GFLoadingController.swift in Sources */,
+				E13C037027460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift in Sources */,
 				E135B22E2730BA3700CD5991 /* GFAlertContainerView.swift in Sources */,
 				E135B2322730BA5A00CD5991 /* GFBodyLabel.swift in Sources */,
 				E135B2362731BD9D00CD5991 /* UIViewController+PresentGFAlertController.swift in Sources */,
@@ -324,7 +321,6 @@
 				E13C03642741D1410034E9D2 /* GFUserDetailCardView.swift in Sources */,
 				E135B202272DBC7000CD5991 /* SceneDelegate.swift in Sources */,
 				E135B2342730BA9100CD5991 /* GFAlertController.swift in Sources */,
-				E135B23A2731C3E700CD5991 /* UIViewController+PresentGFLoadingController.swift in Sources */,
 				E13C03622741D1060034E9D2 /* GFUserDetailInformationView.swift in Sources */,
 				E13C034E2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift in Sources */,
 				E135B21A272DC56000CD5991 /* GFFavoritesController.swift in Sources */,
