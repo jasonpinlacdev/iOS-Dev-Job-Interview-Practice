@@ -47,7 +47,7 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
       followersController.currentPageOfFollowers += 1
       let nextPage = followersController.currentPageOfFollowers
       
-      followersController.showLoadingView(onView: followersController.view) { [weak self] in
+      followersController.showLoadingView(on: followersController.view) { [weak self] in
         guard let self = self else { return }
         
         GFNetworkManager.shared.getFollowers(for: self.followersController.username, page: nextPage) { result in
@@ -81,7 +81,7 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
     guard let follower = diffableDataSource.itemIdentifier(for: indexPath) else { return }
     let followerUsername = follower.login
     
-    followersController.showLoadingView(onView: followersController.view, completionHandler: {
+    followersController.showLoadingView(on: followersController.view, completionHandler: {
       GFNetworkManager.shared.getUser(for: followerUsername) { [weak self] result in
         DispatchQueue.main.async {
           self?.followersController.removeLoadingView(completionHandler: {

@@ -177,8 +177,8 @@
 			children = (
 				E135B225272F7F9B00CD5991 /* UITextField+AddDoneButton.swift */,
 				E135B2352731BD9D00CD5991 /* UIViewController+PresentGFAlertController.swift */,
-				E13C0367274312460034E9D2 /* UIView+EnableYellowBorder.swift */,
 				E13C036F27460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift */,
+				E13C0367274312460034E9D2 /* UIView+EnableYellowBorder.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

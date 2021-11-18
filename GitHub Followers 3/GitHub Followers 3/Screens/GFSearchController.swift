@@ -72,7 +72,7 @@ class GFSearchController: UIViewController {
       return
     }
     
-    self.showLoadingView(onView: self.view) {
+    self.showLoadingView(on: self.view) {
       
       GFNetworkManager.shared.getFollowers(for: username) { [weak self] result in
         // this completion handler is called within the dataTask's completion handler.

@@ -14,24 +14,17 @@ var globalLoadingView: UIView?
 
 extension UIViewController {
   
-  func showLoadingView(onView: UIView, completionHandler: (() -> Void)? = nil) {
-    let loadingView = UIView(frame: onView.bounds)
+  func showLoadingView(on view: UIView, completionHandler: (() -> Void)? = nil) {
+    let loadingView = UIView(frame: view.bounds)
+    loadingView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
     globalLoadingView = loadingView
     
     let activityIndicatorView = UIActivityIndicatorView(style: .large)
     activityIndicatorView.startAnimating()
-    loadingView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
-    
-    activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+    activityIndicatorView.center = loadingView.center
+
     loadingView.addSubview(activityIndicatorView)
-    NSLayoutConstraint.activate([
-      activityIndicatorView.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor),
-      activityIndicatorView.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor),
-      activityIndicatorView.heightAnchor.constraint(equalTo: loadingView.heightAnchor),
-      activityIndicatorView.widthAnchor.constraint(equalTo: loadingView.widthAnchor),
-    ])
-  
-    onView.addSubview(loadingView)
+    view.addSubview(loadingView)
     completionHandler?()
   }
   
