@@ -106,7 +106,7 @@ class GFUserDetailInformationView: UIView {
     self.addSubview(bioLabel)
     
     NSLayoutConstraint.activate([
-      userAvatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+      userAvatarImageView.topAnchor.constraint(equalTo: self.topAnchor),
       userAvatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
       userAvatarImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.35),
       userAvatarImageView.heightAnchor.constraint(equalTo: userAvatarImageView.widthAnchor),

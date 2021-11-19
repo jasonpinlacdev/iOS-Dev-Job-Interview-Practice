@@ -66,33 +66,21 @@ class GFSearchController: UIViewController {
     searchTextField.resignFirstResponder()
     
     guard let username = searchTextField.text else { return }
+    if username.isEmpty { self.presentGFAlertController(alertTitle: GFError.emptyUsername.errorTitle, alertMessage: GFError.emptyUsername.errorMessageDescription, alertButtonText: "Dismiss"); return }
     
-    if username.isEmpty {
-      self.presentGFAlertController(alertTitle: GFError.emptyUsername.errorTitle, alertMessage: GFError.emptyUsername.errorMessageDescription, alertButtonText: "Dismiss")
-      return
-    }
-    
-    self.showLoadingView(on: self.view) {
-      
-      GFNetworkManager.shared.getFollowers(for: username) { [weak self] result in
-        // this completion handler is called within the dataTask's completion handler.
-        // This means that this call back function is executed async on a background thread.
-        
-        DispatchQueue.main.async {
-          self?.removeLoadingView(completionHandler: {
-            switch result {
-            case .success(let followers):
-              let followersController = GFFollowersController(username: username, followers: followers)
-              self?.navigationController?.pushViewController(followersController, animated: true)
-            case .failure(let error):
-              self?.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
-            }
-          })
+    self.showLoadingView()
+    GFNetworkManager.shared.getFollowers(for: username) { [weak self] result in
+      DispatchQueue.main.async {
+        self?.removeLoadingView()
+        switch result {
+        case .success(let followers):
+          let followersController = GFFollowersController(username: username, followers: followers)
+          self?.navigationController?.pushViewController(followersController, animated: true)
+        case .failure(let error):
+          self?.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
         }
       }
-      
     }
-    
   }
   
   

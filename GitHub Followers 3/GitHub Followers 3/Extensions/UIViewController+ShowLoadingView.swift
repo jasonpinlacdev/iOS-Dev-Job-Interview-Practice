@@ -9,22 +9,22 @@ import Foundation
 import UIKit
 
 
-var globalLoadingView: UIView?
+private var globalLoadingView: UIView?
 
 
 extension UIViewController {
   
-  func showLoadingView(on view: UIView, completionHandler: (() -> Void)? = nil) {
-    let loadingView = UIView(frame: view.bounds)
+  func showLoadingView(completionHandler: (() -> Void)? = nil) {
+    let loadingView = UIView(frame: self.view.bounds)
     loadingView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
     globalLoadingView = loadingView
-    
+
     let activityIndicatorView = UIActivityIndicatorView(style: .large)
     activityIndicatorView.startAnimating()
     activityIndicatorView.center = loadingView.center
-
+    
     loadingView.addSubview(activityIndicatorView)
-    view.addSubview(loadingView)
+    self.view.addSubview(loadingView)
     completionHandler?()
   }
   

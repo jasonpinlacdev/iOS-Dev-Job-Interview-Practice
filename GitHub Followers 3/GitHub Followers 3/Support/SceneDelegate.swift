@@ -88,9 +88,11 @@ extension SceneDelegate {
     // Here we set the UINavigationBar appearance using the app-wide proxy
     let navigationBarAppearance = UINavigationBarAppearance()
     navigationBarAppearance.backgroundColor = .systemBackground
-//    navigationBarAppearance.shadowColor = .systemBackground
+    navigationBarAppearance.shadowColor = .systemBackground
     UINavigationBar.appearance().standardAppearance = navigationBarAppearance
     UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+    UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+    UINavigationBar.appearance().compactScrollEdgeAppearance = navigationBarAppearance
     UINavigationBar.appearance().tintColor = .systemGreen
     UINavigationBar.appearance().prefersLargeTitles = true
   }

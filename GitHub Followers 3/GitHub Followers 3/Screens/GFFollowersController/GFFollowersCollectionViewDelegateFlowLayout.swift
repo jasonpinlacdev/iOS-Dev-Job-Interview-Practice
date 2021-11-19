@@ -42,60 +42,58 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
   
   
   func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    if followersController.hasMoreFollowers && (scrollView.contentOffset.y + scrollView.bounds.height >= scrollView.contentSize.height - 100) {
-      
-      followersController.currentPageOfFollowers += 1
-      let nextPage = followersController.currentPageOfFollowers
-      
-      followersController.showLoadingView(on: followersController.view) { [weak self] in
-        guard let self = self else { return }
-        
-        GFNetworkManager.shared.getFollowers(for: self.followersController.username, page: nextPage) { result in
-          
+    guard followersController.hasMoreFollowers && (scrollView.contentOffset.y + scrollView.bounds.height >= scrollView.contentSize.height - 100) else { return }
+    followersController.currentPageOfFollowers += 1
+    let nextPage = followersController.currentPageOfFollowers
+    
+    followersController.showLoadingView()
+    GFNetworkManager.shared.getFollowers(for: self.followersController.username, page: nextPage) { [weak self] result in
+      guard let self = self else { return }
+      DispatchQueue.main.async {
+        self.followersController.removeLoadingView()
+        switch result {
+        case .success(let followersOfPage):
+          self.followersController.followersOfCurrentPage = followersOfPage
+          self.followersController.allFollowersSoFar.append(contentsOf: self.followersController.followersOfCurrentPage)
           DispatchQueue.main.async {
-            self.followersController.removeLoadingView {
-              
-              switch result {
-              case .success(let followersOfPage):
-                self.followersController.followersOfCurrentPage = followersOfPage
-                self.followersController.allFollowersSoFar.append(contentsOf: self.followersController.followersOfCurrentPage)
-                DispatchQueue.main.async {
-                  self.followersController.collectionViewDiffableDataSource.applySnapshotUpdate(with: self.followersController.allFollowersSoFar)
-                }
-              case .failure(_):
-                return
-              }
-              
-            }
+            self.followersController.collectionViewDiffableDataSource.applySnapshotUpdate(with: self.followersController.allFollowersSoFar)
           }
+        case .failure(_):
+          return
         }
-        
       }
-      
     }
   }
   
+  
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
     guard let diffableDataSource = collectionView.dataSource as? GFFollowersCollectionViewDiffableDataSource else { return }
     guard let follower = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-    let followerUsername = follower.login
     
-    followersController.showLoadingView(on: followersController.view, completionHandler: {
-      GFNetworkManager.shared.getUser(for: followerUsername) { [weak self] result in
-        DispatchQueue.main.async {
-          self?.followersController.removeLoadingView(completionHandler: {
-            switch result {
-            case .success(let user):
-              let userDetailController = GFUserDetailController(user: user)
-              self?.followersController.present(userDetailController, animated: true, completion: nil)
-            case .failure(let error):
-              self?.followersController.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
-            }
-          })
+    followersController.showLoadingView()
+    GFNetworkManager.shared.getUser(for: follower.login) { [weak self] result in
+      guard let self = self else { return }
+      DispatchQueue.main.async {
+        self.followersController.removeLoadingView()
+        switch result {
+        case .success(let user):
+          let userDetailController = GFUserDetailController(user: user)
+          let userDetailNavigationController = UINavigationController(rootViewController: userDetailController)
+//          let userDetailNavigationBarAppearance = UINavigationBarAppearance()
+//          userDetailNavigationBarAppearance.shadowColor = .systemGray
+//          userDetailNavigationBarAppearance.backgroundColor = .systemGray3
+//          userDetailNavigationController.navigationBar.standardAppearance = userDetailNavigationBarAppearance
+//          userDetailNavigationController.navigationBar.compactAppearance = userDetailNavigationBarAppearance
+//          userDetailNavigationController.navigationBar.scrollEdgeAppearance = userDetailNavigationBarAppearance
+          self.followersController.present(userDetailNavigationController, animated: true, completion: nil)
+        case .failure(let error):
+          self.followersController.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
         }
       }
-    })
+    }
+    
   }
-
+  
+  
+  
 }

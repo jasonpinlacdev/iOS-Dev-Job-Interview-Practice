@@ -41,15 +41,8 @@ class GFFollowersController: UIViewController {
     super.viewDidLoad()
     configure()
     if self.followersOfCurrentPage.isEmpty {
-      let followersEmptyStateView = GFFollowersEmptyStateView()
-      followersEmptyStateView.translatesAutoresizingMaskIntoConstraints = false
+      let followersEmptyStateView = GFFollowersEmptyStateView(frame: self.view.bounds)
       view.addSubview(followersEmptyStateView)
-      NSLayoutConstraint.activate([
-        followersEmptyStateView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-        followersEmptyStateView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-        followersEmptyStateView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor),
-        followersEmptyStateView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
-      ])
     } else {
       configureSearchController()
       configureCollectionViewLayout()
@@ -59,13 +52,14 @@ class GFFollowersController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationController?.setNavigationBarHidden(false, animated: false)
   }
   
   private func configure() {
     self.title = "\(username)'s Followers"
     navigationItem.largeTitleDisplayMode = .always
     self.view.backgroundColor = .systemBackground
+
   }
   
   private func configureSearchController() {
@@ -85,8 +79,8 @@ class GFFollowersController: UIViewController {
     NSLayoutConstraint.activate([
       self.collectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
       self.collectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-      self.collectionView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.95),
-      self.collectionView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.95),
+      self.collectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+      self.collectionView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
     ])
   }
   

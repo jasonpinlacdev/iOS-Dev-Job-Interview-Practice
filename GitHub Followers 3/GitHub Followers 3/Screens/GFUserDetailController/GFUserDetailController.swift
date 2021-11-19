@@ -47,6 +47,8 @@ class GFUserDetailController: UIViewController {
   
   private func configure() {
     self.view.backgroundColor = .systemBackground
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeButtonTapped))
+    navigationItem.largeTitleDisplayMode = .never
   }
   
   private func configureLayout() {
@@ -62,7 +64,7 @@ class GFUserDetailController: UIViewController {
     self.view.addSubview(dateCreatedLabel)
   
     NSLayoutConstraint.activate([
-      userDetailInformationView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: padding),
+      userDetailInformationView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
       userDetailInformationView.heightAnchor.constraint(equalToConstant: 250),
       userDetailInformationView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
       userDetailInformationView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
@@ -82,6 +84,10 @@ class GFUserDetailController: UIViewController {
       dateCreatedLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor),
       dateCreatedLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
     ])
+  }
+  
+  @objc private func closeButtonTapped() {
+    self.dismiss(animated: true, completion: nil)
   }
   
   private func configureDetailCardViewActionButtons() {
