@@ -18,20 +18,14 @@ class GFUserDetailCardElementView: UIView {
     return elementSymbolImageView
   }()
   
-  let elementNameLabel: UILabel = {
-    let elementNameLabel = UILabel()
-    elementNameLabel.textAlignment = .left
-    elementNameLabel.textColor = .black
-    elementNameLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+  let elementNameLabel: GFSecondaryTitleLabel = {
+    let elementNameLabel = GFSecondaryTitleLabel(alignment: .center, labelTextColor: .black)
     elementNameLabel.translatesAutoresizingMaskIntoConstraints = false
     return elementNameLabel
   }()
 
-  let elementValueLabel: UILabel = {
-    let elementValueLabel = UILabel()
-    elementValueLabel.textAlignment = .center
-    elementValueLabel.textColor = .black
-    elementValueLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+  let elementValueLabel: GFSecondaryTitleLabel = {
+    let elementValueLabel = GFSecondaryTitleLabel(alignment: .center, labelTextColor: .black)
     elementValueLabel.translatesAutoresizingMaskIntoConstraints = false
     return elementValueLabel
   }()

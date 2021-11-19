@@ -14,11 +14,8 @@ class GFUserDetailController: UIViewController {
   var userDetailInformationView: GFUserDetailInformationView
   let topUserDetailCardView: GFUserDetailCardView
   let bottomUserDetailCardView: GFUserDetailCardView
-  
-  
   let dateCreatedLabel: GFTitleLabel = {
     let dateCreatedLabel = GFTitleLabel(alignment: .center)
-    dateCreatedLabel.text = "Created on May 7th, 1989"
     dateCreatedLabel.textAlignment = .center
     dateCreatedLabel.font = UIFont.preferredFont(forTextStyle: .title2)
     dateCreatedLabel.textColor = .secondaryLabel
@@ -32,6 +29,8 @@ class GFUserDetailController: UIViewController {
     topUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.repos.image, leftElementName: "Public Repos", leftElementValue: self.user.publicRepos, rightElementSymbol: GFSymbol.gists.image, rightElementName: "Public Gists", rightElementValue: self.user.publicGists, actionButtonTitle: "GitHubProfile", actionButtonColor: .systemPurple)
     bottomUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.following.image, leftElementName: "Following", leftElementValue: self.user.following, rightElementSymbol: GFSymbol.followers.image, rightElementName: "Followers", rightElementValue: self.user.followers, actionButtonTitle: "Get Followers", actionButtonColor: .systemGreen)
     super.init(nibName: nil, bundle: nil)
+    let dateCreatedLabelText: String = user.createdAt.convertedToDate()?.convertedToString() ?? "GitHub since N/A"
+    dateCreatedLabel.text = "GitHub Since \(dateCreatedLabelText)"
   }
   
   required init?(coder: NSCoder) {

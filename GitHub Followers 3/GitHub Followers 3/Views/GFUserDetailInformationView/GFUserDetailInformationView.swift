@@ -26,10 +26,8 @@ class GFUserDetailInformationView: UIView {
     return usernameLabel
   }()
   
-  let realNameLabel: GFTitleLabel = {
-    let realNameLabel = GFTitleLabel(alignment: .left)
-    realNameLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-    realNameLabel.textColor = .secondaryLabel
+  let realNameLabel: GFSecondaryTitleLabel = {
+    let realNameLabel = GFSecondaryTitleLabel(alignment: .left, labelTextColor: .secondaryLabel)
     realNameLabel.translatesAutoresizingMaskIntoConstraints = false
     return realNameLabel
   }()
@@ -41,22 +39,17 @@ class GFUserDetailInformationView: UIView {
     return locationPinImageView
   }()
   
-  let locationLabel: GFTitleLabel = {
-    let locationLabel = GFTitleLabel(alignment: .left)
-    locationLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-    locationLabel.textColor = .secondaryLabel
+  let locationLabel: GFSecondaryTitleLabel = {
+    let locationLabel = GFSecondaryTitleLabel(alignment: .left, labelTextColor: .secondaryLabel)
     locationLabel.numberOfLines = 0
     locationLabel.translatesAutoresizingMaskIntoConstraints = false
     return locationLabel
   }()
   
-  let bioLabel: UILabel = {
-    let bioLabel = UILabel()
+  let bioLabel: GFSecondaryTitleLabel = {
+    let bioLabel = GFSecondaryTitleLabel(alignment: .left, labelTextColor: .secondaryLabel)
     bioLabel.isUserInteractionEnabled = false
-    bioLabel.textColor = .secondaryLabel
-    bioLabel.textAlignment = .left
     bioLabel.numberOfLines = 0
-    bioLabel.sizeToFit()
     bioLabel.translatesAutoresizingMaskIntoConstraints = false
     return bioLabel
   }()

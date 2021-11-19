@@ -79,12 +79,12 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
         case .success(let user):
           let userDetailController = GFUserDetailController(user: user)
           let userDetailNavigationController = UINavigationController(rootViewController: userDetailController)
-//          let userDetailNavigationBarAppearance = UINavigationBarAppearance()
-//          userDetailNavigationBarAppearance.shadowColor = .systemGray
-//          userDetailNavigationBarAppearance.backgroundColor = .systemGray3
-//          userDetailNavigationController.navigationBar.standardAppearance = userDetailNavigationBarAppearance
-//          userDetailNavigationController.navigationBar.compactAppearance = userDetailNavigationBarAppearance
-//          userDetailNavigationController.navigationBar.scrollEdgeAppearance = userDetailNavigationBarAppearance
+          let userDetailNavigationBarAppearance = UINavigationBarAppearance()
+          userDetailNavigationBarAppearance.shadowColor = nil
+          userDetailNavigationBarAppearance.backgroundColor = .systemBackground
+          userDetailNavigationController.navigationBar.standardAppearance = userDetailNavigationBarAppearance
+          userDetailNavigationController.navigationBar.compactAppearance = userDetailNavigationBarAppearance
+          userDetailNavigationController.navigationBar.scrollEdgeAppearance = userDetailNavigationBarAppearance
           self.followersController.present(userDetailNavigationController, animated: true, completion: nil)
         case .failure(let error):
           self.followersController.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
