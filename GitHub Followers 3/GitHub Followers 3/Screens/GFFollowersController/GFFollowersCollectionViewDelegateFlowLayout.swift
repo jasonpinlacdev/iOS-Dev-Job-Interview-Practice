@@ -77,7 +77,22 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
         self.followersController.removeLoadingView()
         switch result {
         case .success(let user):
+          
           let userDetailController = GFUserDetailController(user: user)
+          
+          userDetailController.onActionButtonTappedToGetFollowers = { (username, followers) in
+            DispatchQueue.main.async {
+              self.followersController.title = "\(username)'s Followers"
+              self.followersController?.username = username
+              self.followersController?.followersOfCurrentPage = followers
+              self.followersController?.allFollowersSoFar = followers
+              self.followersController?.currentPageOfFollowers = 1
+              diffableDataSource.applySnapshotUpdate(with: followers, completionHandler: nil)
+              self.followersController?.checkForEmptyState()
+              self.followersController.dismiss(animated: true, completion: nil)
+            }
+          }
+          
           let userDetailNavigationController = UINavigationController(rootViewController: userDetailController)
           let userDetailNavigationBarAppearance = UINavigationBarAppearance()
           userDetailNavigationBarAppearance.shadowColor = nil
@@ -85,7 +100,9 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
           userDetailNavigationController.navigationBar.standardAppearance = userDetailNavigationBarAppearance
           userDetailNavigationController.navigationBar.compactAppearance = userDetailNavigationBarAppearance
           userDetailNavigationController.navigationBar.scrollEdgeAppearance = userDetailNavigationBarAppearance
+          
           self.followersController.present(userDetailNavigationController, animated: true, completion: nil)
+          
         case .failure(let error):
           self.followersController.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
         }

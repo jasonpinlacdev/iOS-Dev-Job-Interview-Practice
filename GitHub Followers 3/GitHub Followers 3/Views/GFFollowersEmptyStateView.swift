@@ -26,9 +26,8 @@ class GFFollowersEmptyStateView: UIView {
   
   private func configure() {
     self.backgroundColor = .systemBackground
-    
+    self.clipsToBounds = true
     emptyStateImageView.contentMode = .scaleAspectFill
-    
     emptyStateMessageLabel.textAlignment = .center
     emptyStateMessageLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
     emptyStateMessageLabel.numberOfLines = 0

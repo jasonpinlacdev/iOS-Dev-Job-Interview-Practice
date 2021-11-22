@@ -23,14 +23,14 @@ class GFUserDetailController: UIViewController {
     return dateCreatedLabel
   }()
   
+  var onActionButtonTappedToGetFollowers: ((String, [GFFollower]) -> Void)?
+  
   init(user: GFUser) {
     self.user = user
     userDetailInformationView = GFUserDetailInformationView(user: self.user)
     topUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.repos.image, leftElementName: "Public Repos", leftElementValue: self.user.publicRepos, rightElementSymbol: GFSymbol.gists.image, rightElementName: "Public Gists", rightElementValue: self.user.publicGists, actionButtonTitle: "GitHubProfile", actionButtonColor: .systemPurple)
     bottomUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.following.image, leftElementName: "Following", leftElementValue: self.user.following, rightElementSymbol: GFSymbol.followers.image, rightElementName: "Followers", rightElementValue: self.user.followers, actionButtonTitle: "Get Followers", actionButtonColor: .systemGreen)
     super.init(nibName: nil, bundle: nil)
-    let dateCreatedLabelText: String = user.createdAt.convertedToDate()?.convertedToString() ?? "GitHub since N/A"
-    dateCreatedLabel.text = "GitHub Since \(dateCreatedLabelText)"
   }
   
   required init?(coder: NSCoder) {
@@ -41,13 +41,15 @@ class GFUserDetailController: UIViewController {
     super.viewDidLoad()
     configure()
     configureLayout()
-    configureDetailCardViewActionButtons()
+    configureUserDetailCardsViewsOnActionButtonTapped()
   }
   
   private func configure() {
     self.view.backgroundColor = .systemBackground
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeButtonTapped))
     navigationItem.largeTitleDisplayMode = .never
+    let dateCreatedLabelText: String = user.createdAt.convertedToDate()?.convertedToString() ?? "GitHub since N/A"
+    dateCreatedLabel.text = "GitHub Since \(dateCreatedLabelText)"
   }
   
   private func configureLayout() {
@@ -89,14 +91,30 @@ class GFUserDetailController: UIViewController {
     self.dismiss(animated: true, completion: nil)
   }
   
-  private func configureDetailCardViewActionButtons() {
-    topUserDetailCardView.onActionButtonTap = { button in
-      print("TOP BUTTON TAPPED")
+  
+  private func configureUserDetailCardsViewsOnActionButtonTapped() {
+    topUserDetailCardView.onActionButtonTapped = {
+      print("Top cardView button tapped")
     }
-    bottomUserDetailCardView.onActionButtonTap = { button in
-      print("BOTTOM BUTTON TAPPED")
+    
+    bottomUserDetailCardView.onActionButtonTapped = {
+      self.showLoadingView()
+      GFNetworkManager.shared.getFollowers(for: self.user.login) { result in
+        DispatchQueue.main.async {
+          self.removeLoadingView()
+          switch result {
+          case .success(let followers):
+            self.onActionButtonTappedToGetFollowers?(self.user.login, followers)
+          case .failure(let error):
+           self.presentGFAlertController(alertTitle: error.errorTitle, alertMessage: error.errorMessageDescription, alertButtonText: "Dismiss")
+          }
+        }
+      }
     }
+    
   }
   
+  
 }
+
 

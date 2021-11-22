@@ -7,13 +7,14 @@
 
 import UIKit
 
+
 class GFUserDetailCardView: UIView {
   
   let leftDetailCardElementView: GFUserDetailCardElementView
   let rightDetailCardElementView: GFUserDetailCardElementView
   let actionButton: GFButton
   
-  var onActionButtonTap: ((GFButton)-> Void)?
+  var onActionButtonTapped: (()->Void)?
   
   let horizontalStackView: UIStackView = {
     let horizontalStackView = UIStackView()
@@ -68,7 +69,7 @@ class GFUserDetailCardView: UIView {
   }
   
   @objc private func actionButtonTapped() {
-    self.onActionButtonTap?(actionButton)
+    self.onActionButtonTapped?()
   }
   
   

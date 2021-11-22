@@ -25,7 +25,7 @@ enum GFError: Error {
     case .localError:
       return "Invalid Connection Error"
     case .serverError:
-      return "Invalid Username Error"
+      return "Invalid Server Response Error"
     case .dataError:
       return "Invalid Data Error"
     case .dataDecodingError:
@@ -46,7 +46,7 @@ enum GFError: Error {
     case .localError:
       return "Unable to complete the request. Please check your internet connection."
     case .serverError:
-      return "Unable to find the account for the username provided. Please enter a valid username."
+      return "The server response for the username provided is invalid. Try again."
     case .dataError:
       return "The data retrieved from the request is invalid."
     case .dataDecodingError:

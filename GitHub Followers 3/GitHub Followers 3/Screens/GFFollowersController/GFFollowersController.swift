@@ -13,7 +13,7 @@ class GFFollowersController: UIViewController {
   lazy var collectionViewDelegateFlowLayout = GFFollowersCollectionViewDelegateFlowLayout(numberOfItemsPerRow: 3, spacingBetweenItems: 10, followersController: self)
   var collectionViewDiffableDataSource: GFFollowersCollectionViewDiffableDataSource!
   
-  let username: String
+  var username: String
   var followersOfCurrentPage: [GFFollower]
   var allFollowersSoFar: [GFFollower]
   var currentPageOfFollowers = 1
@@ -23,6 +23,9 @@ class GFFollowersController: UIViewController {
   var hasMoreFollowers: Bool {
     followersOfCurrentPage.count < 100 ? false : true
   }
+  
+  var searchController: UISearchController?
+  var followersEmptyStateView = GFFollowersEmptyStateView()
   
   
   init(username: String, followers: [GFFollower]) {
@@ -40,15 +43,13 @@ class GFFollowersController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
-    if self.followersOfCurrentPage.isEmpty {
-      let followersEmptyStateView = GFFollowersEmptyStateView(frame: self.view.bounds)
-      view.addSubview(followersEmptyStateView)
-    } else {
-      configureSearchController()
-      configureCollectionViewLayout()
-      configureCollectionView()
-    }
+    configureSearchController()
+    configureCollectionViewLayout()
+    configureCollectionView()
+    configureEmptyStateView()
+    checkForEmptyState()
   }
+  
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -59,23 +60,22 @@ class GFFollowersController: UIViewController {
     self.title = "\(username)'s Followers"
     navigationItem.largeTitleDisplayMode = .always
     self.view.backgroundColor = .systemBackground
-
+    
   }
   
   private func configureSearchController() {
-    let searchController = UISearchController()
-    searchController.searchBar.placeholder = "Search a username"
-    searchController.obscuresBackgroundDuringPresentation = false
-    searchController.searchBar.delegate = self
+    searchController = UISearchController()
+    searchController?.searchBar.placeholder = "Search a username"
+    searchController?.obscuresBackgroundDuringPresentation = false
+    searchController?.searchBar.delegate = self
+    searchController?.searchResultsUpdater = self
     self.navigationItem.searchController = searchController
     self.navigationItem.hidesSearchBarWhenScrolling = false
-    searchController.searchResultsUpdater = self
   }
   
   private func configureCollectionViewLayout() {
     self.collectionView.translatesAutoresizingMaskIntoConstraints = false
     self.view.addSubview(self.collectionView)
-    
     NSLayoutConstraint.activate([
       self.collectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
       self.collectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
@@ -98,6 +98,24 @@ class GFFollowersController: UIViewController {
       return cell
     })
     self.collectionViewDiffableDataSource.setupInitialSnapshot(with: self.allFollowersSoFar)
+  }
+  
+  private func configureEmptyStateView() {
+    self.followersEmptyStateView.frame = self.view.bounds
+    self.view.addSubview(followersEmptyStateView)
+  }
+  
+  func checkForEmptyState() {
+    if self.allFollowersSoFar.isEmpty {
+      self.followersEmptyStateView.frame = self.view.bounds
+      self.followersEmptyStateView.isHidden = false
+      self.collectionView.isHidden = true
+      self.navigationItem.searchController = nil
+    } else {
+      self.followersEmptyStateView.isHidden = true
+      self.collectionView.isHidden = false
+      self.navigationItem.searchController = searchController
+    }
   }
   
 }
