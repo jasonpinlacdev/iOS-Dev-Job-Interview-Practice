@@ -17,6 +17,7 @@ enum GFError: Error {
   case dataDecodingError
   case avatarImageDownloadError // <-- this error here is just a placeholder for our result type when making the async network call. I don't use this error case when presenting the GFAlertController
   case getUserError
+  case gitHubURLError
   
   var errorTitle: String {
     switch self {
@@ -36,6 +37,8 @@ enum GFError: Error {
       return "Invalid Username Error"
     case .getUserError:
       return "User Detail Retrieval Error"
+    case .gitHubURLError:
+      return "Invalid GitHub Repostitory URL"
     }
   }
   
@@ -57,6 +60,8 @@ enum GFError: Error {
       return "The username you entered is an invalid entry. Try again."
     case .getUserError:
       return "Could not retrieve the details on the user. Try again."
+    case .gitHubURLError:
+      return "The GitHub Repository for the user could not be retrieved. Try again."
     }
   }
   

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class GFUserDetailController: UIViewController {
   
@@ -94,7 +95,14 @@ class GFUserDetailController: UIViewController {
   
   private func configureUserDetailCardsViewsOnActionButtonTapped() {
     topUserDetailCardView.onActionButtonTapped = {
-      print("Top cardView button tapped")
+      // implement the safari view controller here
+      guard let url = URL(string: self.user.htmlURL) else {
+        self.presentGFAlertController(alertTitle: GFError.gitHubURLError.errorTitle, alertMessage: GFError.gitHubURLError.errorMessageDescription, alertButtonText: "Dismiss")
+        return
+      }
+      let safariViewController = SFSafariViewController(url: url)
+      safariViewController.preferredControlTintColor = .systemGreen
+      self.present(safariViewController, animated: true, completion: nil)
     }
     
     bottomUserDetailCardView.onActionButtonTapped = {
