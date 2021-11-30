@@ -41,6 +41,7 @@
 		E13C0372274732660034E9D2 /* GFSecondaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0371274732660034E9D2 /* GFSecondaryTitleLabel.swift */; };
 		E13C03742748620F0034E9D2 /* String+ConvertedToDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03732748620F0034E9D2 /* String+ConvertedToDate.swift */; };
 		E13C0376274866270034E9D2 /* Date+ConvertedToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0375274866270034E9D2 /* Date+ConvertedToString.swift */; };
+		E13C037D275690270034E9D2 /* GFPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C037C275690270034E9D2 /* GFPersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		E13C0371274732660034E9D2 /* GFSecondaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSecondaryTitleLabel.swift; sourceTree = "<group>"; };
 		E13C03732748620F0034E9D2 /* String+ConvertedToDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConvertedToDate.swift"; sourceTree = "<group>"; };
 		E13C0375274866270034E9D2 /* Date+ConvertedToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ConvertedToString.swift"; sourceTree = "<group>"; };
+		E13C037C275690270034E9D2 /* GFPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFPersistenceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				E135B23C2731C87200CD5991 /* GFNetworkManager.swift */,
+				E13C037C275690270034E9D2 /* GFPersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -214,9 +217,9 @@
 			isa = PBXGroup;
 			children = (
 				E135B217272DC55200CD5991 /* GFSearchController.swift */,
-				E135B219272DC56000CD5991 /* GFFavoritesController.swift */,
 				E135B24027348DF800CD5991 /* GFFollowersController */,
 				E13C03572740590C0034E9D2 /* GFUserDetailController */,
+				E13C037B2750474A0034E9D2 /* GFFavoritesController */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -237,6 +240,14 @@
 				E13C03652741D1560034E9D2 /* GFUserDetailCardElementView.swift */,
 			);
 			path = GFUserDetailInformationView;
+			sourceTree = "<group>";
+		};
+		E13C037B2750474A0034E9D2 /* GFFavoritesController */ = {
+			isa = PBXGroup;
+			children = (
+				E135B219272DC56000CD5991 /* GFFavoritesController.swift */,
+			);
+			path = GFFavoritesController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +326,7 @@
 				E135B228273096B000CD5991 /* GFFollowersController.swift in Sources */,
 				E13C0376274866270034E9D2 /* Date+ConvertedToString.swift in Sources */,
 				E135B21F272F359F00CD5991 /* GFSymbol.swift in Sources */,
+				E13C037D275690270034E9D2 /* GFPersistenceManager.swift in Sources */,
 				E135B23D2731C87200CD5991 /* GFNetworkManager.swift in Sources */,
 				E13C037027460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift in Sources */,
 				E135B22E2730BA3700CD5991 /* GFAlertContainerView.swift in Sources */,

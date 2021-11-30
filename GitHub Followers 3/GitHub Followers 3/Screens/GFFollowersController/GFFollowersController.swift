@@ -47,6 +47,7 @@ class GFFollowersController: UIViewController {
     configureCollectionViewLayout()
     configureCollectionView()
     configureEmptyStateView()
+    configureFavoriteButton()
     checkForEmptyState()
   }
   
@@ -58,9 +59,8 @@ class GFFollowersController: UIViewController {
   
   private func configure() {
     self.title = "\(username)'s Followers"
-    navigationItem.largeTitleDisplayMode = .always
     self.view.backgroundColor = .systemBackground
-    
+    navigationItem.largeTitleDisplayMode = .always
   }
   
   private func configureSearchController() {
@@ -105,6 +105,11 @@ class GFFollowersController: UIViewController {
     self.view.addSubview(followersEmptyStateView)
   }
   
+  private func configureFavoriteButton() {
+    let isInFavorites = GFPersistenceManager.shared.isInFavorites(self.username)
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: (isInFavorites ? GFSymbol.starFill.image : GFSymbol.star.image), style: .plain, target: self, action: #selector(favoriteBarButtonTapped))
+  }
+  
   func checkForEmptyState() {
     if self.allFollowersSoFar.isEmpty {
       self.followersEmptyStateView.frame = self.view.bounds
@@ -117,6 +122,21 @@ class GFFollowersController: UIViewController {
       self.navigationItem.searchController = searchController
     }
   }
+  
+  
+  @objc private  func favoriteBarButtonTapped() {
+    switch GFPersistenceManager.shared.isInFavorites(self.username) {
+    case true:
+      GFPersistenceManager.shared.removeFromFavorites(self.username) { [weak self] in
+        self?.navigationItem.rightBarButtonItem?.image = GFSymbol.star.image
+      }
+    case false:
+      GFPersistenceManager.shared.addToFavorites(self.username) { [weak self] in
+        self?.navigationItem.rightBarButtonItem?.image = GFSymbol.starFill.image
+      }
+    }
+  }
+  
   
 }
 

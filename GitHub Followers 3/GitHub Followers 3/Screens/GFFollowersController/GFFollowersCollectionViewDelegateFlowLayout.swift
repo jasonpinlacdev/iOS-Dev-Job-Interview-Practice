@@ -89,6 +89,7 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
               self.followersController?.currentPageOfFollowers = 1
               diffableDataSource.applySnapshotUpdate(with: followers, completionHandler: nil)
               self.followersController?.checkForEmptyState()
+              self.followersController.navigationItem.rightBarButtonItem?.image = GFPersistenceManager.shared.isInFavorites(username) ? GFSymbol.starFill.image : GFSymbol.star.image
               self.followersController.dismiss(animated: true, completion: nil)
             }
           }
