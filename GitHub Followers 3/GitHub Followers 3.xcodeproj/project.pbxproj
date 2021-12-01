@@ -42,6 +42,10 @@
 		E13C03742748620F0034E9D2 /* String+ConvertedToDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03732748620F0034E9D2 /* String+ConvertedToDate.swift */; };
 		E13C0376274866270034E9D2 /* Date+ConvertedToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C0375274866270034E9D2 /* Date+ConvertedToString.swift */; };
 		E13C037D275690270034E9D2 /* GFPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C037C275690270034E9D2 /* GFPersistenceManager.swift */; };
+		E13C037F2756EE600034E9D2 /* GFFavoritesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C037E2756EE600034E9D2 /* GFFavoritesEmptyStateView.swift */; };
+		E13C03812756FBDB0034E9D2 /* GFFavoritesTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03802756FBDB0034E9D2 /* GFFavoritesTableViewDiffableDataSource.swift */; };
+		E13C03832756FC020034E9D2 /* GFFavoritesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C03822756FC020034E9D2 /* GFFavoritesTableViewDelegate.swift */; };
+		E13C038527571C550034E9D2 /* GFFavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C038427571C550034E9D2 /* GFFavoritesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +86,10 @@
 		E13C03732748620F0034E9D2 /* String+ConvertedToDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConvertedToDate.swift"; sourceTree = "<group>"; };
 		E13C0375274866270034E9D2 /* Date+ConvertedToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ConvertedToString.swift"; sourceTree = "<group>"; };
 		E13C037C275690270034E9D2 /* GFPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFPersistenceManager.swift; sourceTree = "<group>"; };
+		E13C037E2756EE600034E9D2 /* GFFavoritesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFavoritesEmptyStateView.swift; sourceTree = "<group>"; };
+		E13C03802756FBDB0034E9D2 /* GFFavoritesTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFavoritesTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
+		E13C03822756FC020034E9D2 /* GFFavoritesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFavoritesTableViewDelegate.swift; sourceTree = "<group>"; };
+		E13C038427571C550034E9D2 /* GFFavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFavoritesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +165,8 @@
 				E135B2312730BA5A00CD5991 /* GFBodyLabel.swift */,
 				E13C0349273709680034E9D2 /* GFFollowersCollectionViewCell.swift */,
 				E13C034D2739C2AB0034E9D2 /* GFFollowersEmptyStateView.swift */,
+				E13C037E2756EE600034E9D2 /* GFFavoritesEmptyStateView.swift */,
+				E13C038427571C550034E9D2 /* GFFavoritesTableViewCell.swift */,
 				E13C03602741D0C50034E9D2 /* GFUserDetailInformationView */,
 			);
 			path = Views;
@@ -246,6 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				E135B219272DC56000CD5991 /* GFFavoritesController.swift */,
+				E13C03802756FBDB0034E9D2 /* GFFavoritesTableViewDiffableDataSource.swift */,
+				E13C03822756FC020034E9D2 /* GFFavoritesTableViewDelegate.swift */,
 			);
 			path = GFFavoritesController;
 			sourceTree = "<group>";
@@ -322,11 +334,14 @@
 			files = (
 				E13C0350273DC4560034E9D2 /* GFUserDetailController.swift in Sources */,
 				E13C03662741D1560034E9D2 /* GFUserDetailCardElementView.swift in Sources */,
+				E13C038527571C550034E9D2 /* GFFavoritesTableViewCell.swift in Sources */,
 				E135B2302730BA4700CD5991 /* GFTitleLabel.swift in Sources */,
 				E135B228273096B000CD5991 /* GFFollowersController.swift in Sources */,
 				E13C0376274866270034E9D2 /* Date+ConvertedToString.swift in Sources */,
 				E135B21F272F359F00CD5991 /* GFSymbol.swift in Sources */,
 				E13C037D275690270034E9D2 /* GFPersistenceManager.swift in Sources */,
+				E13C03832756FC020034E9D2 /* GFFavoritesTableViewDelegate.swift in Sources */,
+				E13C037F2756EE600034E9D2 /* GFFavoritesEmptyStateView.swift in Sources */,
 				E135B23D2731C87200CD5991 /* GFNetworkManager.swift in Sources */,
 				E13C037027460EAC0034E9D2 /* UIViewController+ShowLoadingView.swift in Sources */,
 				E135B22E2730BA3700CD5991 /* GFAlertContainerView.swift in Sources */,
@@ -340,6 +355,7 @@
 				E135B22A2730B1FD00CD5991 /* GFollower.swift in Sources */,
 				E135B221272F375D00CD5991 /* GFButton.swift in Sources */,
 				E13C034A273709680034E9D2 /* GFFollowersCollectionViewCell.swift in Sources */,
+				E13C03812756FBDB0034E9D2 /* GFFavoritesTableViewDiffableDataSource.swift in Sources */,
 				E135B226272F7F9C00CD5991 /* UITextField+AddDoneButton.swift in Sources */,
 				E13C03642741D1410034E9D2 /* GFUserDetailCardView.swift in Sources */,
 				E13C0372274732660034E9D2 /* GFSecondaryTitleLabel.swift in Sources */,

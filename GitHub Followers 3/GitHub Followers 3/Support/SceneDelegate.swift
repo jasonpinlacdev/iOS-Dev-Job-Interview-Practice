@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     self.window?.rootViewController = createRootViewController()
     self.window?.makeKeyAndVisible()
     GFPersistenceManager.shared.loadFavorites()
-    GFPersistenceManager.shared.printFavoriteUsers()
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {

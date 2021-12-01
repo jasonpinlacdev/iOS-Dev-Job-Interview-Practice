@@ -9,14 +9,22 @@ import UIKit
 
 
 class GFPersistenceManager {
+  
   static let shared = GFPersistenceManager()
   
   private var favoriteUsers: [String] = []
+  
   private var documentDirectoryURL: URL { return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] }
   
   private init() {}
   
-
+  var getFavoriteUsers: [String] {
+    return self.favoriteUsers
+  }
+  
+  var isFavoriteUsersEmpty: Bool {
+    return self.favoriteUsers.isEmpty
+  }
   
   func printFavoriteUsers() {
     print("Favorite Users: \(favoriteUsers)")

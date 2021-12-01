@@ -55,6 +55,7 @@ class GFFollowersController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(false, animated: false)
+    self.navigationItem.rightBarButtonItem?.image = GFPersistenceManager.shared.isInFavorites(self.username) ? GFSymbol.starFill.image : GFSymbol.star.image
   }
   
   private func configure() {
@@ -106,8 +107,7 @@ class GFFollowersController: UIViewController {
   }
   
   private func configureFavoriteButton() {
-    let isInFavorites = GFPersistenceManager.shared.isInFavorites(self.username)
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: (isInFavorites ? GFSymbol.starFill.image : GFSymbol.star.image), style: .plain, target: self, action: #selector(favoriteBarButtonTapped))
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: (GFPersistenceManager.shared.isInFavorites(self.username) ? GFSymbol.starFill.image : GFSymbol.star.image), style: .plain, target: self, action: #selector(favoriteBarButtonTapped))
   }
   
   func checkForEmptyState() {

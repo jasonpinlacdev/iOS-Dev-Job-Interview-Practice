@@ -28,7 +28,6 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
     let maxWidth = collectionView.bounds.width
     let availableWidth = maxWidth - (spacingBetweenItems * (numberOfItemsPerRow - 1))
     let itemWidth = (availableWidth/self.numberOfItemsPerRow)
-    
     return CGSize(width: itemWidth, height: itemWidth * 1.33)
   }
   
@@ -109,9 +108,7 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
         }
       }
     }
-    
   }
-  
   
   
 }
