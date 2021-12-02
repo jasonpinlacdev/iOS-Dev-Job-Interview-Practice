@@ -17,15 +17,18 @@ class GFFollowersCollectionViewCell: UICollectionViewCell {
   let followerAvatarImageView = UIImageView(frame: .zero)
   let followerUsernameLabel = UILabel(frame: .zero)
   
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configure()
     configureLayout()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     followerAvatarImageView.layer.cornerRadius = 10
@@ -34,6 +37,7 @@ class GFFollowersCollectionViewCell: UICollectionViewCell {
     followerUsernameLabel.lineBreakMode = .byTruncatingTail
     followerUsernameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
   }
+  
   
   private func configureLayout() {
     followerAvatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,8 +56,8 @@ class GFFollowersCollectionViewCell: UICollectionViewCell {
       followerUsernameLabel.topAnchor.constraint(equalTo: followerAvatarImageView.bottomAnchor),
       followerUsernameLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
     ])
-    
   }
+  
   
   func setup(follower: GFFollower) {
     self.followerAvatarImageView.image = GFImage.avatarPlaceHolder.image

@@ -12,6 +12,7 @@ class GFSecondaryTitleLabel: UILabel {
   private let titleAlignment: NSTextAlignment
   private let labelTextColor: UIColor
   
+  
   init(alignment: NSTextAlignment, labelTextColor: UIColor) {
     self.titleAlignment = alignment
     self.labelTextColor = labelTextColor
@@ -19,9 +20,11 @@ class GFSecondaryTitleLabel: UILabel {
     configure()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     self.textAlignment = self.titleAlignment

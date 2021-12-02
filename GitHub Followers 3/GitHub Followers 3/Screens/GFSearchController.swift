@@ -19,6 +19,7 @@ class GFSearchController: UIViewController {
   let searchTextField = GFSearchTextField()
   let searchButton = GFButton(title: "Search", color: .systemGreen)
   
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
@@ -27,16 +28,19 @@ class GFSearchController: UIViewController {
     searchButton.addTarget(self, action: #selector(searchFollowers), for: .touchUpInside)
   }
   
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.setNavigationBarHidden(true, animated: true)
   }
+  
   
   private func configure() {
     self.title = "GFSearchController"
     self.navigationItem.largeTitleDisplayMode = .never
     self.view.backgroundColor = .systemBackground
   }
+  
   
   private func configureLayout() {
     view.addSubview(mainLogoImageView)
@@ -62,6 +66,7 @@ class GFSearchController: UIViewController {
     ])
   }
   
+  
   @objc private func searchFollowers() {
     searchTextField.resignFirstResponder()
     
@@ -83,7 +88,6 @@ class GFSearchController: UIViewController {
     }
   }
   
-  
 }
 
 
@@ -93,6 +97,7 @@ class GFSearchController: UIViewController {
 // 3) UIGestureRecognizer for a tap on the searchControllers view to invoke the searchController's view.endEditing method
 // Also we use the global NotificationCenter.default to subscribe to the keyboardShowing and keyboardHiding events to adjust our view as keyboard propagates
 extension GFSearchController: UITextFieldDelegate {
+  
   private func configureSearchTextFieldForKeyboardDismissal() {
     searchTextField.delegate = self
     searchTextField.addDoneButton(target: self, selector: #selector(keyboardToolbarDoneButtonTapped))
@@ -102,14 +107,17 @@ extension GFSearchController: UITextFieldDelegate {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
   
+  
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     // when the textField returns you dismiss/resign the firstResponder which in this case is the Keyboard.
     return textField.resignFirstResponder()
   }
   
+  
   @objc private func keyboardToolbarDoneButtonTapped() {
     self.view.endEditing(true)
   }
+  
   
   @objc private func keyboardWillShow(notification: NSNotification) {
     guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
@@ -120,6 +128,7 @@ extension GFSearchController: UITextFieldDelegate {
       self.view.frame.origin.y = 0 - overlap - 15
     }
   }
+  
   
   @objc private func keyboardWillHide(notification: NSNotification) {
     self.view.frame.origin.y = 0

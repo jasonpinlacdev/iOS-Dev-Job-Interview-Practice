@@ -8,6 +8,7 @@
 import Foundation
 
 struct GFUser {
+  
   let login: String
   let avatarURL: String
   let name: String?
@@ -20,6 +21,7 @@ struct GFUser {
   let following: Int
   let createdAt: String
   let htmlURL: String
+  
 }
 
 extension GFUser: Codable {

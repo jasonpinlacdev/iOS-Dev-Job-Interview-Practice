@@ -26,6 +26,7 @@ class GFUserDetailCardView: UIView {
     return horizontalStackView
   }()
   
+  
   init(leftElementSymbol: UIImage?, leftElementName: String, leftElementValue: Int, rightElementSymbol: UIImage?, rightElementName: String, rightElementValue: Int, actionButtonTitle: String, actionButtonColor: UIColor) {
     leftDetailCardElementView = GFUserDetailCardElementView(elementSymbol: leftElementSymbol, elementName: leftElementName, elementValue: leftElementValue)
     rightDetailCardElementView = GFUserDetailCardElementView(elementSymbol: rightElementSymbol, elementName: rightElementName, elementValue: rightElementValue)
@@ -35,9 +36,11 @@ class GFUserDetailCardView: UIView {
     configureLayout()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     self.backgroundColor = .systemGray3
@@ -71,7 +74,6 @@ class GFUserDetailCardView: UIView {
   @objc private func actionButtonTapped() {
     self.onActionButtonTapped?()
   }
-  
   
 }
 

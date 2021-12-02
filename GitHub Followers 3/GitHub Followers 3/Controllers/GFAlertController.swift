@@ -18,6 +18,7 @@ class GFAlertController: UIViewController {
   var alertMessage: String
   var alertButtonText: String
   
+  
   init(alertTitle: String, alertMessage: String, alertButtonText: String) {
     self.alertTitle = alertTitle
     self.alertMessage = alertMessage
@@ -26,6 +27,7 @@ class GFAlertController: UIViewController {
     self.modalPresentationStyle = .overFullScreen
     self.modalTransitionStyle = .crossDissolve
   }
+  
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -79,9 +81,9 @@ class GFAlertController: UIViewController {
     ])
   }
   
+  
   @objc private func dismissAlert() {
     dismiss(animated: true, completion: nil)
   }
-  
   
 }

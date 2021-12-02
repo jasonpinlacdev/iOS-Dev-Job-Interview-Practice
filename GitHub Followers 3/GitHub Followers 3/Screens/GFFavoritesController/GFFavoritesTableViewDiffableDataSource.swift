@@ -8,13 +8,16 @@
 import UIKit
 
 enum GFFavoritesSection {
+  
   case main
+  
 }
 
 class GFFavoritesTableViewDiffableDataSource: UITableViewDiffableDataSource<GFFavoritesSection, String> {
   
   weak var favoritesController: GFFavoritesController?
 
+  
   func applySnapshotOfFavorites(animatingDifferences: Bool) {
     var initialSnapshot = NSDiffableDataSourceSnapshot<GFFavoritesSection, String>()
     initialSnapshot.appendSections([.main])
@@ -22,9 +25,11 @@ class GFFavoritesTableViewDiffableDataSource: UITableViewDiffableDataSource<GFFa
     self.apply(initialSnapshot, animatingDifferences: animatingDifferences, completion: nil)
   }
   
+  
   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     return true
   }
+  
   
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     guard editingStyle == .delete  else { return }
@@ -34,6 +39,5 @@ class GFFavoritesTableViewDiffableDataSource: UITableViewDiffableDataSource<GFFa
       self?.favoritesController?.checkForEmptyState()
     }
   }
-  
   
 }

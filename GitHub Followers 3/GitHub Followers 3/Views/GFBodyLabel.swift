@@ -11,15 +11,18 @@ class GFBodyLabel: UILabel {
   
   let bodyAlignment: NSTextAlignment
 
+  
   init(alignment: NSTextAlignment) {
     self.bodyAlignment = alignment
     super.init(frame: .zero)
     configure()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     self.textAlignment = self.bodyAlignment
@@ -30,7 +33,6 @@ class GFBodyLabel: UILabel {
     self.adjustsFontSizeToFitWidth = true
     self.minimumScaleFactor = 0.75
 
-    
     translatesAutoresizingMaskIntoConstraints = false
   }
 

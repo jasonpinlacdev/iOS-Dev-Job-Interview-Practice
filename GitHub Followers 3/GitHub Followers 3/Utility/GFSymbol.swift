@@ -9,6 +9,7 @@ import UIKit
 
 
 enum GFSymbol {
+  
   case followers // people person.3.sequence
   case following // heart heart
   case repos // folder folder
@@ -35,6 +36,7 @@ enum GFSymbol {
       return UIImage(systemName: "star.fill")
     }
   }
+  
 }
 
 

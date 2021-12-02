@@ -9,6 +9,7 @@ import UIKit
 
 
 enum GFImage {
+  
   case mainLogo
   case emptyStateLogo
   case avatarPlaceHolder
@@ -23,6 +24,5 @@ enum GFImage {
       return UIImage(named: "avatar-placeholder")!
     }
   }
-  
   
 }

@@ -14,9 +14,11 @@ class GFSearchTextField: UITextField {
     configure()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     placeholder = "Enter a username"
@@ -29,6 +31,7 @@ class GFSearchTextField: UITextField {
     keyboardType = .default
     returnKeyType = .done
     autocorrectionType = .no
+    clearButtonMode = .whileEditing
     
     clipsToBounds = true
     layer.cornerRadius = 32

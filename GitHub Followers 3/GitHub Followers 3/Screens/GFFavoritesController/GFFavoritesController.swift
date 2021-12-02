@@ -15,12 +15,14 @@ class GFFavoritesController: UIViewController {
   let favoriteTableViewDelegate = GFFavoritesTableViewDelegate()
   let emptyStateView = GFFavoritesEmptyStateView()
   
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configure()
     configureTableView()
     configureEmptyStateView()
   }
+  
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -30,10 +32,11 @@ class GFFavoritesController: UIViewController {
 
   
   private func configure() {
-    self.title = "Favorite GitHub Users"
+    self.title = "Favorites"
     self.view.backgroundColor = .systemBackground
-    navigationItem.largeTitleDisplayMode = .never
+//    navigationItem.largeTitleDisplayMode = .never
   }
+  
   
   private func configureTableView() {
     self.tableView.frame = self.view.frame
@@ -45,6 +48,7 @@ class GFFavoritesController: UIViewController {
     favoritesTableViewDiffableDataSource.favoritesController = self
   }
   
+  
   private func configureTableViewDiffableDataSource() {
     self.favoritesTableViewDiffableDataSource = GFFavoritesTableViewDiffableDataSource(tableView: self.tableView, cellProvider: { tableView, indexPath, username in
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "GFFavoritesTableViewCell", for: indexPath) as? GFFavoritesTableViewCell else { fatalError("Failed to dequeue reusable GFFavoritesTableViewCell") }
@@ -54,11 +58,13 @@ class GFFavoritesController: UIViewController {
     favoritesTableViewDiffableDataSource.applySnapshotOfFavorites(animatingDifferences: false)
   }
   
+  
   private func configureEmptyStateView() {
     self.emptyStateView.frame = self.view.bounds
     self.view.addSubview(self.emptyStateView)
     self.emptyStateView.isHidden = true
   }
+  
   
   func checkForEmptyState() {
     if GFPersistenceManager.shared.isFavoriteUsersEmpty {
@@ -69,9 +75,6 @@ class GFFavoritesController: UIViewController {
       tableView.isHidden = false
     }
   }
-  
-  
-  
-  
+
 }
 

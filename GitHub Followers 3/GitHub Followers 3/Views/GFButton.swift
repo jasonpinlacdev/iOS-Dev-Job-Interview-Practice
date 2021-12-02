@@ -12,6 +12,7 @@ class GFButton: UIButton {
   let buttonTitle: String
   let buttonColor: UIColor
   
+  
   init(title: String, color: UIColor) {
     self.buttonTitle = title
     self.buttonColor = color
@@ -19,9 +20,11 @@ class GFButton: UIButton {
     configure()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     self.setTitle(self.buttonTitle, for: .normal)
@@ -34,4 +37,5 @@ class GFButton: UIButton {
     layer.cornerRadius = 32
     self.translatesAutoresizingMaskIntoConstraints = false
   }
+  
 }

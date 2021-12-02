@@ -26,6 +26,7 @@ class GFUserDetailController: UIViewController {
   
   var onActionButtonTappedToGetFollowers: ((String, [GFFollower]) -> Void)?
   
+  
   init(user: GFUser) {
     self.user = user
     userDetailInformationView = GFUserDetailInformationView(user: self.user)
@@ -34,9 +35,11 @@ class GFUserDetailController: UIViewController {
     super.init(nibName: nil, bundle: nil)
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,6 +48,7 @@ class GFUserDetailController: UIViewController {
     configureUserDetailCardsViewsOnActionButtonTapped()
   }
   
+  
   private func configure() {
     self.view.backgroundColor = .systemBackground
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeButtonTapped))
@@ -52,6 +56,7 @@ class GFUserDetailController: UIViewController {
     let dateCreatedLabelText: String = user.createdAt.convertedToDate()?.convertedToString() ?? "GitHub since N/A"
     dateCreatedLabel.text = "GitHub Since \(dateCreatedLabelText)"
   }
+  
   
   private func configureLayout() {
     let padding: CGFloat = 10.0
@@ -88,6 +93,7 @@ class GFUserDetailController: UIViewController {
     ])
   }
   
+  
   @objc private func closeButtonTapped() {
     self.dismiss(animated: true, completion: nil)
   }
@@ -119,9 +125,7 @@ class GFUserDetailController: UIViewController {
         }
       }
     }
-    
   }
-  
   
 }
 

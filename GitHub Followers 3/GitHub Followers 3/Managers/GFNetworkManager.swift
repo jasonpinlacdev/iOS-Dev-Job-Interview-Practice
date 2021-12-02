@@ -10,13 +10,11 @@ import UIKit
 class GFNetworkManager  {
   
   static let shared =  GFNetworkManager()
-  
   private let avatarImageCache = NSCache<NSString, UIImage>() // an NSCache is just a dictionary but special. It's special because the OS will automatically remove objects from the cache if the device is running low on memory. Helpfully, if the system does encounter memory pressure NSCache will automatically start to remove items without you knowing about it, which means you won't get a memory warning unless even more RAM needs to be cleared. It will also remove items intelligently, trying to keep as much cached as possible.
-  
   private let baseURL = "https://api.github.com"
   
-  private init() {}
   
+  private init() {}
   
   
   func getFollowers(for username: String, perPage: Int = 100, page: Int = 1, completionHandler: @escaping (Result<[GFFollower], GFError>) -> Void) {
@@ -47,13 +45,11 @@ class GFNetworkManager  {
       }
       completionHandler(.success(followers))
     }
-    
     task.resume()
   }
   
   
   func getUser(for username: String, completionHandler: @escaping (Result<GFUser, GFError>) -> Void) {
-    
     let endpoint = baseURL + "/users/\(username)"
     guard let url = URL(string: endpoint) else { completionHandler(.failure(.getUserError)); return }
     
@@ -74,13 +70,10 @@ class GFNetworkManager  {
         completionHandler(.failure(.dataDecodingError))
         return
       }
-      
       completionHandler(.success(user))
     }
-    
     task.resume()
   }
-  
   
   
   func getAvatarImage(for avatarURLString: String, completionHandler: @escaping (Result<UIImage?, GFError>) -> Void){
@@ -102,13 +95,6 @@ class GFNetworkManager  {
         completionHandler(.success(avatarImage))
       }
     }
-   
   }
-  
- 
-  
-  
-  
-  
   
 }

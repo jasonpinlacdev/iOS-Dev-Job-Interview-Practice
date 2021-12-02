@@ -62,9 +62,11 @@ class GFUserDetailInformationView: UIView {
     configureLayout()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     self.layer.cornerRadius = 16
@@ -88,8 +90,8 @@ class GFUserDetailInformationView: UIView {
     self.bioLabel.text = self.user.bio ?? "Biography N/A"
   }
   
+  
   private func configureLayout() {
-    
     let padding: CGFloat = 10.0
     self.addSubview(userAvatarImageView)
     self.addSubview(usernameLabel)

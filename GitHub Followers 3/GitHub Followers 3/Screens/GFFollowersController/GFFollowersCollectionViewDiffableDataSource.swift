@@ -20,12 +20,12 @@ class GFFollowersCollectionViewDiffableDataSource: UICollectionViewDiffableDataS
     self.apply(initialSnapshot, animatingDifferences: false)
   }
   
+  
   func applySnapshotUpdate(with followers: [GFFollower], completionHandler: (() -> Void)? = nil) {
     var snapshot = NSDiffableDataSourceSnapshot<GFFollowersSection, GFFollower>()
     snapshot.appendSections([.main])
     snapshot.appendItems(followers, toSection: .main)
     self.apply(snapshot, animatingDifferences: true, completion: completionHandler)
   }
-  
   
 }

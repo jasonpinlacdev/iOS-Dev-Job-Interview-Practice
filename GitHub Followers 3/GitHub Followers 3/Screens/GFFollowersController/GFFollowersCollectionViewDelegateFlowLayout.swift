@@ -14,6 +14,7 @@ class GFFollowersCollectionViewDelegateFlowLayout: NSObject {
   private let numberOfItemsPerRow: CGFloat
   private let spacingBetweenItems: CGFloat
   
+  
   init(numberOfItemsPerRow: CGFloat, spacingBetweenItems: CGFloat, followersController: GFFollowersController) {
     self.numberOfItemsPerRow = numberOfItemsPerRow
     self.spacingBetweenItems = spacingBetweenItems
@@ -21,6 +22,7 @@ class GFFollowersCollectionViewDelegateFlowLayout: NSObject {
   }
   
 }
+
 
 extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateFlowLayout {
   
@@ -31,9 +33,11 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
     return CGSize(width: itemWidth, height: itemWidth * 1.33)
   }
   
+  
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return 10
   }
+  
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 10
@@ -80,6 +84,7 @@ extension GFFollowersCollectionViewDelegateFlowLayout: UICollectionViewDelegateF
           let userDetailController = GFUserDetailController(user: user)
           
           userDetailController.onActionButtonTappedToGetFollowers = { (username, followers) in
+            // This closure contains the logic that sets up what happens when the GFUserDetailCardView action button is tapped
             DispatchQueue.main.async {
               self.followersController.title = "\(username)'s Followers"
               self.followersController?.username = username

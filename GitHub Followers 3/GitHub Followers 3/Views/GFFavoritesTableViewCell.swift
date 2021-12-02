@@ -21,7 +21,6 @@ class GFFavoritesTableViewCell: UITableViewCell {
     return usernameLabel
   }()
   
-  
   let avatarImageView: UIImageView = {
     let avatarImageView = UIImageView()
     avatarImageView.image = GFImage.avatarPlaceHolder.image
@@ -32,19 +31,24 @@ class GFFavoritesTableViewCell: UITableViewCell {
     return avatarImageView
   }()
   
+  
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    configureLayout()
+    self.accessoryType = .disclosureIndicator
+  }
+  
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  
   func set(username: String) {
     self.usernameLabel.text  = username
     self.getAvatarImage(for: username)
   }
   
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    configureLayout()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
   
   private func configureLayout() {
     let padding: CGFloat = 10.0
@@ -62,6 +66,7 @@ class GFFavoritesTableViewCell: UITableViewCell {
       usernameLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -padding),
     ])
   }
+  
   
   private func getAvatarImage(for username: String) {
     GFNetworkManager.shared.getUser(for: username) { result in
@@ -81,14 +86,12 @@ class GFFavoritesTableViewCell: UITableViewCell {
     }
   }
   
-  
-  
-  
-  
+
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
   }
+  
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)

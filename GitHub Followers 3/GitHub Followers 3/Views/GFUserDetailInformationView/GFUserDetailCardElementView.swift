@@ -30,6 +30,7 @@ class GFUserDetailCardElementView: UIView {
     return elementValueLabel
   }()
   
+  
   init(elementSymbol: UIImage?, elementName: String, elementValue: Int) {
     super.init(frame: .zero)
     configure()
@@ -39,13 +40,16 @@ class GFUserDetailCardElementView: UIView {
     elementValueLabel.text = "\(elementValue)"
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
+  
   private func configure() {
     self.layer.cornerRadius = 16
   }
+  
   
   private func configureLayout() {
     let padding: CGFloat = 10.0

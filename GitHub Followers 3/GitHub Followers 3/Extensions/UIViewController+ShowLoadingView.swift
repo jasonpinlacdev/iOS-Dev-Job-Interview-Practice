@@ -8,15 +8,13 @@
 import Foundation
 import UIKit
 
-
 private var globalLoadingView: UIView?
-
 
 extension UIViewController {
   
   func showLoadingView(completionHandler: (() -> Void)? = nil) {
     let loadingView = UIView(frame: self.view.bounds)
-    loadingView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
+    loadingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     globalLoadingView = loadingView
 
     let activityIndicatorView = UIActivityIndicatorView(style: .large)

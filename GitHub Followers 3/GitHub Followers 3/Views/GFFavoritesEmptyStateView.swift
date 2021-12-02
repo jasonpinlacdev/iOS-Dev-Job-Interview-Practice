@@ -25,19 +25,23 @@ class GFFavoritesEmptyStateView: UIView {
     return emptyStateMessageLabel
   }()
   
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configure()
     configureLayout()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
+  
   private func configure() {
     self.backgroundColor = .systemBackground
   }
+  
   
   private func configureLayout() {
     emptyStateImageView.translatesAutoresizingMaskIntoConstraints = false

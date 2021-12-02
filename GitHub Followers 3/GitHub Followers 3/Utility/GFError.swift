@@ -9,6 +9,7 @@ import Foundation
 
 
 enum GFError: Error {
+  
   case emptyUsername
   case invalidUsername
   case localError

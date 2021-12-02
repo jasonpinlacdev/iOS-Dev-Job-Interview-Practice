@@ -14,9 +14,11 @@ class GFAlertContainerView: UIView {
     configure()
   }
   
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   private func configure() {
     self.translatesAutoresizingMaskIntoConstraints = false
@@ -26,4 +28,5 @@ class GFAlertContainerView: UIView {
     self.layer.borderWidth = 2.0
     self.layer.borderColor = UIColor.systemGray3.cgColor
   }
+  
 }
