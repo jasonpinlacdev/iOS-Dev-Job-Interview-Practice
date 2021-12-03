@@ -8,11 +8,15 @@
 import Foundation
 
 extension Date {
+
+//  func convertedToString() -> String {
+//    let dateFormatter = DateFormatter()
+//    dateFormatter.dateFormat = "MMM d, yyyy"
+//    return dateFormatter.string(from: self)
+//  }
   
   func convertedToString() -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MMM d, yyyy"
-    return dateFormatter.string(from: self)
+    return self.formatted(date: .abbreviated, time: .omitted)
   }
   
 }
