@@ -27,10 +27,10 @@ class GFUserDetailCardView: UIView {
   }()
   
   
-  init(leftElementSymbol: UIImage?, leftElementName: String, leftElementValue: Int, rightElementSymbol: UIImage?, rightElementName: String, rightElementValue: Int, actionButtonTitle: String, actionButtonColor: UIColor) {
+  init(leftElementSymbol: UIImage?, leftElementName: String, leftElementValue: Int, rightElementSymbol: UIImage?, rightElementName: String, rightElementValue: Int, actionButtonTitle: String, actionButtonColor: UIColor, actionButtonImage: UIImage) {
     leftDetailCardElementView = GFUserDetailCardElementView(elementSymbol: leftElementSymbol, elementName: leftElementName, elementValue: leftElementValue)
     rightDetailCardElementView = GFUserDetailCardElementView(elementSymbol: rightElementSymbol, elementName: rightElementName, elementValue: rightElementValue)
-    actionButton = GFButton(title: actionButtonTitle, color: actionButtonColor)
+    actionButton = GFButton(title: actionButtonTitle, color: actionButtonColor, image: actionButtonImage)
     super.init(frame: .zero)
     configure()
     configureLayout()

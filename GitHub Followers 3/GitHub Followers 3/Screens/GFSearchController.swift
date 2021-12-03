@@ -17,7 +17,7 @@ class GFSearchController: UIViewController {
   }()
   
   let searchTextField = GFSearchTextField()
-  let searchButton = GFButton(title: "Search", color: .systemGreen)
+  let searchButton = GFButton(title: "Search", color: .systemGreen, image: GFSymbol.search.image)
   
   
   override func viewDidLoad() {

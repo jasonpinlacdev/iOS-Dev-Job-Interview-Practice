@@ -10,13 +10,16 @@ import UIKit
 
 enum GFSymbol {
   
-  case followers // people person.3.sequence
+  case followers // people person.2.sequence
   case following // heart heart
   case repos // folder folder
   case gists // lines of code text.alignleft
   case mapPin
   case star
   case starFill
+  case person
+  case persons
+  case search
   
   var image: UIImage? {
     switch self {
@@ -34,6 +37,12 @@ enum GFSymbol {
       return UIImage(systemName: "star")
     case .starFill:
       return UIImage(systemName: "star.fill")
+    case .person:
+      return UIImage(systemName: "person.fill")
+    case .persons:
+      return UIImage(systemName: "person.3.fill")
+    case .search:
+      return UIImage(systemName: "magnifyingglass")
     }
   }
   

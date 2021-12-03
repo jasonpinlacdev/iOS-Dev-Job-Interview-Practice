@@ -30,8 +30,8 @@ class GFUserDetailController: UIViewController {
   init(user: GFUser) {
     self.user = user
     userDetailInformationView = GFUserDetailInformationView(user: self.user)
-    topUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.repos.image, leftElementName: "Public Repos", leftElementValue: self.user.publicRepos, rightElementSymbol: GFSymbol.gists.image, rightElementName: "Public Gists", rightElementValue: self.user.publicGists, actionButtonTitle: "GitHubProfile", actionButtonColor: .systemPurple)
-    bottomUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.following.image, leftElementName: "Following", leftElementValue: self.user.following, rightElementSymbol: GFSymbol.followers.image, rightElementName: "Followers", rightElementValue: self.user.followers, actionButtonTitle: "Get Followers", actionButtonColor: .systemGreen)
+    topUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.repos.image, leftElementName: "Public Repos", leftElementValue: self.user.publicRepos, rightElementSymbol: GFSymbol.gists.image, rightElementName: "Public Gists", rightElementValue: self.user.publicGists, actionButtonTitle: "GitHubProfile", actionButtonColor: .systemPurple, actionButtonImage: GFSymbol.person.image!)
+    bottomUserDetailCardView = GFUserDetailCardView(leftElementSymbol: GFSymbol.following.image, leftElementName: "Following", leftElementValue: self.user.following, rightElementSymbol: GFSymbol.followers.image, rightElementName: "Followers", rightElementValue: self.user.followers, actionButtonTitle: "Get Followers", actionButtonColor: .systemGreen, actionButtonImage: GFSymbol.persons.image!)
     super.init(nibName: nil, bundle: nil)
   }
   

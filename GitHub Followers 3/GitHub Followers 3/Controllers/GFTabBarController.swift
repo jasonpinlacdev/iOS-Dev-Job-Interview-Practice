@@ -32,6 +32,7 @@ class GFTabBarController: UITabBarController {
   
   
   private func configureAppearancesForTabBarAndNavigationBar() {
+    
     // Here we set the UITabBar appearance using the app-wide proxy
     let tabBarAppearance = UITabBarAppearance()
     tabBarAppearance.backgroundColor = .systemBackground
@@ -39,6 +40,7 @@ class GFTabBarController: UITabBarController {
     UITabBar.appearance().standardAppearance = tabBarAppearance
     UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
     UITabBar.appearance().tintColor = .systemGreen
+    
     // Here we set the UINavigationBar appearance using the app-wide proxy
     let navigationBarAppearance = UINavigationBarAppearance()
     navigationBarAppearance.backgroundColor = .systemBackground

@@ -46,7 +46,6 @@ class GFAlertController: UIViewController {
     self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.80)
     alertTitleLabel.text = alertTitle
     alertBodyLabel.text = alertMessage
-    alertButton.setTitle(alertButtonText, for: .normal)
   }
   
   
